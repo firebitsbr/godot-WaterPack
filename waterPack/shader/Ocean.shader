@@ -1,70 +1,108 @@
-    shader_type spatial;
-    //render_mode world_vertex_coords;
-    uniform vec4 color : hint_color;
-    uniform int numWaves;
-    uniform float waterHeight;
-    uniform float wavelength = 8.0;
-    uniform float amplitude = 8.0;
-    uniform float speed = 8.0;
-    uniform vec2 direction = vec2(8.0, 8.0);
-    uniform float pi = 3.1415926535897932384626433832795;
-    varying vec3 position;
-    varying vec3 worldNormal;
-    varying vec3 eyeNormal;
-    uniform vec3 eyePos;
-    float wave(int i, float x, float y, float t) {
-        float frequency = 2.0 * pi / wavelength;
-        float phase = speed * frequency;
-        float theta = dot(direction, vec2(x, y));
-        return amplitude * sin(theta * frequency + t * phase);
-    }
-    float waveHeight(float x, float y, float t) {
-        float height = 0.0;
-        for (int i = 0; i < numWaves; i++) {
-            height += wave(i, x, y, t);
-        }
-        return height;
-    }
-    float dWaveDx(int i, float x, float y, float t) {
-        float frequency = 2.0 * pi / wavelength;
-        float phase = speed * frequency;
-        float theta = dot(direction, vec2(x, y));
-        float A = amplitude * direction.x * frequency;
-        return A * cos(theta * frequency + t * phase);
-    }
-    float dWaveDy(int i, float x, float y, float t) {
-        float frequency = 2.0 * pi / wavelength;
-        float phase = speed * frequency;
-        float theta = dot(direction, vec2(x, y));
-        float A = amplitude * direction.y * frequency;
-        return A * cos(theta * frequency + t * phase);
-    }
-    vec3 waveNormal(float x, float y, float t) {
-        float dx;
-        float dy;
-        for (int i; i < numWaves; i++) {
-            dx += dWaveDx(i, x, y, t);
-            dy += dWaveDy(i, x, y, t);
-        }
-        vec3 n = vec3(-dx, -dy, 1.0);
-        return n;
-    }
-    void vertex() {
-        vec4 pos = vec4(VERTEX, 1.0).xzyw;
-        pos.z = (waterHeight + waveHeight(pos.x, pos.y, TIME));
-        position = pos.xzy / pos.w;
-        worldNormal = waveNormal(pos.x, pos.y, TIME);
-        eyeNormal = (MODELVIEW_MATRIX * vec4(worldNormal, 0.0).xzyw).xyz;
-        NORMAL = eyeNormal;
-        TANGENT = eyeNormal;
-        BINORMAL = eyeNormal;
-        VERTEX = (position).xyz;
-    }
-    void fragment() {
-        SPECULAR = float(1.0);
-        ROUGHNESS = float(0.05);
-    //  CLEARCOAT = float(0.99);
-    //  CLEARCOAT_GLOSS = float(1.0);
-        ALBEDO = color.rgb;
-        ALPHA = color.a;
-    }
+shader_type spatial;
+//render_mode world_vertex_coords;
+ 
+//wave4 
+uniform float TIME;
+uniform float gerstnerIntensity = 1;
+uniform vec4 water4Amplitude;
+uniform vec4 water4Frequency;
+uniform vec4 water4Steepness;
+uniform vec4 water4Speed;
+uniform vec4 water4DirectionAB;
+uniform vec4 water4DirectionCD;
+
+vec3 GerstnerOffset(vec2 xzVtx, float steepness, float amp, float freq, float speed, vec2 dir)
+{
+	vec3 offsets;
+	offsets.x =
+		steepness * amp * dir.x *
+		cos(freq * dot(dir, xzVtx) + speed * TIME);
+	offsets.z =
+		steepness * amp * dir.y *
+		cos(freq * dot(dir, xzVtx) + speed * TIME);
+	offsets.y =
+		amp * sin(freq * dot(dir, xzVtx) + speed * TIME);
+	return offsets;
+}
+vec3 GerstnerOffset4(vec2 xzVtx, vec4 steepness, vec4 amp, vec4 freq, vec4 speed, vec4 dirAB, vec4 dirCD)
+{
+	vec3 offsets;
+	vec4 AB = steepness.xxyy * amp.xxyy * dirAB.xyzw;
+	vec4 CD = steepness.zzww * amp.zzww * dirCD.xyzw;
+	vec4 dotABCD = freq.xyzw * vec4(dot(dirAB.xy, xzVtx), dot(dirAB.zw, xzVtx), dot(dirCD.xy, xzVtx), dot(dirCD.zw, xzVtx));
+	vec4 COS = cos(dotABCD + TIME * speed);
+	vec4 SIN = sin(dotABCD + TIME * speed);
+
+	offsets.x = dot(COS, vec4(AB.xz, CD.xz));
+	offsets.z = dot(COS, vec4(AB.yw, CD.yw));
+	offsets.y = dot(SIN, amp);
+
+	return offsets;
+}
+vec3 GerstnerNormal(vec2 xzVtx, float amp, float freq, float speed, vec2 dir)
+{
+	vec3 nrml = vec3(0, 0, 0);
+	nrml.x -=
+		dir.x * (amp * freq) *
+		cos(freq * dot(dir, xzVtx) + speed * TIME);
+	nrml.z -=
+		dir.y * (amp * freq) *
+		cos(freq * dot(dir, xzVtx) + speed * TIME);
+	return nrml;
+}
+
+vec3 GerstnerNormal4(vec2 xzVtx, vec4 amp, vec4 freq, vec4 speed, vec4 dirAB, vec4 dirCD)
+{
+	vec3 nrml = vec3(0, 2.0, 0);
+
+	vec4 AB = freq.xxyy * amp.xxyy * dirAB.xyzw;
+	vec4 CD = freq.zzww * amp.zzww * dirCD.xyzw;
+
+	vec4 dotABCD = freq.xyzw * vec4(dot(dirAB.xy, xzVtx), dot(dirAB.zw, xzVtx), dot(dirCD.xy, xzVtx), dot(dirCD.zw, xzVtx));
+
+	vec4 COS = cos(dotABCD + TIME * speed);
+
+	nrml.x -= dot(COS, vec4(AB.xz, CD.xz));
+	nrml.z -= dot(COS, vec4(AB.yw, CD.yw));
+
+	nrml.xz *= gerstnerIntensity;
+	nrml = normalize(nrml);
+
+	return nrml;
+}
+
+
+void vertex()
+{
+//	vec3 offs = GerstnerOffset(VERTEX.xz, wave1steepness, wave1amplitude, wave1frequency, wave1speed, wave1direction);
+//	vec3 nrml = GerstnerNormal(VERTEX.xz,  wave1amplitude, wave1frequency, wave1speed, wave1direction);
+	vec3 offs = GerstnerOffset4(VERTEX.xz, water4Steepness, water4Amplitude, water4Frequency, water4Speed, water4DirectionAB, water4DirectionCD);
+	vec3 nrml = GerstnerNormal4(VERTEX.xz, water4Amplitude, water4Frequency, water4Speed, water4DirectionAB, water4DirectionCD);
+
+	VERTEX = VERTEX + offs;
+	NORMAL = nrml;
+}
+ 
+// normal map wave
+uniform vec2 velocity = vec2(0.01, 0);
+uniform vec4 waterColor : hint_color = vec4(40, 80, 60, 190);
+uniform float roughness : hint_range(0, 1) = 0.1;
+uniform float metalness : hint_range(0, 1) = 0.6;
+uniform float specular : hint_range(0, 1) = 0.1;
+uniform sampler2D normalMap;
+uniform vec2 norMapScale = vec2(10, 10);
+uniform float refraction = 10;
+uniform float waveScale : hint_range(0, 1) = 1;
+
+void fragment()
+{
+	vec2 uv = mod(norMapScale * UV + TIME * velocity, 1);
+	vec3 normal = texture(normalMap, uv).rgb;
+	normal = mix(vec3(1,1,1),normal,waveScale) ;  
+	ALBEDO = waterColor.rgb;
+	ALPHA = waterColor.a;
+	ROUGHNESS = roughness;
+	METALLIC = metalness;
+	SPECULAR = specular;
+	NORMALMAP = normalize(normal);
+}

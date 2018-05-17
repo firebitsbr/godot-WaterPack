@@ -8,10 +8,7 @@ path.etc2="res://.import/Waterbump.jpg-a65ff1ad11e887195be31477c05ddbbb.etc2.ste
 [deps]
 
 source_file="res://texture/Waterbump.jpg"
-source_md5="58fa4b17e9804269eada9b5b1b3830f8"
-
 dest_files=[ "res://.import/Waterbump.jpg-a65ff1ad11e887195be31477c05ddbbb.s3tc.stex", "res://.import/Waterbump.jpg-a65ff1ad11e887195be31477c05ddbbb.etc2.stex" ]
-dest_md5="2f5e997352ebbc2b27c3a85004f16703"
 
 [params]
 

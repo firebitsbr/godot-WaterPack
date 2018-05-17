@@ -1,4 +1,6 @@
 docs/design.md
+docs/water4
+.vscode/
 # Godot-specific ignores
 .import/
 export.cfg

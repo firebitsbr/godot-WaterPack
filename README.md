@@ -1,27 +1,33 @@
-godot water pack  
+WORK IN PROCESS
+
+godot water package  
+
 LICENESE under MIT
 
+need godot version 3.03+
+
+![web demo]()
+![screenshot]()
+
 ## feature
-```
-[ ] work not started
-[*] work in process
-[√] achieve
-```
+- [ ] work not started
+- [*] work in process
+- [x] achieve
 
 render
-- [√] wave
+- [x] wave
 - [*] ripples
-- [*] transprant 
-- [*] edgeblend
+- [x] transprant 
+    - [x] reflaction
+    - [x] fade
 - [ ] reflection
-- [ ] reflaction
-- [ ] deep flied sim 体积
-- [ ] underwater
-- [√] screen rain
+- [x] screen rain
 - [ ] fresnel
 - [ ] under water
 - [ ] under/up water switch
-- lod
+- [ ] lod
+- [ ] Foam
+
 
 physic
 - [ ] Buoyancy 
@@ -46,20 +52,12 @@ other
 - [ ] relasea to godot asset library
 
 ## issue
-```
-reflect camea vs GI reflections?
-edgeblend?
-use depth sim fade in water 
-
-use bumpmap instand normal map?
-```
+beter refraction= real raytrack 
 
 ## todo
-- transprant with depth of field
-- ripple
-- edgeblend
-- physic
 - reflection
+- ripple
+- physic
 
 
 

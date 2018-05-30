@@ -2,15 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
+path="res://.import/noise2.png-3c55615801a8f658ef32a8d883e05748.stex"
 
 [deps]
 
-source_file="res://icon.png"
-source_md5="ae7e641067601e2184afcade49abd283"
-
-dest_files=[ "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex" ]
-dest_md5="84511021bbc8c9d37c7f0f4d181de883"
+source_file="res://water_pack/screen_shader/texture/noise2.png"
+dest_files=[ "res://.import/noise2.png-3c55615801a8f658ef32a8d883e05748.stex" ]
 
 [params]
 

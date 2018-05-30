@@ -10,6 +10,10 @@ need godot version 3.03+
 ![screenshot]()
 
 ## feature
+
+
+
+## TODO
 - [ ] work not started
 - [*] work in process
 - [x] achieve
@@ -24,7 +28,6 @@ render
 - [x] screen rain
 - [ ] fresnel
 - [ ] under water
-- [ ] under/up water switch
 - [ ] lod
 - [ ] Foam
 
@@ -32,12 +35,14 @@ render
 physic
 - [ ] Buoyancy 
 - [ ] move
+- [ ] wind area effect
 
 demo
 - [ ] ocean
 - [ ] river
-- [ ] strong water
+- [ ] strong river
 - [ ] lake
+- [ ] under/up water switch
 - [ ] wet gound
 - [ ] drop cube
 - [ ] drop pipe water
@@ -48,17 +53,11 @@ demo
 - [ ] 2.5d water
 - [ ] lowpoly water
 
+
 other
 - [ ] relasea to godot asset library
-
-## issue
-beter refraction= real raytrack 
-
-## todo
-- reflection
-- ripple
-- physic
-
-
-
-
+- [ ] infinite ocean
+- [ ] menu set
+    - day/night env
+    - water
+    - scene selection

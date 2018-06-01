@@ -7,7 +7,7 @@ LICENESE under MIT
 need godot version 3.03+
 
 ![web demo]()
-![screenshot]()
+![screenshot](./doc/wave_foam.jpg)
 
 ## feature
 
@@ -20,16 +20,16 @@ need godot version 3.03+
 
 render
 - [x] wave
-- [ ] * ripples
 - [x] transprant 
     - [x] reflaction
     - [x] fade
-- [ ] * reflection
 - [x] screen rain
+- [x] Foam
+- [ ] * reflection
 - [ ] * fresnel
+- [ ] * ripples
 - [ ] under water
 - [ ] lod
-- [ ] * Foam
 
 
 physic

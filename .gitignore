@@ -1,4 +1,5 @@
 doc/design.md
+doc/todo.md
 doc/water4/
 .vscode/
 # Godot-specific ignores
@@ -8,3 +9,4 @@ export_presets.cfg
 
 # Mono-specific ignores
 .mono/
+

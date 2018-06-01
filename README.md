@@ -15,27 +15,30 @@ need godot version 3.03+
 
 ## TODO
 - [ ] work not started
-- [*] work in process
+- [ ] * work in process
 - [x] achieve
 
 render
 - [x] wave
-- [*] ripples
+- [ ] * ripples
 - [x] transprant 
     - [x] reflaction
     - [x] fade
-- [ ] reflection
+- [ ] * reflection
 - [x] screen rain
-- [ ] fresnel
+- [ ] * fresnel
 - [ ] under water
 - [ ] lod
-- [ ] Foam
+- [ ] * Foam
 
 
 physic
 - [ ] Buoyancy 
-- [ ] move
+- [ ] water flow
+- [ ] object move with water
 - [ ] wind area effect
+- [ ] sound
+- [ ] NavMesh
 
 demo
 - [ ] ocean
@@ -48,16 +51,18 @@ demo
 - [ ] drop pipe water
 - [ ] waterfall
 - [ ] stone in water
-- [ ] boat
+- [ ] boat on water
 - [ ] 2d water
 - [ ] 2.5d water
 - [ ] lowpoly water
-
+- [ ] infinite ocean
 
 other
 - [ ] relasea to godot asset library
-- [ ] infinite ocean
-- [ ] menu set
+- [ ] doc
+    - image/video 
+    - web demo
+- [ ] setting menu 
     - day/night env
     - water
     - scene selection

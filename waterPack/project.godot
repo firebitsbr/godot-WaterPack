@@ -11,7 +11,7 @@ config_version=3
 [application]
 
 config/name="WaterPack"
-run/main_scene="res://scene/demo.tscn"
+run/main_scene="res://demo/dev.tscn"
 config/icon="res://icon.png"
 
 [display]

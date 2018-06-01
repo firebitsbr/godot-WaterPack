@@ -6,12 +6,9 @@ LICENESE under MIT
 
 need godot version 3.03+
 
-![web demo]()
+<!-- ![web demo]() -->
+
 ![screenshot](./doc/wave_foam.jpg)
-
-## feature
-
-
 
 ## TODO
 - [ ] work not started

@@ -1,6 +1,6 @@
 shader_type spatial;
 render_mode blend_mix,depth_draw_opaque,cull_disabled,diffuse_burley,specular_schlick_ggx;
-//render_mode unshaded; // TODO try unshaded shader
+//render_mode unshaded; //test
 // todo optimiz
 
 uniform float TIME;
@@ -32,12 +32,14 @@ uniform uint refract_method = 1; //todo replace with enum alfter godot 3.1
 uniform float refraction : hint_range(0, 10); //= .1;
 uniform float fade_distance = 1;
 
-uniform uint CAMERA_REFLECT = 0;
+uniform uint PLANAR_REFLECT = 0;
 uniform uint SKYMAP_REFLECT = 1;
 uniform uint reflection_mode = 1;
 uniform sampler2D reflect_texture : hint_black;
-uniform sampler2D sky_map;
 uniform float reflection : hint_range(0, 10); //= .1;
+
+uniform float eta : hint_range(0, 1); //= 0.6;
+uniform float fresnel_power = 6.0;
 
 uniform sampler2D foam_texture : hint_white;
 uniform float foam_uv_scale = 5.0;
@@ -57,6 +59,14 @@ uniform vec4 wave4_steepness;
 uniform vec4 wave4_speed;
 uniform vec4 wave4_direction12;
 uniform vec4 wave4_direction34;
+
+
+float fresnel (vec3 v, vec3 n)
+{
+	float F = ((1.0 - eta) * (1.0 - eta)) / ((1.0 + eta) * (1.0 + eta));
+	float ratio = F + (1.0 - F) * pow(1.0 - dot(v, n), fresnel_power);
+	return ratio;
+}
 
 void fragment()
 {
@@ -147,7 +157,7 @@ void fragment()
 	
     //reflection
 	vec3 reflect_color = vec3(0, 0, 0);
-	if(reflection_mode == CAMERA_REFLECT){
+	if(reflection_mode == PLANAR_REFLECT){
     	reflect_color = textureLod(reflect_texture, SCREEN_UV + view_nrml.xy * reflection / VERTEX.z, ROUGHNESS).rgb;	
 	}
 	else if(reflection_mode == SKYMAP_REFLECT){
@@ -157,13 +167,10 @@ void fragment()
 //		vec3 n_reflection = normalize(reflect(vec3(VAR1.x,VAR1.y,VAR1.z), NORMAL));
 //		vec4 cor = texcube(reflect_map, n_reflection );
 	}
-	
+
     //fresnel
-    float eta = 0.6;
-    float fresnel_power = 6.0;
-    float F = ((1.0 - eta) * (1.0 - eta)) / ((1.0 + eta) * (1.0 + eta));
-    float ratio = F + (1.0 - F) * pow(1.0 - dot(normalize(-VERTEX), view_nrml), fresnel_power);
-//    ALBEDO = mix(refract_color, reflect_color, ratio);
+//	float ratio = fresnel(normalize(-VERTEX), view_nrml);
+	float ratio = fresnel(normalize(-VERTEX), NORMAL);
     EMISSION = mix(refract_color, reflect_color, ratio);
 	//foam
     // fake depth foam
@@ -176,7 +183,7 @@ void fragment()
         {
 //			ALBEDO = mix(ALBEDO,foam_color.rgb,foam_color.a*depth); // simple with foam_color
             float foam_amount = 1.0-smoothstep(0, foam_depth_factor, depth);
-			foam_amount =foam_amount*smoothstep(0, .2, vertex_offset.y);
+			foam_amount =foam_amount*smoothstep(-0.2, .2, vertex_offset.y);
 			vec2 foam_uv = foam_uv_scale *5.0* UV;
 	        vec2 foam_col=texture(foam_texture, foam_uv).ra;
 	        ALBEDO = mix(ALBEDO,foam_col.x* foam_color.rgb,foam_col.y*foam_amount);

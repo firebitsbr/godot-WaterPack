@@ -23,7 +23,7 @@ func _ready():
 		var reflect_viewport = Viewport.new()
 		reflect_viewport.size=get_viewport().size
 		reflect_viewport.render_target_v_flip=true
-		reflect_viewport.keep_3d_linear=true
+#		reflect_viewport.keep_3d_linear=true // add after 3.1
 		
 		reflect_camera = Camera.new()	
 		if water_layer == null:

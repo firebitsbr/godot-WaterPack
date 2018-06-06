@@ -8,7 +8,10 @@ path.etc2="res://.import/ParticleCloudWhite.png-abc46bbbdf2dcfca7895113d796f4ef4
 [deps]
 
 source_file="res://water_pack/texture/ParticleCloudWhite.png"
+source_md5="5849592165a196b9e1b5dcb2f6b35cb0"
+
 dest_files=[ "res://.import/ParticleCloudWhite.png-abc46bbbdf2dcfca7895113d796f4ef4.s3tc.stex", "res://.import/ParticleCloudWhite.png-abc46bbbdf2dcfca7895113d796f4ef4.etc2.stex" ]
+dest_md5="dbdfa5b8f322639003debe4f73dbe90e"
 
 [params]
 

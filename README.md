@@ -1,14 +1,16 @@
 WORK IN PROCESS
 
-godot water package  
+godot water package
 
 LICENESE under MIT
 
-need godot version 3.03+
+need godot version 3.0
 
 <!-- ![web demo]() -->
-
 ![screenshot](./doc/wave_foam.jpg)
+
+## usage
+
 
 ## TODO
 - [ ] work not started
@@ -53,6 +55,8 @@ demo
 - [ ] 2.5d water
 - [ ] lowpoly water
 - [ ] infinite ocean
+- [ ] rian and hit water/gound 
+
 
 other
 - [ ] relasea to godot asset library
@@ -63,3 +67,10 @@ other
     - day/night env
     - water
     - scene selection
+
+
+## Contributors
+- ywaby
+- SIsilicon
+
+## refernce

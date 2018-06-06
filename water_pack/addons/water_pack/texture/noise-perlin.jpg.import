@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
+path="res://.import/noise-perlin.jpg-3579338a287af4b2093f5a4eafb3a99f.stex"
 
 [deps]
 
-source_file="res://icon.png"
-source_md5="a505ec619e8d63c4a4f2b61cbcdbb226"
+source_file="res://addons/water_pack/texture/noise-perlin.jpg"
+source_md5="aab55627d91535596680ecb68e4bc0f7"
 
-dest_files=[ "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex" ]
-dest_md5="fc2de16a1e709cdefb8bb12256349cb5"
+dest_files=[ "res://.import/noise-perlin.jpg-3579338a287af4b2093f5a4eafb3a99f.stex" ]
+dest_md5="bc027edbf8e52ef31471103395715d23"
 
 [params]
 

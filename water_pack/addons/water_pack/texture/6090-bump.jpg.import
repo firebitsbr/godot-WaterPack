@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
+path="res://.import/6090-bump.jpg-5360a2a73dd62092b38d02f373490e3a.stex"
 
 [deps]
 
-source_file="res://icon.png"
-source_md5="a505ec619e8d63c4a4f2b61cbcdbb226"
+source_file="res://addons/water_pack/texture/6090-bump.jpg"
+source_md5="b136a801bd5207c6a3f1daf98ed2be97"
 
-dest_files=[ "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex" ]
-dest_md5="fc2de16a1e709cdefb8bb12256349cb5"
+dest_files=[ "res://.import/6090-bump.jpg-5360a2a73dd62092b38d02f373490e3a.stex" ]
+dest_md5="c895f53a61450137a8cd77a89eeb9c3d"
 
 [params]
 

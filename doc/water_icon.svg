@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="water_icon.svg">
+  <defs
+     id="defs2">
+    <linearGradient
+       id="linearGradient913"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#f96854;stop-opacity:1;"
+         offset="0"
+         id="stop911" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient907"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#478cbf;stop-opacity:1;"
+         offset="0"
+         id="stop905" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient901"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#ddc8db;stop-opacity:1;"
+         offset="0"
+         id="stop899" />
+    </linearGradient>
+    <marker
+       inkscape:stockid="DotL"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="marker7300"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path7298"
+         d="M -2.5,-1.0 C -2.5,1.7600000 -4.7400000,4.0 -7.5,4.0 C -10.260000,4.0 -12.5,1.7600000 -12.5,-1.0 C -12.5,-3.7600000 -10.260000,-6.0 -7.5,-6.0 C -4.7400000,-6.0 -2.5,-3.7600000 -2.5,-1.0 z "
+         style="fill-rule:evenodd;stroke:#ff0000;stroke-width:1pt;stroke-opacity:1;fill:#ff0000;fill-opacity:1"
+         transform="scale(0.8) translate(7.4, 1)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.86508937"
+     inkscape:cx="244.67073"
+     inkscape:cy="749.45982"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer2"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1052"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:snap-page="false" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="design"
+     style="display:inline">
+    <g
+       id="g877"
+       inkscape:label="ref_color">
+      <rect
+         y="3.283767"
+         x="2.0272362"
+         height="12.845493"
+         width="12.845493"
+         id="rect856"
+         style="opacity:1;vector-effect:none;fill:#f96854;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:15.11811066;stroke-opacity:1;paint-order:markers fill stroke" />
+      <rect
+         style="opacity:1;vector-effect:none;fill:#478cbf;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:15.11811066;stroke-opacity:1;paint-order:markers fill stroke"
+         id="rect858"
+         width="12.845493"
+         height="12.845493"
+         x="14.872725"
+         y="3.283767" />
+    </g>
+    <g
+       id="g873"
+       inkscape:label="project_icon"
+       inkscape:export-filename="/home/ywaby/app/godot/water_pack/icon.png"
+       inkscape:export-xdpi="25.4"
+       inkscape:export-ydpi="25.4">
+      <rect
+         y="33.945774"
+         x="9.3672476"
+         height="64"
+         width="64"
+         id="rect835"
+         style="opacity:1;vector-effect:none;fill:url(#linearGradient907);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.11407447;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:15.11811066;stroke-opacity:1;paint-order:markers fill stroke"
+         inkscape:export-filename="/home/ywaby/app/godot/water_pack/icon.png"
+         inkscape:export-xdpi="25.4"
+         inkscape:export-ydpi="25.4" />
+      <g
+         transform="matrix(1.3206739,0,0,1.0260779,-151.8499,-40.226781)"
+         inkscape:export-ydpi="8.8892345"
+         inkscape:export-xdpi="8.8892345"
+         inkscape:export-filename="/home/ywaby/app/godot/water_pack/addons/water_pack/water.png"
+         style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:4;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="g843">
+        <path
+           style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:4.50135899;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 143.15607,123.05566 c 18.3432,-18.43165 -11.65164,-23.395262 6.46541,-40.010403"
+           id="path828"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="cc" />
+        <path
+           sodipodi:nodetypes="cc"
+           inkscape:connector-curvature="0"
+           id="path836"
+           d="m 131.31307,123.05566 c 18.34321,-18.43165 -11.65163,-23.395262 6.46542,-40.010405"
+           style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:4.50135899;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:18.00543678, 18.00543678;stroke-dashoffset:4;stroke-opacity:1" />
+        <path
+           style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:4.50135899;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:18.00543678, 18.00543678;stroke-dashoffset:4;stroke-opacity:1"
+           d="m 154.99908,123.05566 c 18.3432,-18.43165 -11.65164,-23.395262 6.46541,-40.010406"
+           id="path838"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="cc" />
+      </g>
+    </g>
+    <g
+       inkscape:label="3d_water"
+       id="g889"
+       transform="translate(72.665085,0.43253027)"
+       style="fill:none;stroke:url(#linearGradient913)">
+      <rect
+         style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:url(#linearGradient913);stroke-width:1.11407447;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:15.11811066;stroke-opacity:1;paint-order:markers fill stroke"
+         id="rect879"
+         width="64"
+         height="64"
+         x="9.3672476"
+         y="33.945774"
+         inkscape:label="edge" />
+      <g
+         id="g887"
+         style="fill:none;fill-opacity:1;stroke:url(#linearGradient913);stroke-width:4;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:export-filename="/home/ywaby/app/godot/water_pack/addons/water_pack/water.png"
+         inkscape:export-xdpi="8.8892345"
+         inkscape:export-ydpi="8.8892345"
+         transform="matrix(1.3206739,0,0,1.0260779,-151.8499,-40.226781)"
+         inkscape:label="3d_water">
+        <path
+           sodipodi:nodetypes="cc"
+           inkscape:connector-curvature="0"
+           id="path881"
+           d="m 143.15607,123.05566 c 18.3432,-18.43165 -11.65164,-23.395262 6.46541,-40.010403"
+           style="fill:none;fill-opacity:1;stroke:url(#linearGradient913);stroke-width:4.50135899;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        <path
+           style="fill:none;fill-opacity:1;stroke:url(#linearGradient913);stroke-width:4.50135899;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:18.00543678, 18.00543678;stroke-dashoffset:4;stroke-opacity:1"
+           d="m 131.31307,123.05566 c 18.34321,-18.43165 -11.65163,-23.395262 6.46542,-40.010405"
+           id="path883"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="cc" />
+        <path
+           sodipodi:nodetypes="cc"
+           inkscape:connector-curvature="0"
+           id="path885"
+           d="m 154.99908,123.05566 c 18.3432,-18.43165 -11.65164,-23.395262 6.46541,-40.010406"
+           style="fill:none;fill-opacity:1;stroke:url(#linearGradient913);stroke-width:4.50135899;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:18.00543678, 18.00543678;stroke-dashoffset:4;stroke-opacity:1" />
+      </g>
+    </g>
+  </g>
+</svg>

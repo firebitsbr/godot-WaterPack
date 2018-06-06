@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
+path="res://.import/water.png-63240be63d228cba84cfea277912ef36.stex"
 
 [deps]
 
-source_file="res://icon.png"
-source_md5="a505ec619e8d63c4a4f2b61cbcdbb226"
+source_file="res://addons/water_pack/water.png"
+source_md5="9d5ed375c140aec84edae51975d17754"
 
-dest_files=[ "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex" ]
-dest_md5="fc2de16a1e709cdefb8bb12256349cb5"
+dest_files=[ "res://.import/water.png-63240be63d228cba84cfea277912ef36.stex" ]
+dest_md5="929f089ea8ef723425fe874c8b221b18"
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
+path="res://.import/noise.png-0d427db4381b72c4e6ae063c9748f61d.stex"
 
 [deps]
 
-source_file="res://icon.png"
-source_md5="a505ec619e8d63c4a4f2b61cbcdbb226"
+source_file="res://addons/water_pack/texture/noise.png"
+source_md5="b87a6ef754b6e8257d5203225d2e9f76"
 
-dest_files=[ "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex" ]
-dest_md5="fc2de16a1e709cdefb8bb12256349cb5"
+dest_files=[ "res://.import/noise.png-0d427db4381b72c4e6ae063c9748f61d.stex" ]
+dest_md5="f3e4753462917768ec29c1184428d85f"
 
 [params]
 

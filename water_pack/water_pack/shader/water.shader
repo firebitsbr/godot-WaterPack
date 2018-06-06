@@ -4,19 +4,19 @@ render_mode blend_mix,depth_draw_opaque,cull_disabled,diffuse_burley,specular_sc
 // todo optimiz
 
 uniform float TIME;
-uniform vec4 water_color : hint_color = vec4(20, 30, 30, 230);
-uniform float roughness : hint_range(0, 1) = 0.1;
-uniform float metalness : hint_range(0, 1) = 0.6;
-uniform float specular : hint_range(0, 1) = 0.1;
+uniform vec4 water_color : hint_color;// = vec4(20, 30, 30, 230);
+uniform float roughness : hint_range(0, 1);// = 0.1;
+uniform float metalness : hint_range(0, 1);// = 0.6;
+uniform float specular : hint_range(0, 1);// = 0.1;
 
 // normal map wave
-uniform sampler2D normal_map1:hint_normal;
-uniform float normal1_scale : hint_range(0, 1) = 0.0;
+uniform sampler2D normal_map1 : hint_normal;
+uniform float normal1_scale : hint_range(0, 1);// = 0.0;
 uniform vec2 normal1_velocity = vec2(0.01, 0);
 uniform vec2 normal1_uv_scale = vec2(10, 10);
 
 uniform sampler2D normal_map2:hint_normal;
-uniform float normal2_scale : hint_range(0, 1) = 0.0;
+uniform float normal2_scale : hint_range(0, 1);// = 0.0;
 uniform vec2 normal2_velocity = vec2(0.01, 0);
 uniform vec2 normal2_uv_scale = vec2(10, 10);
 
@@ -24,21 +24,21 @@ uniform uint WITHOUT_TRANSPRANT = 0;
 uniform uint ALBEDO_ALPHA_TRANSPRANT = 1;
 uniform uint SIMPLE_FADE_TRANSPRANT = 2;
 uniform uint REFRACT_TRANSPRANT = 3;
-uniform uint transprant_mode = 3; //todo replace with enum alfter godot 3.1
+uniform uint transprant_mode = 3; //todo replace with enum after godot 3.1
 
 uniform uint FAKE_REFRACT_OFFSET_DEPTH = 0;
 uniform uint FAKE_REFRACT_LINE_DEPTH = 1;
-uniform uint refract_method = 1; //todo replace with enum alfter godot 3.1
+uniform uint refract_method = 1; //todo replace with enum after godot 3.1
 
 uniform sampler2D reflect_texture : hint_black;
 
-uniform float refraction : hint_range(0, 10) = .1;
+uniform float refraction : hint_range(0, 10);// = .1;
 uniform float fade_distance = 1;
 
 uniform sampler2D foam_texture : hint_white;
 uniform float foam_uv_scale = 5.0;
-uniform vec4 foam_color : hint_color = vec4(1,1,1,0);
-uniform float foam_depth_factor : hint_range(0, 10)  = 0.2;
+uniform vec4 foam_color : hint_color;// = vec4(1,1,1,0);
+uniform float foam_depth_factor : hint_range(0, 10);//  = 0.2;
 uniform vec2 foam_wave_factor = vec2(0.0,1.0); // wave higt range 
 
 varying smooth vec3 vertex_offset;

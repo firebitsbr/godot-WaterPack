@@ -7,7 +7,10 @@ path="res://.import/6090-bump.jpg-4517d5d56ebaa39928990d2a58278927.stex"
 [deps]
 
 source_file="res://water_pack/texture/6090-bump.jpg"
+source_md5="b136a801bd5207c6a3f1daf98ed2be97"
+
 dest_files=[ "res://.import/6090-bump.jpg-4517d5d56ebaa39928990d2a58278927.stex" ]
+dest_md5="c895f53a61450137a8cd77a89eeb9c3d"
 
 [params]
 

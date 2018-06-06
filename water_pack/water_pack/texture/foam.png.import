@@ -8,7 +8,10 @@ path.etc2="res://.import/foam.png-70ef6aed53741c289888f846a9f7ac42.etc2.stex"
 [deps]
 
 source_file="res://water_pack/texture/foam.png"
+source_md5="2c2dec4b17bdbde8534cb37f8f5a0d2f"
+
 dest_files=[ "res://.import/foam.png-70ef6aed53741c289888f846a9f7ac42.s3tc.stex", "res://.import/foam.png-70ef6aed53741c289888f846a9f7ac42.etc2.stex" ]
+dest_md5="2a8bc59aedc758b8281f71314a555e22"
 
 [params]
 

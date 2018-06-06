@@ -8,7 +8,10 @@ path.etc2="res://.import/waterfall.jpg-61dfd41c06f3d4ed39eb006460a6835f.etc2.ste
 [deps]
 
 source_file="res://water_pack/texture/waterfall.jpg"
+source_md5="0c78fd7b95eff8d6b85bd885d97918c5"
+
 dest_files=[ "res://.import/waterfall.jpg-61dfd41c06f3d4ed39eb006460a6835f.s3tc.stex", "res://.import/waterfall.jpg-61dfd41c06f3d4ed39eb006460a6835f.etc2.stex" ]
+dest_md5="0636095b36ebbb80c328284497209456"
 
 [params]
 

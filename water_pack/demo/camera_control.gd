@@ -33,7 +33,7 @@ func _process(delta):
 
 
 var nav_pan_mode = false
-export var nav_pan_sensitivity = 0.1
+export var nav_pan_sensitivity = 0.01
 var nav_look_mode = false
 export var nav_look_sensitivity = 0.005
 var nav_rotate_mode = false

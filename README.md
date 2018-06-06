@@ -3,7 +3,9 @@ WORK IN PROCESS
 godot water package for godot 3.0 ,under MIT LICENESE.
 
 <!-- ![web demo]() -->
-![screenshot](./doc/wave_foam.jpg)
+![screenshot](./doc/screen_shot/ocean.jpg)
+<!-- ![screenshot](./doc/screen_shot/lowpoly.jpg)
+![screenshot](./doc/screen_shot/lake.jpg) -->
 
 ## usage
 use preset in “./addons/water_pack/preset/”

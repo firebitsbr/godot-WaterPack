@@ -169,7 +169,6 @@ void fragment()
 	}
 
     //fresnel
-//	float ratio = fresnel(normalize(-VERTEX), view_nrml);
 	float ratio = fresnel(normalize(-VERTEX), NORMAL);
     EMISSION = mix(refract_color, reflect_color, ratio);
 	//foam

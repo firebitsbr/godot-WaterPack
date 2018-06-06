@@ -4,7 +4,7 @@
 [ext_resource path="res://addons/water_pack/texture/wave_nor2.png" type="Texture" id=2]
 [ext_resource path="res://addons/water_pack/texture/wave_nor3.png" type="Texture" id=3]
 
-[sub_resource type="ShaderMaterial" id=13]
+[sub_resource type="ShaderMaterial" id=1]
 
 render_priority = 0
 shader = ExtResource( 1 )
@@ -29,10 +29,12 @@ shader_param/FAKE_REFRACT_LINE_DEPTH = 1
 shader_param/refract_method = 1
 shader_param/refraction = 0.2
 shader_param/fade_distance = 0.5
-shader_param/CAMERA_REFLECT = 0
+shader_param/PLANAR_REFLECT = null
 shader_param/SKYMAP_REFLECT = 1
 shader_param/reflection_mode = 0
 shader_param/reflection = 0.2
+shader_param/eta = 0.8
+shader_param/fresnel_power = 8.0
 shader_param/foam_uv_scale = null
 shader_param/foam_color = null
 shader_param/foam_depth_factor = null
@@ -49,16 +51,16 @@ shader_param/normal_map1 = ExtResource( 2 )
 shader_param/normal_map2 = ExtResource( 3 )
 _sections_unfolded = [ "shader_param" ]
 
-[sub_resource type="PlaneMesh" id=14]
+[sub_resource type="PlaneMesh" id=2]
 
 size = Vector2( 10, 10 )
 subdivide_width = 4
 subdivide_depth = 4
 
-[node name="river" type="MeshInstance"]
+[node name="river" type="MeshInstance" index="0"]
 
 layers = 2
-material_override = SubResource( 13 )
+material_override = SubResource( 1 )
 cast_shadow = 1
 extra_cull_margin = 0.0
 use_in_baked_light = true
@@ -66,7 +68,7 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 14 )
+mesh = SubResource( 2 )
 skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Geometry", "material" ]

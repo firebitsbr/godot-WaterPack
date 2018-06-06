@@ -218,7 +218,7 @@ zoom_min_distance = 0.1
 zoom_max_distance = 1000
 zoom_sensitivity = 4.0
 rotate_speed = 10.0
-nav_pan_sensitivity = 0.1
+nav_pan_sensitivity = 0.01
 nav_look_sensitivity = 0.005
 nav_rotate_sensitivity = 0.005
 
@@ -436,8 +436,6 @@ _sections_unfolded = [ "Geometry", "Transform" ]
 
 [node name="lake" parent="preset" index="3" instance=ExtResource( 7 )]
 
-visible = false
-
 [node name="ocean" parent="preset" index="4" instance=ExtResource( 8 )]
 
 visible = false
@@ -445,5 +443,6 @@ visible = false
 [node name="river" parent="preset" index="5" instance=ExtResource( 9 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0286508, 0 )
+visible = false
 
 

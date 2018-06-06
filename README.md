@@ -1,16 +1,12 @@
 WORK IN PROCESS
 
-godot water package
-
-LICENESE under MIT
-
-need godot version 3.0
+godot water package for godot 3.0 ,under MIT LICENESE.
 
 <!-- ![web demo]() -->
 ![screenshot](./doc/wave_foam.jpg)
 
 ## usage
-
+use preset in “./addons/water_pack/preset/”
 
 ## TODO
 - [ ] work not started

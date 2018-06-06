@@ -2,25 +2,26 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/waterfall2.jpg-b840a1d9b78ebbdc3a20e3a90dc0732d.stex"
+path.s3tc="res://.import/waterfall2.jpg-b840a1d9b78ebbdc3a20e3a90dc0732d.s3tc.stex"
+path.etc2="res://.import/waterfall2.jpg-b840a1d9b78ebbdc3a20e3a90dc0732d.etc2.stex"
 
 [deps]
 
 source_file="res://addons/water_pack/texture/waterfall2.jpg"
 source_md5="0c78fd7b95eff8d6b85bd885d97918c5"
 
-dest_files=[ "res://.import/waterfall2.jpg-b840a1d9b78ebbdc3a20e3a90dc0732d.stex" ]
-dest_md5="d2946737d86c53fe1eb7d31aef440222"
+dest_files=[ "res://.import/waterfall2.jpg-b840a1d9b78ebbdc3a20e3a90dc0732d.s3tc.stex", "res://.import/waterfall2.jpg-b840a1d9b78ebbdc3a20e3a90dc0732d.etc2.stex" ]
+dest_md5="b2df83d0593ed3c3bd87581921a3a1e6"
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/normal_map=0
-flags/repeat=0
+flags/repeat=true
 flags/filter=true
-flags/mipmaps=false
+flags/mipmaps=true
 flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true
@@ -28,5 +29,5 @@ process/premult_alpha=false
 process/HDR_as_SRGB=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0

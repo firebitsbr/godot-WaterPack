@@ -1,5 +1,6 @@
 extends Camera
-
+# TODO select as center
+# rotate bug
 export var zoom_min_distance = 0.1
 export var zoom_max_distance = 1000
 var center_pos

@@ -171,6 +171,7 @@ void fragment()
     //fresnel
 	float ratio = fresnel(normalize(-VERTEX), NORMAL);
     EMISSION = mix(refract_color, reflect_color, ratio);
+
 	//foam
     // fake depth foam
     if(foam_depth_factor !=0.0){

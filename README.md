@@ -22,8 +22,8 @@ render
     - [x] fade
 - [x] screen rain
 - [x] Foam
+- [x] fresnel
 - [ ] * reflection
-- [ ] * fresnel
 - [ ] * ripples
 - [ ] under water
 - [ ] lod
@@ -71,4 +71,4 @@ other
 - ywaby
 - SIsilicon
 
-## refernce
+## reference

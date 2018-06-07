@@ -1,9 +1,8 @@
-
+tool
 extends MeshInstance
 export var use_reflection = false # use viewport camera reflection
-#export var hide_ViewPort = true # hide reflect and refract viewport in editor
-
 var reflect_camera
+#export var hide_ViewPort = true # hide reflect and refract viewport in editor
 
 func get_layer(type, name):
 	for i in range(1, 21):
@@ -12,30 +11,36 @@ func get_layer(type, name):
 			return 	(i-1)
 	return 	null
 
-
-
+func _enter_tree():
+	if !is_in_group("water"):
+		add_to_group("water")
+		print(name," add to water")
+		print(get_groups())
 
 func _ready():
 	var water_layer  = get_layer("3d_render","water")
 	if water_layer != null:
 		layers |= 1>>water_layer
 	if(use_reflection):
+		# add viewport
 		var reflect_viewport = Viewport.new()
 		reflect_viewport.size=get_viewport().size
 		reflect_viewport.render_target_v_flip=true
-#		reflect_viewport.keep_3d_linear=true // add after 3.1
-		
+		reflect_viewport.keep_3d_linear=true
+		reflect_viewport.name = "reflect_vp"
+		# add camera
 		reflect_camera = Camera.new()	
 		if water_layer == null:
 			print("set \"water\" in  project -> 3d render layers")
 		reflect_camera.cull_mask &= ~(1<<water_layer)
+		reflect_camera.name="reflect_cam"
 		add_child(reflect_viewport)
 		reflect_viewport.add_child(reflect_camera)
 		
 		var mat = material_override
 		mat.resource_local_to_scene = true;
 		mat.set_shader_param("reflect_texture",reflect_viewport.get_texture())
-
+		
 func mirror(origin, target):
 	target.transform = get_global_transform().affine_inverse()*origin.get_global_transform()
 	# TODO use martix simplfy code

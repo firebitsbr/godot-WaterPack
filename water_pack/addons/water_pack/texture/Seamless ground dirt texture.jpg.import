@@ -1,0 +1,33 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path.s3tc="res://.import/Seamless ground dirt texture.jpg-0aaf6e78f03a8669cc21dbcc65c1734f.s3tc.stex"
+path.etc2="res://.import/Seamless ground dirt texture.jpg-0aaf6e78f03a8669cc21dbcc65c1734f.etc2.stex"
+
+[deps]
+
+source_file="res://addons/water_pack/texture/Seamless ground dirt texture.jpg"
+source_md5="69083b97ab3cbb4cb7446ba609572e19"
+
+dest_files=[ "res://.import/Seamless ground dirt texture.jpg-0aaf6e78f03a8669cc21dbcc65c1734f.s3tc.stex", "res://.import/Seamless ground dirt texture.jpg-0aaf6e78f03a8669cc21dbcc65c1734f.etc2.stex" ]
+dest_md5="6c9feb25fd9ab4e3b6696309d0bb0b8b"
+
+[params]
+
+compress/mode=2
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/normal_map=0
+flags/repeat=true
+flags/filter=true
+flags/mipmaps=true
+flags/anisotropic=true
+flags/srgb=1
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+stream=false
+size_limit=0
+detect_3d=false
+svg/scale=1.0

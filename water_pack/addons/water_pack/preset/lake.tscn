@@ -10,7 +10,7 @@
 render_priority = 0
 shader = ExtResource( 1 )
 shader_param/TIME = null
-shader_param/water_color = Color( 0.062561, 0.160156, 0.118983, 0.751373 )
+shader_param/water_color = Color( 0.285187, 0.695312, 0.52229, 0.751373 )
 shader_param/roughness = 0.0
 shader_param/metalness = 1.0
 shader_param/specular = 1.0
@@ -59,7 +59,7 @@ size = Vector2( 50, 50 )
 subdivide_width = 10
 subdivide_depth = 10
 
-[node name="lake" type="MeshInstance"]
+[node name="lake" type="MeshInstance" index="0"]
 
 layers = 2
 material_override = SubResource( 1 )

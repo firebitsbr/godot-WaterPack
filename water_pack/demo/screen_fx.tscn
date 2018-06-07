@@ -6,7 +6,6 @@
 [ext_resource path="res://addons/water_pack/texture/noise-perlin.jpg" type="Texture" id=4]
 [ext_resource path="res://addons/water_pack/shader/screen_rain.shader" type="Shader" id=5]
 
-
 [sub_resource type="ProceduralSky" id=1]
 
 radiance_size = 4
@@ -145,11 +144,11 @@ _sections_unfolded = [ "shader_param" ]
 
 render_priority = 0
 shader = ExtResource( 5 )
-shader_param/rainAmountRange = Vector2( 6, 10 )
-shader_param/maxBlurRange = Vector2( 2, 4 )
-shader_param/minBlur = 1.0
-shader_param/zoom = 1.0
-shader_param/speed = 0.5
+shader_param/rain_amount_range = Vector2( 3, 6 )
+shader_param/max_blur_range = Vector2( 2, 4 )
+shader_param/min_blur = 1.0
+shader_param/screen_zoom = 1.0
+shader_param/rain_speed = 1.0
 shader_param/USE_LIGHTNING = null
 shader_param/USE_CHEAP_NORMALS = null
 _sections_unfolded = [ "shader_param" ]
@@ -272,6 +271,7 @@ _sections_unfolded = [ "Material" ]
 
 [node name="drop_water_simple" type="TextureRect" parent="screenFX" index="2"]
 
+visible = false
 material = SubResource( 6 )
 anchor_left = 0.0
 anchor_top = 0.0
@@ -290,7 +290,6 @@ _sections_unfolded = [ "Material", "Visibility" ]
 
 [node name="drop_water" type="TextureRect" parent="screenFX" index="3"]
 
-visible = false
 material = SubResource( 7 )
 anchor_left = 0.0
 anchor_top = 0.0

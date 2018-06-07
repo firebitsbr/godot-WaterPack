@@ -135,7 +135,7 @@ _sections_unfolded = [ "Albedo", "Metallic", "Roughness" ]
 render_priority = 0
 shader = ExtResource( 2 )
 shader_param/TIME = null
-shader_param/water_color = null
+shader_param/water_color = Color( 0.497437, 0.78125, 0.767946, 1 )
 shader_param/roughness = null
 shader_param/metalness = null
 shader_param/specular = null
@@ -259,7 +259,7 @@ _sections_unfolded = [ "Geometry", "material" ]
 [node name="dev_water" type="MeshInstance" parent="." index="3"]
 
 visible = false
-layers = 1
+layers = 2
 material_override = SubResource( 5 )
 cast_shadow = 1
 extra_cull_margin = 0.0
@@ -306,7 +306,7 @@ _sections_unfolded = [ "Rendering" ]
 [node name="Camera" type="Camera" parent="dev_water/Viewport" index="0"]
 
 keep_aspect = 1
-cull_mask = 1048575
+cull_mask = 1048573
 environment = null
 h_offset = 0.0
 v_offset = 0.0

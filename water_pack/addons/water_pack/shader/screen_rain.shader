@@ -1,11 +1,11 @@
 shader_type canvas_item;
 //from https://www.shadertoy.com/view/ltffzl
 
-uniform vec2 rainAmountRange = vec2(0.3,0.7); //0~1
-uniform vec2 maxBlurRange = vec2(3.0, 6.0);
-uniform float minBlur :hint_range(0,10); // = 2.0;  
-uniform float zoom :hint_range(0,1); // = 1;
-uniform float speed :hint_range(0,1); // = 1 ;
+uniform vec2 rain_amount_range = vec2(0.3,0.7); //0~1
+uniform vec2 max_blur_range = vec2(3.0, 6.0);
+uniform float min_blur :hint_range(0,10); // = 2.0;  
+uniform float screen_zoom :hint_range(0,1); // = 1;
+uniform float rain_speed :hint_range(0,1); // = 1 ;
 uniform bool USE_LIGHTNING;
 uniform bool USE_CHEAP_NORMALS;
 
@@ -28,7 +28,7 @@ float Saw(float b, float t) {
 }
 
 
-vec2 DropLayer2(vec2 uv, float t) {
+vec2 drop_layer2(vec2 uv, float t) {
     vec2 UV = uv;
     
     uv.y += t*0.75;
@@ -55,27 +55,27 @@ vec2 DropLayer2(vec2 uv, float t) {
     
     float d = length((st-p)*a.yx);
     
-    float mainDrop = smoothstep(.4, .0, d);
+    float main_drop = smoothstep(.4, .0, d);
     
     float r = sqrt(smoothstep(1.0, y, st.y));
     float cd = abs(st.x-x);
     float trail = smoothstep(.23*r, .15*r*r, cd);
-    float trailFront = smoothstep(-.02, .02, st.y-y);
-    trail *= trailFront*r*r;
+    float trail_front = smoothstep(-.02, .02, st.y-y);
+    trail *= trail_front*r*r;
     
     y = UV.y;
     float trail2 = smoothstep(.2*r, .0, cd);
-    float droplets = max(0.0, (sin(y*(1.0-y)*120.0)-st.y))*trail2*trailFront*n.z;
+    float droplets = max(0.0, (sin(y*(1.0-y)*120.0)-st.y))*trail2*trail_front*n.z;
     y = fract(y*10.0)+(st.y-.5);
     float dd = length(st-vec2(x, y));
     droplets = smoothstep(.3, 0.0, dd);
-    float m = mainDrop+droplets*r*trailFront;
+    float m = main_drop+droplets*r*trail_front;
     
     //m += st.x>a.y*.45 || st.y>a.x*.165 ? 1.2 : 0.0;
     return vec2(m, trail);
 }
 
-float StaticDrops(vec2 uv, float t) {
+float static_drops(vec2 uv, float t) {
 	uv *= 40.0;
     
     vec2 id = floor(uv);
@@ -89,10 +89,10 @@ float StaticDrops(vec2 uv, float t) {
     return c;
 }
 
-vec2 Drops(vec2 uv, float t, float l0, float l1, float l2) {
-    float s = StaticDrops(uv, t)*l0; 
-    vec2 m1 = DropLayer2(uv, t)*l1;
-    vec2 m2 = DropLayer2(uv*1.85, t)*l2;
+vec2 drops(vec2 uv, float t, float l0, float l1, float l2) {
+    float s = static_drops(uv, t)*l0; 
+    vec2 m1 = drop_layer2(uv, t)*l1;
+    vec2 m2 = drop_layer2(uv*1.85, t)*l2;
     
     float c = s+m1.x+m2.x;
     c = smoothstep(.3, 1.0, c);
@@ -104,18 +104,18 @@ void fragment(  )
 {
 	vec2 uv1 = vec2((SCREEN_UV.x-0.5)*SCREEN_PIXEL_SIZE.x/SCREEN_PIXEL_SIZE.y,SCREEN_UV.y-0.5);
 	vec2 uv2 = SCREEN_UV;
-    float t = TIME*speed;  
-  	float rainAmount =sin(TIME*.01)*(rainAmountRange.y-rainAmountRange.x)+rainAmountRange.x;    
-	float maxBlur = mix(maxBlurRange.x, maxBlurRange.y, rainAmount);
+    float t = TIME*rain_speed;  
+  	float rain_amount =sin(TIME*.01)*(rain_amount_range.y-rain_amount_range.x)+rain_amount_range.x;    
+	float max_blur = mix(max_blur_range.x, max_blur_range.y, rain_amount);
     float story = 0.0;
-    uv1 *= .7+zoom*.3;
-	uv2 = (uv2-.5)*(.9+zoom*.1)+.5;
+    uv1 *= .7+screen_zoom*.3;
+	uv2 = (uv2-.5)*(.9+screen_zoom*.1)+.5;
 	
-    float staticDrops = smoothstep(-0.5, 1.0, rainAmount)*2.0;
-    float layer1 = smoothstep(0.25, 0.75, rainAmount);
-    float layer2 = smoothstep(0.0, 0.5, rainAmount);
+    float static_drops = smoothstep(-0.5, 1.0, rain_amount)*2.0;
+    float layer1 = smoothstep(0.25, 0.75, rain_amount);
+    float layer2 = smoothstep(0.0, 0.5, rain_amount);
     
-	vec2 c = Drops(uv1, t, staticDrops, layer1, layer2);
+	vec2 c = drops(uv1, t, static_drops, layer1, layer2);
 	vec2 n ;
 	if(USE_CHEAP_NORMALS){
     	n = vec2(dFdx(c.x), dFdy(c.x)); // cheap normals (3x cheaper, but 2 times shittier 
@@ -123,18 +123,18 @@ void fragment(  )
 	else
 	{
     	vec2 e = vec2(.001, 0.0);
-    	float cx = Drops(uv1+e, t, staticDrops, layer1, layer2).x;
-    	float cy = Drops(uv1+e.yx, t, staticDrops, layer1, layer2).x;
+    	float cx = drops(uv1+e, t, static_drops, layer1, layer2).x;
+    	float cy = drops(uv1+e.yx, t, static_drops, layer1, layer2).x;
     	n = vec2(cx-c.x, cy-c.x);		// expensive normals
     }
            
-    float focus = mix(maxBlur-c.y, minBlur, smoothstep(.1, .2, c.x));
+    float focus = mix(max_blur-c.y, min_blur, smoothstep(.1, .2, c.x));
     vec3 col = textureLod(SCREEN_TEXTURE, uv2+n, focus).rgb;
     
 	if(USE_LIGHTNING){
 		t = (TIME+3.0)*.5;			
-		float colFade = sin(t*.2)*.5+.5+story;
-		col *= mix(vec3(1.0), vec3(.8, .9, 1.3), colFade);	// subtle color shift
+		float col_fade = sin(t*.2)*.5+.5+story;
+		col *= mix(vec3(1.0), vec3(.8, .9, 1.3), col_fade);	// subtle color shift
 		float fade = smoothstep(0.0, 10.0, TIME);							// fade in at the start
 		float lightning = sin(t*sin(t*10.0));				// lighting flicker
 		lightning *= pow(max(0.0, sin(t+sin(t))), 10.0);		// lightning flash

@@ -9,7 +9,7 @@
 render_priority = 0
 shader = ExtResource( 1 )
 shader_param/TIME = null
-shader_param/water_color = Color( 0.107574, 0.183594, 0.165777, 0.845294 )
+shader_param/water_color = Color( 0.258865, 0.566406, 0.494327, 0.845294 )
 shader_param/roughness = 0.0
 shader_param/metalness = 0.5
 shader_param/specular = 1.0

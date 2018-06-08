@@ -346,7 +346,7 @@ propagation = 0.7
 interior = false
 compress = false
 
-[sub_resource type="ViewportTexture" id=19]
+[sub_resource type="ViewportTexture" id=17]
 
 resource_local_to_scene = true
 flags = 0
@@ -398,7 +398,7 @@ shader_param/wave4_direction12 = Plane( 1, 1, 1, -1 )
 shader_param/wave4_direction34 = Plane( 1, 0, 0, 1 )
 shader_param/normal_map1 = ExtResource( 12 )
 shader_param/normal_map2 = ExtResource( 12 )
-shader_param/reflect_texture = SubResource( 19 )
+shader_param/reflect_texture = SubResource( 17 )
 shader_param/foam_texture = ExtResource( 11 )
 _sections_unfolded = [ "shader_param" ]
 
@@ -671,6 +671,7 @@ visible = false
 
 [node name="lowpoly_water" parent="preset" index="3" instance=ExtResource( 8 )]
 
+visible = false
 layers = 2
 _sections_unfolded = [ "Geometry", "Transform" ]
 
@@ -680,8 +681,6 @@ visible = false
 material_override = SubResource( 18 )
 
 [node name="ocean" parent="preset" index="5" instance=ExtResource( 13 )]
-
-visible = false
 
 [node name="river" parent="preset" index="6" instance=ExtResource( 14 )]
 

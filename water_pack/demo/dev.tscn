@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 [gd_scene load_steps=21 format=2]
+=======
+[gd_scene load_steps=18 format=2]
+>>>>>>> 9175ce79efbbcd197698517e8986b6594083c607
 
 [ext_resource path="res://demo/camera_control.gd" type="Script" id=1]
 [ext_resource path="res://addons/water_pack/shader/water.shader" type="Shader" id=2]
@@ -7,10 +11,16 @@
 [ext_resource path="res://addons/water_pack/preset/waterfall.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/water_pack/preset/lowpoly_water.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/water_pack/preset/lake.tscn" type="PackedScene" id=7]
+<<<<<<< HEAD
 [ext_resource path="res://addons/water_pack/texture/foam.png" type="Texture" id=8]
 [ext_resource path="res://addons/water_pack/texture/wave_nor2.png" type="Texture" id=9]
 [ext_resource path="res://addons/water_pack/preset/ocean.tscn" type="PackedScene" id=10]
 [ext_resource path="res://addons/water_pack/preset/river.tscn" type="PackedScene" id=11]
+=======
+[ext_resource path="res://addons/water_pack/preset/ocean.tscn" type="PackedScene" id=8]
+[ext_resource path="res://addons/water_pack/preset/river.tscn" type="PackedScene" id=9]
+[ext_resource path="res://addons/water_pack/preset/wet_dirt.tscn" type="PackedScene" id=10]
+>>>>>>> 9175ce79efbbcd197698517e8986b6594083c607
 
 [sub_resource type="PrismMesh" id=1]
 
@@ -378,7 +388,6 @@ far = 100.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="4"]
 
-editor/display_folded = true
 environment = ExtResource( 3 )
 _sections_unfolded = [ "environment" ]
 
@@ -420,10 +429,9 @@ _sections_unfolded = [ "Transform" ]
 [node name="sun" type="DirectionalLight" parent="WorldEnvironment" index="2"]
 
 transform = Transform( 1, 0, 0, 0, -0.707106, 0.707107, 0, -0.707107, -0.707107, 0, 1.22745, 0 )
-visible = false
 layers = 1
 light_color = Color( 1, 0.990479, 0.953125, 1 )
-light_energy = 0.82
+light_energy = 0.8
 light_indirect_energy = 1.0
 light_negative = false
 light_specular = 0.5
@@ -449,6 +457,7 @@ _sections_unfolded = [ "Directional Shadow", "Light", "Transform" ]
 [node name="moon" type="DirectionalLight" parent="WorldEnvironment" index="3"]
 
 transform = Transform( 1, 0, 0, 0, 0.454163, 0.890919, 0, -0.890919, 0.454163, 0, 0, 0 )
+visible = false
 layers = 1
 light_color = Color( 0.980469, 0.972091, 0.949829, 1 )
 light_energy = 0.5
@@ -494,6 +503,13 @@ _sections_unfolded = [ "Geometry", "Transform" ]
 
 [node name="lake" parent="preset" index="3" instance=ExtResource( 7 )]
 
+<<<<<<< HEAD
+=======
+visible = false
+
+[node name="ocean" parent="preset" index="4" instance=ExtResource( 8 )]
+
+>>>>>>> 9175ce79efbbcd197698517e8986b6594083c607
 visible = false
 material_override = SubResource( 9 )
 
@@ -503,5 +519,9 @@ material_override = SubResource( 9 )
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0286508, 0 )
 visible = false
+
+[node name="wet_dirt" parent="preset" index="6" instance=ExtResource( 10 )]
+
+_sections_unfolded = [ "Geometry", "Transform" ]
 
 

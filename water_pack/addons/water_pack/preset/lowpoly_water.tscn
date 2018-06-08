@@ -1,7 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/water_pack/shader/lowpoly_water.shader" type="Shader" id=1]
-[ext_resource path="res://addons/water_pack/texture/SmallWaves.png" type="Texture" id=2]
+[ext_resource path="res://addons/water_pack/texture/small_wave.png" type="Texture" id=2]
+
 
 [sub_resource type="ShaderMaterial" id=1]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/SmallWaves.png-acdbbf6dc8c0e6541fb21901dc05ae07.s3tc.stex"
-path.etc2="res://.import/SmallWaves.png-acdbbf6dc8c0e6541fb21901dc05ae07.etc2.stex"
+path.s3tc="res://.import/small_wave.png-936556f950420b26b44d6f6209fbfb09.s3tc.stex"
+path.etc2="res://.import/small_wave.png-936556f950420b26b44d6f6209fbfb09.etc2.stex"
 
 [deps]
 
-source_file="res://addons/water_pack/texture/SmallWaves.png"
+source_file="res://addons/water_pack/texture/small_wave.png"
 source_md5="8c97caee9ca4550af7a2e316b41f55b2"
 
-dest_files=[ "res://.import/SmallWaves.png-acdbbf6dc8c0e6541fb21901dc05ae07.s3tc.stex", "res://.import/SmallWaves.png-acdbbf6dc8c0e6541fb21901dc05ae07.etc2.stex" ]
+dest_files=[ "res://.import/small_wave.png-936556f950420b26b44d6f6209fbfb09.s3tc.stex", "res://.import/small_wave.png-936556f950420b26b44d6f6209fbfb09.etc2.stex" ]
 dest_md5="e89ea97b05a32e8cc6bf94cecc8a92d5"
 
 [params]

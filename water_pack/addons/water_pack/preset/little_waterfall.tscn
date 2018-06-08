@@ -1,7 +1,8 @@
 [gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://addons/water_pack/texture/ParticleCloudWhite.png" type="Texture" id=1]
+[ext_resource path="res://addons/water_pack/texture/particle_cloud.png" type="Texture" id=1]
 [ext_resource path="res://addons/water_pack/texture/waterfall2.jpg" type="Texture" id=2]
+
 
 [sub_resource type="SpatialMaterial" id=13]
 

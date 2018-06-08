@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-[gd_scene load_steps=21 format=2]
-=======
-[gd_scene load_steps=18 format=2]
->>>>>>> 9175ce79efbbcd197698517e8986b6594083c607
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://demo/camera_control.gd" type="Script" id=1]
 [ext_resource path="res://addons/water_pack/shader/water.shader" type="Shader" id=2]
@@ -11,16 +7,13 @@
 [ext_resource path="res://addons/water_pack/preset/waterfall.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/water_pack/preset/lowpoly_water.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/water_pack/preset/lake.tscn" type="PackedScene" id=7]
-<<<<<<< HEAD
 [ext_resource path="res://addons/water_pack/texture/foam.png" type="Texture" id=8]
 [ext_resource path="res://addons/water_pack/texture/wave_nor2.png" type="Texture" id=9]
 [ext_resource path="res://addons/water_pack/preset/ocean.tscn" type="PackedScene" id=10]
 [ext_resource path="res://addons/water_pack/preset/river.tscn" type="PackedScene" id=11]
-=======
-[ext_resource path="res://addons/water_pack/preset/ocean.tscn" type="PackedScene" id=8]
-[ext_resource path="res://addons/water_pack/preset/river.tscn" type="PackedScene" id=9]
-[ext_resource path="res://addons/water_pack/preset/wet_dirt.tscn" type="PackedScene" id=10]
->>>>>>> 9175ce79efbbcd197698517e8986b6594083c607
+[ext_resource path="res://addons/water_pack/preset/wet_dirt.tscn" type="PackedScene" id=12]
+[ext_resource path="res://addons/water_pack/shader/wet_dirt.shader" type="Shader" id=13]
+[ext_resource path="res://addons/water_pack/texture/seamless_ground_dirt.jpg" type="Texture" id=14]
 
 [sub_resource type="PrismMesh" id=1]
 
@@ -147,7 +140,7 @@ _sections_unfolded = [ "Albedo", "Metallic", "Roughness" ]
 render_priority = 0
 shader = ExtResource( 2 )
 shader_param/TIME = null
-shader_param/water_color = Color( 0.497437, 0.78125, 0.767946, 1 )
+shader_param/water_color = null
 shader_param/roughness = null
 shader_param/metalness = null
 shader_param/specular = null
@@ -261,6 +254,22 @@ shader_param/normal_map1 = ExtResource( 9 )
 shader_param/normal_map2 = ExtResource( 9 )
 shader_param/reflect_texture = SubResource( 8 )
 shader_param/foam_texture = ExtResource( 8 )
+_sections_unfolded = [ "shader_param" ]
+
+[sub_resource type="ShaderMaterial" id=10]
+
+render_priority = 0
+shader = ExtResource( 13 )
+shader_param/dirt_scale = 1.0
+shader_param/wet_map_strength = 1.0
+shader_param/wet_map_bias = 1.0
+shader_param/invert_wet_map = false
+shader_param/wind_dir1 = Vector2( 1, 0 )
+shader_param/wind_dir2 = Vector2( 1, 0 )
+shader_param/wave_size1 = 1.0
+shader_param/wave_size2 = 1.0
+shader_param/wave_strength = 1.0
+shader_param/dirt_tex = ExtResource( 14 )
 _sections_unfolded = [ "shader_param" ]
 
 [node name="Node" type="Node" index="0"]
@@ -503,25 +512,23 @@ _sections_unfolded = [ "Geometry", "Transform" ]
 
 [node name="lake" parent="preset" index="3" instance=ExtResource( 7 )]
 
-<<<<<<< HEAD
-=======
-visible = false
-
-[node name="ocean" parent="preset" index="4" instance=ExtResource( 8 )]
-
->>>>>>> 9175ce79efbbcd197698517e8986b6594083c607
 visible = false
 material_override = SubResource( 9 )
 
 [node name="ocean" parent="preset" index="4" instance=ExtResource( 10 )]
+
+visible = false
 
 [node name="river" parent="preset" index="5" instance=ExtResource( 11 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0286508, 0 )
 visible = false
 
-[node name="wet_dirt" parent="preset" index="6" instance=ExtResource( 10 )]
+[node name="wet_dirt" parent="preset" index="6" instance=ExtResource( 12 )]
 
+layers = 2
+material_override = SubResource( 10 )
 _sections_unfolded = [ "Geometry", "Transform" ]
+ripples = true
 
 

@@ -14,8 +14,6 @@ func get_layer(type, name):
 func _enter_tree():
 	if !is_in_group("water"):
 		add_to_group("water")
-		print(name," add to water")
-		print(get_groups())
 
 func _ready():
 	var water_layer  = get_layer("3d_render","water")

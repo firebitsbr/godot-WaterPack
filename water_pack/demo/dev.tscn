@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://demo/camera_control.gd" type="Script" id=1]
 [ext_resource path="res://addons/water_pack/shader/water.shader" type="Shader" id=2]
@@ -12,8 +12,6 @@
 [ext_resource path="res://addons/water_pack/preset/ocean.tscn" type="PackedScene" id=10]
 [ext_resource path="res://addons/water_pack/preset/river.tscn" type="PackedScene" id=11]
 [ext_resource path="res://addons/water_pack/preset/wet_dirt.tscn" type="PackedScene" id=12]
-[ext_resource path="res://addons/water_pack/shader/wet_dirt.shader" type="Shader" id=13]
-[ext_resource path="res://addons/water_pack/texture/seamless_ground_dirt.jpg" type="Texture" id=14]
 
 [sub_resource type="PrismMesh" id=1]
 
@@ -254,22 +252,6 @@ shader_param/normal_map1 = ExtResource( 9 )
 shader_param/normal_map2 = ExtResource( 9 )
 shader_param/reflect_texture = SubResource( 8 )
 shader_param/foam_texture = ExtResource( 8 )
-_sections_unfolded = [ "shader_param" ]
-
-[sub_resource type="ShaderMaterial" id=10]
-
-render_priority = 0
-shader = ExtResource( 13 )
-shader_param/dirt_scale = 1.0
-shader_param/wet_map_strength = 1.0
-shader_param/wet_map_bias = 1.0
-shader_param/invert_wet_map = false
-shader_param/wind_dir1 = Vector2( 1, 0 )
-shader_param/wind_dir2 = Vector2( 1, 0 )
-shader_param/wave_size1 = 1.0
-shader_param/wave_size2 = 1.0
-shader_param/wave_strength = 1.0
-shader_param/dirt_tex = ExtResource( 14 )
 _sections_unfolded = [ "shader_param" ]
 
 [node name="Node" type="Node" index="0"]
@@ -527,7 +509,6 @@ visible = false
 [node name="wet_dirt" parent="preset" index="6" instance=ExtResource( 12 )]
 
 layers = 2
-material_override = SubResource( 10 )
 _sections_unfolded = [ "Geometry", "Transform" ]
 ripples = true
 

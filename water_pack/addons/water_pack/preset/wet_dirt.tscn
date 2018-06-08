@@ -1,44 +1,60 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://water_pack/material/wet_dirt.material" type="Material" id=1]
-[ext_resource path="res://addons/water_pack/script/wet_dirt.gd" type="Script" id=2]
-[ext_resource path="res://addons/water_pack/texture/seamless_ground_dirt.jpg" type="Texture" id=3]
+[ext_resource path="res://addons/water_pack/shader/wet_dirt.shader" type="Shader" id=1]
+[ext_resource path="res://addons/water_pack/texture/seamless_ground_dirt.jpg" type="Texture" id=2]
+[ext_resource path="res://addons/water_pack/texture/wave_nor1.png" type="Texture" id=3]
 [ext_resource path="res://addons/water_pack/texture/DynamicHeightmapNoise_Bump.png" type="Texture" id=4]
-[ext_resource path="res://addons/water_pack/texture/wave_nor1.png" type="Texture" id=5]
+[ext_resource path="res://addons/water_pack/script/wet_dirt.gd" type="Script" id=5]
 [ext_resource path="res://addons/water_pack/texture/ripple_nor.png" type="Texture" id=6]
 
+[sub_resource type="ShaderMaterial" id=1]
 
-[sub_resource type="PlaneMesh" id=10]
+render_priority = 0
+shader = ExtResource( 1 )
+shader_param/dirt_scale = null
+shader_param/wet_map_strength = 1.0
+shader_param/wet_map_bias = -0.007
+shader_param/invert_wet_map = false
+shader_param/wind_dir1 = Vector2( 0.1, 0 )
+shader_param/wind_dir2 = Vector2( -0.05, 0.1 )
+shader_param/wave_size1 = 6.221
+shader_param/wave_size2 = 4.863
+shader_param/wave_strength = 0.104
+shader_param/dirt_tex = ExtResource( 2 )
+shader_param/wet_map = ExtResource( 4 )
+shader_param/wave = ExtResource( 3 )
+
+[sub_resource type="PlaneMesh" id=2]
 
 size = Vector2( 30, 30 )
 subdivide_width = 0
 subdivide_depth = 0
 
-[sub_resource type="Gradient" id=11]
+[sub_resource type="Gradient" id=3]
 
 offsets = PoolRealArray( 0, 0.0177515, 0.538462, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0.946746, 1, 1, 1, 0.91823, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=12]
+[sub_resource type="GradientTexture" id=4]
 
 flags = 4
-gradient = SubResource( 11 )
+gradient = SubResource( 3 )
 width = 2048
 
-[sub_resource type="Curve" id=13]
+[sub_resource type="Curve" id=5]
 
 min_value = 0.0
 max_value = 1.0
 bake_resolution = 100
 _data = [ Vector2( 0, 0 ), 0.0, 1.0, 0, 1, Vector2( 1, 1 ), 1.0, 0.0, 1, 0 ]
 
-[sub_resource type="CurveTexture" id=14]
+[sub_resource type="CurveTexture" id=6]
 
 flags = 4
 width = 2048
-curve = SubResource( 13 )
+curve = SubResource( 5 )
 
-[sub_resource type="ParticlesMaterial" id=15]
+[sub_resource type="ParticlesMaterial" id=7]
 
 render_priority = 0
 trail_divisor = 1
@@ -66,8 +82,8 @@ angle = 0.0
 angle_random = 0.0
 scale = 0.4
 scale_random = 0.0
-scale_curve = SubResource( 14 )
-color_ramp = SubResource( 12 )
+scale_curve = SubResource( 6 )
+color_ramp = SubResource( 4 )
 hue_variation = 0.0
 hue_variation_random = 0.0
 anim_speed = 1.0
@@ -77,7 +93,7 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Animation", "Color", "Emission Shape", "Scale" ]
 
-[sub_resource type="Shader" id=7]
+[sub_resource type="Shader" id=8]
 
 code = "shader_type spatial;
 render_mode world_vertex_coords;
@@ -113,10 +129,10 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id=8]
+[sub_resource type="ShaderMaterial" id=9]
 
 render_priority = 0
-shader = SubResource( 7 )
+shader = SubResource( 8 )
 shader_param/wet_map_strength = 1.0
 shader_param/wet_map_bias = -0.007
 shader_param/invert_wet_map = false
@@ -126,9 +142,9 @@ shader_param/wet_map = ExtResource( 4 )
 shader_param/texture_normal = ExtResource( 6 )
 _sections_unfolded = [ "shader_param" ]
 
-[sub_resource type="PlaneMesh" id=9]
+[sub_resource type="PlaneMesh" id=10]
 
-material = SubResource( 8 )
+material = SubResource( 9 )
 size = Vector2( 2, 2 )
 subdivide_width = 0
 subdivide_depth = 0
@@ -136,7 +152,7 @@ subdivide_depth = 0
 [node name="wet_dirt" type="MeshInstance" index="0"]
 
 layers = 1
-material_override = ExtResource( 1 )
+material_override = SubResource( 1 )
 cast_shadow = 1
 extra_cull_margin = 0.0
 use_in_baked_light = false
@@ -144,15 +160,15 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 10 )
+mesh = SubResource( 2 )
 skeleton = NodePath("..")
 material/0 = null
-script = ExtResource( 2 )
+script = ExtResource( 5 )
 _sections_unfolded = [ "Geometry" ]
 size = Vector2( 30, 30 )
-dirt = ExtResource( 3 )
+dirt = ExtResource( 2 )
 wet_map = ExtResource( 4 )
-wave_norm = ExtResource( 5 )
+wave_norm = ExtResource( 3 )
 invert_wet_map = false
 wet_map_strength = 1.0
 wet_map_bias = 0.007
@@ -188,9 +204,9 @@ fract_delta = true
 visibility_aabb = AABB( -15, -0.1, -15, 30, 0.1, 30 )
 local_coords = true
 draw_order = 0
-process_material = SubResource( 15 )
+process_material = SubResource( 7 )
 draw_passes = 1
-draw_pass_1 = SubResource( 9 )
+draw_pass_1 = SubResource( 10 )
 _sections_unfolded = [ "Draw Passes", "Drawing", "Geometry", "Process Material", "Time", "Transform" ]
 
 

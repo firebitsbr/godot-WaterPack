@@ -44,7 +44,7 @@ demo
 - [ ] strong river
 - [x] lake
 - [ ] under/up water switch
-- [ ] wet gound
+- [ ] wet ground
 - [ ] drop stone to water
 - [x] waterfall
 - [ ] stone in water
@@ -53,11 +53,11 @@ demo
 - [x] 2.5d water
 - [x] lowpoly water
 - [ ] infinite ocean
-- [ ] rian and hit water/gound 
+- [ ] rain and hit water/gound 
 
 
 other
-- [ ] relasea to godot asset library
+- [ ] release to godot asset library
 - [ ] doc
     - image/video 
     - web demo

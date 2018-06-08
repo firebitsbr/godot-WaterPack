@@ -11,7 +11,7 @@ source_file="res://addons/water_pack/texture/Seamless ground dirt texture.jpg"
 source_md5="69083b97ab3cbb4cb7446ba609572e19"
 
 dest_files=[ "res://.import/Seamless ground dirt texture.jpg-0aaf6e78f03a8669cc21dbcc65c1734f.s3tc.stex", "res://.import/Seamless ground dirt texture.jpg-0aaf6e78f03a8669cc21dbcc65c1734f.etc2.stex" ]
-dest_md5="6c9feb25fd9ab4e3b6696309d0bb0b8b"
+dest_md5="173c0373407da82e9fd56232c2be26fd"
 
 [params]
 

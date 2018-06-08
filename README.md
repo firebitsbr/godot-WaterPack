@@ -4,8 +4,9 @@ godot water package for godot 3.0 ,under MIT LICENESE.
 
 <!-- ![web demo]() -->
 ![screenshot](./doc/screen_shot/ocean.jpg)
-<!-- ![screenshot](./doc/screen_shot/lowpoly.jpg)
-![screenshot](./doc/screen_shot/lake.jpg) -->
+![screenshot](./doc/screen_shot/lowpoly_water.jpg)
+![screenshot](./doc/screen_shot/lake.jpg)
+![screenshot](./doc/screen_shot/2-5d_water.jpg)
 
 ## usage
 use preset in “./addons/water_pack/preset/”
@@ -24,9 +25,9 @@ render
 - [x] Foam
 - [x] fresnel
 - [ ] * reflection
-- [ ] * ripples
-- [ ] under water
-- [ ] lod
+- [x] ripples
+- [ ] * under water
+- [ ] * lod
 
 
 physic
@@ -38,20 +39,19 @@ physic
 - [ ] NavMesh
 
 demo
-- [ ] ocean
-- [ ] river
+- [x] ocean
+- [x] river
 - [ ] strong river
-- [ ] lake
+- [x] lake
 - [ ] under/up water switch
 - [ ] wet gound
-- [ ] drop cube
-- [ ] drop pipe water
-- [ ] waterfall
+- [ ] drop stone to water
+- [x] waterfall
 - [ ] stone in water
 - [ ] boat on water
 - [ ] 2d water
-- [ ] 2.5d water
-- [ ] lowpoly water
+- [x] 2.5d water
+- [x] lowpoly water
 - [ ] infinite ocean
 - [ ] rian and hit water/gound 
 

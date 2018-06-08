@@ -3,18 +3,17 @@
 [ext_resource path="res://addons/water_pack/shader/lowpoly_water.shader" type="Shader" id=1]
 [ext_resource path="res://addons/water_pack/texture/small_wave.png" type="Texture" id=2]
 
-
 [sub_resource type="ShaderMaterial" id=1]
 
 render_priority = 0
 shader = ExtResource( 1 )
 shader_param/speed = 0.26
-shader_param/amplitude = 0.642
-shader_param/height = -0.744
-shader_param/fog_density = 0.658
-shader_param/fog_colour = Color( 0.364609, 0.691406, 0.43099, 1 )
+shader_param/amplitude = 0.6
+shader_param/height = -0.5
+shader_param/fog_density = 0.2
+shader_param/fog_colour = Color( 0.217361, 0.722656, 0.580542, 1 )
 shader_param/roughness = 0.0
-shader_param/metallic = 0.084
+shader_param/metallic = 0.6
 shader_param/wave_bump = ExtResource( 2 )
 _sections_unfolded = [ "shader_param" ]
 

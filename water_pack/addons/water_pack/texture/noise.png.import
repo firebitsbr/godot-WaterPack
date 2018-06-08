@@ -2,25 +2,26 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/noise.png-0d427db4381b72c4e6ae063c9748f61d.stex"
+path.s3tc="res://.import/noise.png-0d427db4381b72c4e6ae063c9748f61d.s3tc.stex"
+path.etc2="res://.import/noise.png-0d427db4381b72c4e6ae063c9748f61d.etc2.stex"
 
 [deps]
 
 source_file="res://addons/water_pack/texture/noise.png"
 source_md5="b87a6ef754b6e8257d5203225d2e9f76"
 
-dest_files=[ "res://.import/noise.png-0d427db4381b72c4e6ae063c9748f61d.stex" ]
-dest_md5="f3e4753462917768ec29c1184428d85f"
+dest_files=[ "res://.import/noise.png-0d427db4381b72c4e6ae063c9748f61d.s3tc.stex", "res://.import/noise.png-0d427db4381b72c4e6ae063c9748f61d.etc2.stex" ]
+dest_md5="3592d43fab7e46543cfd4cefa0e0258a"
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/lossy_quality=0.7
 compress/hdr_mode=0
-compress/normal_map=0
-flags/repeat=0
+compress/normal_map=1
+flags/repeat=true
 flags/filter=true
-flags/mipmaps=false
+flags/mipmaps=true
 flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true
@@ -28,5 +29,5 @@ process/premult_alpha=false
 process/HDR_as_SRGB=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0

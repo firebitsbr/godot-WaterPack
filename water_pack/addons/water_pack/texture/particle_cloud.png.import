@@ -11,14 +11,14 @@ source_file="res://addons/water_pack/texture/particle_cloud.png"
 source_md5="5849592165a196b9e1b5dcb2f6b35cb0"
 
 dest_files=[ "res://.import/particle_cloud.png-71e3b9ed7418945aa411b5d52e2583f5.s3tc.stex", "res://.import/particle_cloud.png-71e3b9ed7418945aa411b5d52e2583f5.etc2.stex" ]
-dest_md5="dbdfa5b8f322639003debe4f73dbe90e"
+dest_md5="68cd92b9b911a7b2ad7c187d4c324590"
 
 [params]
 
 compress/mode=2
 compress/lossy_quality=0.7
 compress/hdr_mode=0
-compress/normal_map=0
+compress/normal_map=1
 flags/repeat=true
 flags/filter=true
 flags/mipmaps=true

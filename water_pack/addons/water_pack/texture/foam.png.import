@@ -11,14 +11,14 @@ source_file="res://addons/water_pack/texture/foam.png"
 source_md5="2c2dec4b17bdbde8534cb37f8f5a0d2f"
 
 dest_files=[ "res://.import/foam.png-03ffdd8762a8327582a214a802f1b799.s3tc.stex", "res://.import/foam.png-03ffdd8762a8327582a214a802f1b799.etc2.stex" ]
-dest_md5="2a8bc59aedc758b8281f71314a555e22"
+dest_md5="355cac7aa7fa8ad2c783bc9a83f4e022"
 
 [params]
 
 compress/mode=2
 compress/lossy_quality=0.7
 compress/hdr_mode=0
-compress/normal_map=0
+compress/normal_map=1
 flags/repeat=true
 flags/filter=true
 flags/mipmaps=true

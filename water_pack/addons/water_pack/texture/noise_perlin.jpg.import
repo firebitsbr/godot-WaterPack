@@ -2,25 +2,26 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/noise_perlin.jpg-4811db171c41a843a72055a5d7534bbb.stex"
+path.s3tc="res://.import/noise_perlin.jpg-4811db171c41a843a72055a5d7534bbb.s3tc.stex"
+path.etc2="res://.import/noise_perlin.jpg-4811db171c41a843a72055a5d7534bbb.etc2.stex"
 
 [deps]
 
 source_file="res://addons/water_pack/texture/noise_perlin.jpg"
 source_md5="aab55627d91535596680ecb68e4bc0f7"
 
-dest_files=[ "res://.import/noise_perlin.jpg-4811db171c41a843a72055a5d7534bbb.stex" ]
-dest_md5="bc027edbf8e52ef31471103395715d23"
+dest_files=[ "res://.import/noise_perlin.jpg-4811db171c41a843a72055a5d7534bbb.s3tc.stex", "res://.import/noise_perlin.jpg-4811db171c41a843a72055a5d7534bbb.etc2.stex" ]
+dest_md5="37f21a25044d748243261080233568c4"
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/lossy_quality=0.7
 compress/hdr_mode=0
-compress/normal_map=0
-flags/repeat=0
+compress/normal_map=1
+flags/repeat=true
 flags/filter=true
-flags/mipmaps=false
+flags/mipmaps=true
 flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true
@@ -28,5 +29,5 @@ process/premult_alpha=false
 process/HDR_as_SRGB=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0

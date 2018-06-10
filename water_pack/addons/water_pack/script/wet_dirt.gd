@@ -33,8 +33,8 @@ func set_size(vec2):
 	
 	$Particles.visibility_aabb = AABB(Vector3(-vec2.x, -0.2, -vec2.y)/2.0, \
 		Vector3(vec2.x, 0.1, vec2.y))
-	$Particles.process_material.emission_box_extents = Vector3(vec2.x, 0.042, vec2.y)/2.0 \
-		- Vector3(0.2,0.2,0.2)
+	$Particles.process_material.emission_box_extents = Vector3(vec2.x, 0.0, vec2.y)/2.0 \
+		- Vector3(0.2,0,0.2)
 	$Particles.draw_pass_1.material.set_shader_param('wet_dirt_size', vec2)
 
 func set_dirt(tex):

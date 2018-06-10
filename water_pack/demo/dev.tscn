@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://demo/camera_control.gd" type="Script" id=1]
 [ext_resource path="res://addons/water_pack/texture/ripple_nor.png" type="Texture" id=2]
@@ -15,6 +15,12 @@
 [ext_resource path="res://addons/water_pack/preset/ocean.tscn" type="PackedScene" id=13]
 [ext_resource path="res://addons/water_pack/preset/river.tscn" type="PackedScene" id=14]
 [ext_resource path="res://addons/water_pack/preset/wet_dirt.tscn" type="PackedScene" id=15]
+[ext_resource path="res://addons/water_pack/preset/rain.tscn" type="PackedScene" id=16]
+[ext_resource path="res://demo/texture/ocean.jpg" type="Texture" id=17]
+[ext_resource path="res://icon.png" type="Texture" id=18]
+[ext_resource path="res://addons/water_pack/preset/drop_water_simple.tscn" type="PackedScene" id=19]
+[ext_resource path="res://addons/water_pack/preset/drop_water.tscn" type="PackedScene" id=20]
+[ext_resource path="res://addons/water_pack/preset/under_water.tscn" type="PackedScene" id=21]
 
 [sub_resource type="PrismMesh" id=1]
 
@@ -346,13 +352,13 @@ propagation = 0.7
 interior = false
 compress = false
 
-[sub_resource type="ViewportTexture" id=18]
+[sub_resource type="ViewportTexture" id=17]
 
 resource_local_to_scene = true
 flags = 0
 viewport_path = NodePath("")
 
-[sub_resource type="ShaderMaterial" id=17]
+[sub_resource type="ShaderMaterial" id=18]
 
 resource_local_to_scene = true
 render_priority = 0
@@ -398,15 +404,32 @@ shader_param/wave4_direction12 = Plane( 1, 1, 1, -1 )
 shader_param/wave4_direction34 = Plane( 1, 0, 0, 1 )
 shader_param/normal_map1 = ExtResource( 12 )
 shader_param/normal_map2 = ExtResource( 12 )
-shader_param/reflect_texture = SubResource( 18 )
+shader_param/reflect_texture = SubResource( 17 )
 shader_param/foam_texture = ExtResource( 11 )
+_sections_unfolded = [ "shader_param" ]
+
+[sub_resource type="Shader" id=19]
+
+code = "shader_type canvas_item;
+
+uniform float amount : hint_range(0,5);
+
+void fragment() {
+	COLOR.rgb = textureLod(SCREEN_TEXTURE,SCREEN_UV,amount).rgb;
+}"
+
+[sub_resource type="ShaderMaterial" id=20]
+
+render_priority = 0
+shader = SubResource( 19 )
+shader_param/amount = 1.0
 _sections_unfolded = [ "shader_param" ]
 
 [node name="Node" type="Node" index="0"]
 
 [node name="Camera" type="Camera" parent="." index="0"]
 
-transform = Transform( 0.766342, -0.484806, 0.421524, 0, 0.656136, 0.754642, -0.642432, -0.578314, 0.502825, 5.09926, 6.63537, 6.3822 )
+transform = Transform( -0.999387, -0.00341571, 0.0348364, 0, 0.995226, 0.0975819, -0.0350035, 0.0975222, -0.994617, 4.34281, 21.9978, -20.2203 )
 keep_aspect = 1
 cull_mask = 1048575
 environment = null
@@ -557,7 +580,6 @@ far = 100.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="5"]
 
-editor/display_folded = true
 environment = ExtResource( 4 )
 _sections_unfolded = [ "environment" ]
 
@@ -601,7 +623,7 @@ _sections_unfolded = [ "Transform" ]
 transform = Transform( 1, 0, 0, 0, -0.707106, 0.707107, 0, -0.707107, -0.707107, 0, 1.22745, 0 )
 layers = 1
 light_color = Color( 1, 0.990479, 0.953125, 1 )
-light_energy = 0.8
+light_energy = 1.0
 light_indirect_energy = 1.0
 light_negative = false
 light_specular = 0.5
@@ -677,10 +699,11 @@ _sections_unfolded = [ "Geometry", "Transform" ]
 
 [node name="lake" parent="preset" index="4" instance=ExtResource( 9 )]
 
-visible = false
-material_override = SubResource( 17 )
+material_override = SubResource( 18 )
 
 [node name="ocean" parent="preset" index="5" instance=ExtResource( 13 )]
+
+visible = false
 
 [node name="river" parent="preset" index="6" instance=ExtResource( 14 )]
 
@@ -692,5 +715,66 @@ visible = false
 visible = false
 layers = 2
 _sections_unfolded = [ "Geometry", "Transform" ]
+
+[node name="rain" parent="preset" index="8" instance=ExtResource( 16 )]
+
+[node name="screenFX" type="Control" parent="preset" index="9"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Anchor", "Grow Direction", "Margin" ]
+
+[node name="preview" type="TextureRect" parent="preset/screenFX" index="0"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 17 )
+expand = true
+stretch_mode = 0
+_sections_unfolded = [ "Anchor", "Margin" ]
+
+[node name="blur" type="TextureRect" parent="preset/screenFX" index="1"]
+
+visible = false
+material = SubResource( 20 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 0
+_sections_unfolded = [ "Material" ]
+
+[node name="drop_water_simple" parent="preset/screenFX" index="2" instance=ExtResource( 19 )]
+
+[node name="drop_water" parent="preset/screenFX" index="3" instance=ExtResource( 20 )]
+
+visible = false
+
+[node name="under_water" parent="preset/screenFX" index="4" instance=ExtResource( 21 )]
 
 

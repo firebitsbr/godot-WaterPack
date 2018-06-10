@@ -139,7 +139,7 @@ _sections_unfolded = [ "Damping", "Emission Shape", "Gravity", "Initial Velocity
 
 size = Vector2( 0.1, 0.1 )
 
-[sub_resource type="ViewportTexture" id=13]
+[sub_resource type="ViewportTexture" id=8]
 
 resource_local_to_scene = true
 flags = 0
@@ -191,7 +191,7 @@ shader_param/wave4_direction12 = Plane( 1, 1, 1, -1 )
 shader_param/wave4_direction34 = Plane( 1, 0, 0, 1 )
 shader_param/normal_map1 = ExtResource( 3 )
 shader_param/normal_map2 = ExtResource( 3 )
-shader_param/reflect_texture = SubResource( 13 )
+shader_param/reflect_texture = SubResource( 8 )
 shader_param/foam_texture = ExtResource( 2 )
 _sections_unfolded = [ "shader_param" ]
 

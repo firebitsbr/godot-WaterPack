@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://demo/camera_control.gd" type="Script" id=1]
 [ext_resource path="res://addons/water_pack/texture/ripple_nor.png" type="Texture" id=2]
@@ -425,6 +425,14 @@ shader = SubResource( 19 )
 shader_param/amount = 1.0
 _sections_unfolded = [ "shader_param" ]
 
+[sub_resource type="PrismMesh" id=21]
+
+left_to_right = 0.5
+size = Vector3( 2, 2, 2 )
+subdivide_width = 0
+subdivide_height = 0
+subdivide_depth = 0
+
 [node name="Node" type="Node" index="0"]
 
 [node name="Camera" type="Camera" parent="." index="0"]
@@ -518,6 +526,7 @@ draw_pass_1 = SubResource( 12 )
 
 [node name="dev_water" type="MeshInstance" parent="." index="4"]
 
+editor/display_folded = true
 visible = false
 layers = 2
 material_override = SubResource( 14 )
@@ -580,6 +589,7 @@ far = 100.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="5"]
 
+editor/display_folded = true
 environment = ExtResource( 4 )
 _sections_unfolded = [ "environment" ]
 
@@ -677,6 +687,7 @@ _sections_unfolded = [ "Directional Shadow", "Light" ]
 
 [node name="preset" type="Spatial" parent="." index="6"]
 
+editor/display_folded = true
 _sections_unfolded = [ "Transform" ]
 
 [node name="2p5d_water" parent="preset" index="0" instance=ExtResource( 5 )]
@@ -700,6 +711,7 @@ _sections_unfolded = [ "Geometry", "Transform" ]
 [node name="lake" parent="preset" index="4" instance=ExtResource( 9 )]
 
 material_override = SubResource( 18 )
+velocity = null
 
 [node name="ocean" parent="preset" index="5" instance=ExtResource( 13 )]
 
@@ -776,5 +788,71 @@ _sections_unfolded = [ "Material" ]
 visible = false
 
 [node name="under_water" parent="preset/screenFX" index="4" instance=ExtResource( 21 )]
+
+[node name="RigidBody" type="RigidBody" parent="." index="7"]
+
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+mode = 0
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = false
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+axis_lock_linear_x = false
+axis_lock_linear_y = false
+axis_lock_linear_z = false
+axis_lock_angular_x = false
+axis_lock_angular_y = false
+axis_lock_angular_z = false
+linear_velocity = Vector3( 0, 0, 0 )
+linear_damp = -1.0
+angular_velocity = Vector3( 0, 0, 0 )
+angular_damp = -1.0
+
+[node name="boat" type="MeshInstance" parent="RigidBody" index="0"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.76124, 0 )
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = SubResource( 21 )
+skeleton = NodePath("..")
+material/0 = null
+
+[node name="buoyancy_point" type="Spatial" parent="RigidBody/boat" index="0"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.303827, 1.07477 )
+
+[node name="buoyancy_point5" type="Spatial" parent="RigidBody/boat" index="1"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.231162, -0.607044, 1.07477 )
+
+[node name="buoyancy_point6" type="Spatial" parent="RigidBody/boat" index="2"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.522021, -0.607044, 1.07477 )
+
+[node name="buoyancy_point2" type="Spatial" parent="RigidBody/boat" index="3"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.62422, 0, 0 )
+
+[node name="buoyancy_point3" type="Spatial" parent="RigidBody/boat" index="4"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.64388, -0.638056, -0.547595 )
+
+[node name="buoyancy_point4" type="Spatial" parent="RigidBody/boat" index="5"]
 
 

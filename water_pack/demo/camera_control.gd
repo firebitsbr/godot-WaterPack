@@ -13,7 +13,6 @@ export var rotate_speed = 10.0
 var start_smooth_move = false
 
 func _ready():
-
     center_pos = Vector3(0, 0, 0)
     var relative_pos = global_transform.origin - center_pos
     target_distance = relative_pos.length()

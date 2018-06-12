@@ -447,6 +447,7 @@ _sections_unfolded = [ "Draw Passes" ]
 
 [node name="dev_water" type="MeshInstance" parent="." index="4"]
 
+editor/display_folded = true
 visible = false
 layers = 2
 material_override = SubResource( 12 )
@@ -550,7 +551,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="sun" type="DirectionalLight" parent="WorldEnvironment" index="2"]
 
-transform = Transform( 1, 0, 0, 0, -0.707106, 0.707107, 0, -0.707107, -0.707107, 0, 1.22745, 0 )
+transform = Transform( 0.844641, 0.21324, -0.491031, -0.00414949, 0.919822, 0.392313, 0.535318, -0.329326, 0.777804, 0, 1.22745, 0 )
 layers = 1
 light_color = Color( 1, 0.990479, 0.953125, 1 )
 light_energy = 0.8
@@ -649,8 +650,15 @@ _sections_unfolded = [ "Geometry", "Transform" ]
 wave_strength = 0.047
 ripples = false
 
-[node name="Node" parent="preset" index="8" instance=ExtResource( 15 )]
+[node name="InfiniteOcean" parent="preset" index="8" instance=ExtResource( 15 )]
 
-foam_height = 0.394
+wavelength = 40.0
+steepness = 0.22
+amplitude = 0.34
+speed = 6.0
+noise_amplitude = 0.102
+noise_frequency = 0.01
+noise_speed = 0.444
+foam_height = -1.402
 
 

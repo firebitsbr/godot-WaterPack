@@ -139,7 +139,7 @@ _sections_unfolded = [ "Damping", "Emission Shape", "Gravity", "Initial Velocity
 
 size = Vector2( 0.1, 0.1 )
 
-[sub_resource type="ViewportTexture" id=8]
+[sub_resource type="ViewportTexture" id=13]
 
 resource_local_to_scene = true
 flags = 0
@@ -191,7 +191,7 @@ shader_param/wave4_direction12 = Plane( 1, 1, 1, -1 )
 shader_param/wave4_direction34 = Plane( 1, 0, 0, 1 )
 shader_param/normal_map1 = ExtResource( 3 )
 shader_param/normal_map2 = ExtResource( 3 )
-shader_param/reflect_texture = SubResource( 8 )
+shader_param/reflect_texture = SubResource( 13 )
 shader_param/foam_texture = ExtResource( 2 )
 _sections_unfolded = [ "shader_param" ]
 
@@ -212,10 +212,9 @@ render_priority = 0
 shader = ExtResource( 5 )
 shader_param/blur = 0.0
 shader_param/fade_depth = 20.0
-shader_param/distort_factor = 0.01
+shader_param/distort_factor = 0.02
 shader_param/distort_speed = 0.05
 shader_param/water_color = Color( 0.142242, 0.460938, 0.311549, 1 )
-shader_param/disort_enable = true
 shader_param/distort_texture = ExtResource( 6 )
 _sections_unfolded = [ "shader_param" ]
 
@@ -268,6 +267,8 @@ material/0 = null
 script = ExtResource( 4 )
 _sections_unfolded = [ "Geometry", "material" ]
 use_reflection = true
+velocity = null
+density = null
 
 [node name="down_water" type="MeshInstance" parent="." index="2"]
 

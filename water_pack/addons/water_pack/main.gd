@@ -20,11 +20,12 @@ func mirror(origin, target, mirror_plane):
 func _enter_tree():
 	print("water plugin enter tree")
 	set_input_event_forwarding_always_enabled()
-	add_custom_type("water", "MeshInstance", preload("./script/water.gd"), preload("water.png"))
+	add_custom_type("Water", "MeshInstance", preload("./script/water.gd"), preload("water.png"))
+	add_custom_type("BuoyancyPoints", "Resource", preload("./script/buoyancy_points.gd"), preload("water.png"))
 	for node in get_tree().get_nodes_in_group("water"):
 		var reflect_viewport = node.get_node("./reflect_vp")
 		reflect_viewport.size = get_viewport().size
 
-	
 func _exit_tree():
-	remove_custom_type("water")
+	remove_custom_type("Water")
+	remove_custom_type("BuoyancyPoints")

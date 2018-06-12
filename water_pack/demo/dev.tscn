@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://demo/camera_control.gd" type="Script" id=1]
 [ext_resource path="res://addons/water_pack/texture/ripple_nor.png" type="Texture" id=2]
@@ -21,6 +21,8 @@
 [ext_resource path="res://addons/water_pack/preset/drop_water_simple.tscn" type="PackedScene" id=19]
 [ext_resource path="res://addons/water_pack/preset/drop_water.tscn" type="PackedScene" id=20]
 [ext_resource path="res://addons/water_pack/preset/under_water.tscn" type="PackedScene" id=21]
+[ext_resource path="res://addons/water_pack/script/plane_buoyancy.gd" type="Script" id=22]
+[ext_resource path="res://addons/water_pack/script/buoyancy_point.gd" type="Script" id=23]
 
 [sub_resource type="PrismMesh" id=1]
 
@@ -437,7 +439,7 @@ subdivide_depth = 0
 
 [node name="Camera" type="Camera" parent="." index="0"]
 
-transform = Transform( -0.999387, -0.00341571, 0.0348364, 0, 0.995226, 0.0975819, -0.0350035, 0.0975222, -0.994617, 4.34281, 21.9978, -20.2203 )
+transform = Transform( 0.887614, 0.254256, -0.384051, 0, 0.833826, 0.552024, 0.460588, -0.489985, 0.740116, -5.08775, 5.66805, 7.375 )
 keep_aspect = 1
 cull_mask = 1048575
 environment = null
@@ -687,7 +689,6 @@ _sections_unfolded = [ "Directional Shadow", "Light" ]
 
 [node name="preset" type="Spatial" parent="." index="6"]
 
-editor/display_folded = true
 _sections_unfolded = [ "Transform" ]
 
 [node name="2p5d_water" parent="preset" index="0" instance=ExtResource( 5 )]
@@ -711,7 +712,9 @@ _sections_unfolded = [ "Geometry", "Transform" ]
 [node name="lake" parent="preset" index="4" instance=ExtResource( 9 )]
 
 material_override = SubResource( 18 )
-velocity = null
+use_reflection = false
+velocity = Vector2( 0, 0 )
+density = 1.0
 
 [node name="ocean" parent="preset" index="5" instance=ExtResource( 13 )]
 
@@ -732,6 +735,7 @@ _sections_unfolded = [ "Geometry", "Transform" ]
 
 [node name="screenFX" type="Control" parent="preset" index="9"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -789,7 +793,7 @@ visible = false
 
 [node name="under_water" parent="preset/screenFX" index="4" instance=ExtResource( 21 )]
 
-[node name="RigidBody" type="RigidBody" parent="." index="7"]
+[node name="boat" type="RigidBody" parent="." index="7"]
 
 input_ray_pickable = true
 input_capture_on_drag = false
@@ -816,8 +820,61 @@ linear_velocity = Vector3( 0, 0, 0 )
 linear_damp = -1.0
 angular_velocity = Vector3( 0, 0, 0 )
 angular_damp = -1.0
+script = ExtResource( 22 )
+_sections_unfolded = [ "Angular", "Axis Lock", "Collision", "Linear", "Visibility" ]
+water = null
+buoyancy_points = null
 
-[node name="boat" type="MeshInstance" parent="RigidBody" index="0"]
+[node name="buoyancy_point" type="Spatial" parent="boat" index="0"]
+
+transform = Transform( -0.234915, 0.972016, 0, -0.972016, -0.234915, 0, 0, 0, 1, -0.596778, 5.06507, 0.807047 )
+script = ExtResource( 23 )
+force = 1.0
+
+[node name="buoyancy_point2" type="Spatial" parent="boat" index="1"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.06507, 1.07477 )
+script = ExtResource( 23 )
+force = 1.0
+
+[node name="buoyancy_point3" type="Spatial" parent="boat" index="2"]
+
+transform = Transform( 1, 0, 0, 0, 0.85668, 0.515849, 0, -0.515849, 0.85668, 0, 5.06507, 1.07477 )
+script = ExtResource( 23 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+force = 1.0
+
+[node name="buoyancy_point4" type="Spatial" parent="boat" index="3"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.06507, 1.07477 )
+script = ExtResource( 23 )
+force = 1.0
+
+[node name="buoyancy_point5" type="Spatial" parent="boat" index="4"]
+
+transform = Transform( 1, 0, 0, 0, 0.600373, 0.79972, 0, -0.79972, 0.600373, 0, 5.06507, 1.07477 )
+script = ExtResource( 23 )
+force = 1.0
+
+[node name="buoyancy_point6" type="Spatial" parent="boat" index="5"]
+
+transform = Transform( 1, 0, 0, 0, 0.572043, 0.820223, 0, -0.820223, 0.572043, 0, 5.06507, 1.07477 )
+script = ExtResource( 23 )
+force = 1.0
+
+[node name="buoyancy_point7" type="Spatial" parent="boat" index="6"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.06507, 1.07477 )
+script = ExtResource( 23 )
+force = 1.0
+
+[node name="buoyancy_point8" type="Spatial" parent="boat" index="7"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.06507, 1.07477 )
+script = ExtResource( 23 )
+force = 1.0
+
+[node name="boat" type="MeshInstance" parent="boat" index="8"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.76124, 0 )
 layers = 1
@@ -832,27 +889,5 @@ lod_max_hysteresis = 0.0
 mesh = SubResource( 21 )
 skeleton = NodePath("..")
 material/0 = null
-
-[node name="buoyancy_point" type="Spatial" parent="RigidBody/boat" index="0"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.303827, 1.07477 )
-
-[node name="buoyancy_point5" type="Spatial" parent="RigidBody/boat" index="1"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.231162, -0.607044, 1.07477 )
-
-[node name="buoyancy_point6" type="Spatial" parent="RigidBody/boat" index="2"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.522021, -0.607044, 1.07477 )
-
-[node name="buoyancy_point2" type="Spatial" parent="RigidBody/boat" index="3"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.62422, 0, 0 )
-
-[node name="buoyancy_point3" type="Spatial" parent="RigidBody/boat" index="4"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.64388, -0.638056, -0.547595 )
-
-[node name="buoyancy_point4" type="Spatial" parent="RigidBody/boat" index="5"]
 
 

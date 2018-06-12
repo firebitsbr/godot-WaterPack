@@ -2,20 +2,20 @@
 
 [ext_resource path="res://addons/water_pack/script/Infinte.gd" type="Script" id=1]
 
-[node name="InfiniteOcean" type="Node" index="0"]
+[node name="InfiniteOcean" type="Spatial" index="0"]
 
 script = ExtResource( 1 )
-wavelength = 42.71
-steepness = 0.41
-amplitude = 0.55
+wavelength = 60.0
+steepness = 0.15
+amplitude = 0.17
 wind_direction = Vector2( 1, 0 )
 wind_align = 0.0
-speed = 6.356
+speed = 10.0
 noise_enabled = true
-noise_amplitude = 1.217
-noise_frequency = 0.02
-noise_speed = 0.625
-foam_height = 0.729
+noise_amplitude = 1.274
+noise_frequency = 0.008
+noise_speed = 0.449
+foam_height = 0.418
 seed_value = 0
 
 

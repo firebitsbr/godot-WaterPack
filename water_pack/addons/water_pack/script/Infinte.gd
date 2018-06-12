@@ -6,7 +6,7 @@ const NUMBER_OF_WAVES = 10
 const resolution = 64
 const levels = 10
 const scale = 256.0
-const morphing_levels = 1
+const morphing_levels = 2
 
 var lod
 var initialized = false
@@ -19,9 +19,9 @@ export(float, 0, 1) var wind_align = 0.0 setget set_wind_align
 export(float) var speed = 10.0 setget set_speed
 
 export(bool) var noise_enabled = true setget set_noise_enabled
-export(float) var noise_amplitude = 0.28 setget set_noise_amplitude
-export(float) var noise_frequency = 0.065 setget set_noise_frequency
-export(float) var noise_speed = 0.48 setget set_noise_speed
+export(float) var noise_amplitude = 1.27 setget set_noise_amplitude
+export(float) var noise_frequency = 0.008 setget set_noise_frequency
+export(float) var noise_speed = 0.44 setget set_noise_speed
 
 export(float) var foam_height = 0.8 setget set_foam_height
 
@@ -37,8 +37,8 @@ func _ready():
 	shader_mat.shader = shader
 	shader_mat.set_shader_param('resolution', resolution)
 	shader_mat.set_shader_param('morph_levels', morphing_levels)
-	shader_mat.set_shader_param('noise', preload('res://addons/water_pack/texture/wave_nor1.png'))
-	shader_mat.set_shader_param('noise_params', Plane(1, 0.1, 1, 1))
+	shader_mat.set_shader_param('noise', preload('res://addons/water_pack/texture/noise_perlin.jpg'))
+	shader_mat.set_shader_param('noise_params', get_noise_params())
 	shader_mat.set_shader_param('foam', preload('res://addons/water_pack/texture/foam.png'))
 	
 	lod = preload('res://addons/water_pack/script/LODPlane.gd')
@@ -95,27 +95,47 @@ func set_foam_height(value):
 
 func set_noise_enabled(value):
 	noise_enabled = value
+	if not initialized: return
+	
 	var old_noise_params = get_shader_param('noise_params', 0)
-	old_noise_params.d = 1 if value else 0
-	set_shader_param('noise_params', old_noise_params)
+	if old_noise_params:
+		old_noise_params.d = 1 if value else 0
+		set_shader_param('noise_params', old_noise_params)
+	else:
+		set_shader_param('noise_params', get_noise_params())
 
 func set_noise_amplitude(value):
 	noise_amplitude = value
+	if not initialized: return
+	
 	var old_noise_params = get_shader_param('noise_params', 0)
-	old_noise_params.x = value
-	set_shader_param('noise_params', old_noise_params)
+	if old_noise_params:
+		old_noise_params.x = value
+		set_shader_param('noise_params', old_noise_params)
+	else:
+		set_shader_param('noise_params', get_noise_params())
 
 func set_noise_frequency(value):
 	noise_frequency = value
+	if not initialized: return
+	
 	var old_noise_params = get_shader_param('noise_params', 0)
-	old_noise_params.y = value
-	set_shader_param('noise_params', old_noise_params)
+	if old_noise_params:
+		old_noise_params.y = value
+		set_shader_param('noise_params', old_noise_params)
+	else:
+		set_shader_param('noise_params', get_noise_params())
 
 func set_noise_speed(value):
 	noise_speed = value
+	if not initialized: return
+	
 	var old_noise_params = get_shader_param('noise_params', 0)
-	old_noise_params.z = value
-	set_shader_param('noise_params', old_noise_params)
+	if old_noise_params:
+		old_noise_params.z = value
+		set_shader_param('noise_params', old_noise_params)
+	else:
+		set_shader_param('noise_params', get_noise_params())
 
 func get_displace(position):
 	
@@ -151,11 +171,11 @@ func update_waves():
 	var amp_length_ratio = amplitude / wavelength
 	waves.clear()
 	for i in range(NUMBER_OF_WAVES):
-		var _wavelength = rand_range(wavelength/8.0, wavelength)
+		var _wavelength = rand_range(wavelength/6.0, wavelength)
 		var _wind_direction = wind_direction.rotated(rand_range(-PI, PI)*(1-wind_align))
 		
 		waves.append({
-			'amplitude': amp_length_ratio * _wavelength,
+			'amplitude': _wavelength * amp_length_ratio,
 			'steepness': rand_range(0, steepness),
 			'wind_directionX': _wind_direction.x,
 			'wind_directionY': _wind_direction.y,
@@ -176,6 +196,9 @@ func update_waves():
 	waves_in_tex.create_from_image(img, 0)
 	
 	set_shader_param('waves', waves_in_tex)
+
+func get_noise_params():
+	return Plane(noise_amplitude, noise_frequency, noise_speed, noise_enabled)
 
 func set_shader_param(uniform, value):
 	if lod:

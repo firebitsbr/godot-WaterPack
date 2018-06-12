@@ -21,6 +21,7 @@ uniform float lod_scale;
 uniform uint level;
 uniform uint resolution;
 
+//LOD FUNCTIONS
 vec2 compute_ancestor_morphing(int lv, vec2 grid_pos, float height_morph_fac, vec3 camera_scaled_pos, float res, vec2 prev_morphing) {
 	vec2 fractional_part = grid_pos * res * 0.5;
 	if(lv > 1) fractional_part = (fractional_part + 0.5) / pow(2.0, float(lv - 1));
@@ -66,23 +67,36 @@ vec4 compute_position(vec4 position, mat4 cam_matrix) {
 	return vec4(world_position, 1.0);
 }
 
+//NOISE FUNCTION WITH RESPECTIVE HELPERS
+float cubic(float c0, float p0, float p1, float c1, float t) {
+	float t2 = t*t;
+	float t3 = t2*t;
+	return (t3-t2-t+1.0)*p0 + (t3-2.0*t2+t)*c0 + (t3-t2)*c1 + (-3.0*t3+4.0*t2)*p1;
+}
 float noise3D(vec3 p) {
 	float iz = floor(p.z);
 	float fz = fract(p.z);
-	vec2 a_off = vec2(0.453, 0.879) * iz*0.64338;
-	vec2 b_off = vec2(0.453, 0.879) * (iz+1.0)*0.64338;
-	float a = texture(noise, p.xy + a_off).r;
-	float b = texture(noise, p.xy + b_off).r;
 	
-	//return a;
-	return mix(a, b, fz);
+	vec2 offset = vec2(0.356, 0.879) * 0.64338;
+	
+	float a = texture(noise, p.xy + offset * iz).r;
+	float b = texture(noise, p.xy + offset * (iz+1.0)).r;
+	float ca = texture(noise, p.xy + offset * (iz-1.0)).r;
+	float cb = texture(noise, p.xy + offset * (iz+2.0)).r;
+	
+	return cubic(ca, a, b, cb, fz);
+}
+float perlin(vec2 pos, float time) {
+	float p_noise = 2.0 * noise3D(vec3(pos.xy*noise_params.y, time*noise_params.z))*noise_params.x - 1.0;
+	return p_noise + 2.0 * noise3D(vec3(pos.xy*noise_params.y*2.0, time*noise_params.z+4.3))*noise_params.x/2.0 - 1.0;
 }
 
+//WAVE FUNCTIONS
 vec3 wave(vec2 pos, float time, bool use_noise) {
-	vec3 new_p = vec3(pos.x, 0.0, pos.y);
+	highp vec3 new_p = vec3(pos.x, 0.0, pos.y);
 	
-	float amp, w, steep, phase;
-	vec2 dir;
+	highp float amp, w, steep, phase;
+	highp vec2 dir;
 	for(int i = 0; i < textureSize(waves, 0).y; i++) {
 		amp = texelFetch(waves, ivec2(0, i), 0).r;
 		
@@ -96,18 +110,40 @@ vec3 wave(vec2 pos, float time, bool use_noise) {
 		new_p.xz += steep*amp * dir * cos(W);
 		new_p.y += amp * sin(W);
 	}
-	if(noise_params.w == 1.0 && use_noise)
-		new_p.y += 2.0 * noise3D(vec3(pos.xy*noise_params.y, time*noise_params.z))*noise_params.x - 1.0;
+	new_p += perlin(pos, time);
+	
 	return new_p;
 }
-
 vec3 wave_normal(vec2 pos, float time, float res) {
-	vec3 right = wave(pos + vec2(res, 0.0), time, true);
-	vec3 left = wave(pos - vec2(res, 0.0), time, true);
-	vec3 down = wave(pos - vec2(0.0, res), time, true);
-	vec3 up = wave(pos + vec2(0.0, res), time, true);
+	vec3 wave_norm = vec3(0,1,0);
 	
-	return normalize(cross(right-left, down-up));
+	float amp, w, steep, phase;
+	vec2 dir;
+	for(int i = 0; i < textureSize(waves, 0).y; i++) {
+		amp = texelFetch(waves, ivec2(0, i), 0).r;
+		
+		dir = vec2(texelFetch(waves, ivec2(2, i), 0).r, texelFetch(waves, ivec2(3, i), 0).r);
+		w = texelFetch(waves, ivec2(4, i), 0).r;
+		steep = texelFetch(waves, ivec2(1, i), 0).r /(w*amp);
+		phase = 2.0 * w;
+		
+		float W = dot(w*dir, pos) + phase*time;
+		
+		wave_norm.xz -= dir * w*amp * cos(W);
+		wave_norm.y -= steep * w*amp * sin(W);
+	}
+	
+	vec2 _res = vec2(res,0);
+	
+	vec3 right = vec3(pos.xy + _res.xy, perlin(pos + _res.xy, time)).xzy;
+	vec3 left = vec3(pos.xy - _res.xy, perlin(pos - _res.xy, time)).xzy;
+	vec3 down = vec3(pos.xy + _res.yx, perlin(pos + _res.yx, time)).xzy;
+	vec3 up = vec3(pos.xy - _res.yx, perlin(pos - _res.yx, time)).xzy;
+	vec3 noise_norm = bool(noise_params.w) ? normalize(cross(right-left, down-up)) : vec3(0,1,0);
+	
+	vec3 new_norm = vec3(wave_norm.xz + noise_norm.xz, wave_norm.y);
+	
+	return normalize(new_norm).xzy;
 }
 
 varying vec3 vert_coord;
@@ -116,20 +152,20 @@ varying float vert_dist;
 varying vec3 eyeVector;
 
 void vertex() {
+	//compute LOD position
 	VERTEX = compute_position(vec4(VERTEX, 0.0), INV_CAMERA_MATRIX).xyz;
 	
-	vec3 pre_displace = VERTEX;
-	
-	float camz = (INV_CAMERA_MATRIX * vec4(VERTEX, 1.0)).z;
-	if(camz < 0.0)
+	//compute offset by wave
 	VERTEX = wave(VERTEX.xz, time_offset, false);
 	
+	//pass varyings and transform vertex in view space
 	vert_coord = VERTEX;
 	VERTEX = (INV_CAMERA_MATRIX * vec4(VERTEX, 1.0)).xyz;
 	eyeVector = (CAMERA_MATRIX * vec4(normalize(VERTEX), 0.0)).xyz;
 	vert_dist = length(VERTEX);
 }
 
+//FRESNEL FUNCTION
 float fresnel(float n1, float n2, float cos_theta) {
 	float R0 = pow((n1 - n2) / (n1+n2), 2);
 	float fres = R0 + (1.0 - R0)*pow(1.0 - abs(cos_theta), 5);
@@ -141,20 +177,32 @@ float fresnel(float n1, float n2, float cos_theta) {
 }
 
 void fragment() {
-	NORMAL = wave_normal(vert_coord.xz, time_offset, log2(vert_dist));
+	//calculate normals based on wave
+	NORMAL = wave_normal(vert_coord.xz, time_offset, vert_dist/40.0);
 	
+	//calculate reflectiveness based on fresnel and camera angle
 	float eye_dot_norm = -dot(eyeVector, NORMAL);
 	float n1 = 1.0, n2 = 1.3333;
-	
-	vec3 water_colour = vec3(0,0,0);
-	//water_colour = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
-	
 	float reflectiveness = fresnel(n1, n2, eye_dot_norm);
+	
+	vec3 water_colour = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
+	vec3 fog_colour = vec3(0, 0.05, 0.1);
+	float density = 0.1; //cannot be zero. :/
+	
+	//calculate refraction with fog
+	float depth_tex = texture(DEPTH_TEXTURE, SCREEN_UV).r;
+	vec4 world_pos = INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0, depth_tex * 2.0 - 1.0, 1.0);
+	world_pos.xyz /= world_pos.w;
+	water_colour = mix(fog_colour, water_colour, clamp(smoothstep(world_pos.z+1.0/density, world_pos.z, VERTEX.z), 0.0, 1.0));
+	
 	ALBEDO = mix(vec3(1), water_colour, 1.0-reflectiveness);
 	METALLIC = reflectiveness;
 	ROUGHNESS = 0.0;
+	ALPHA = 1.0;
 	
-	EMISSION = texture(foam, vert_coord.xz/20.0).rgb * clamp(vert_coord.y - foam_height, 0.0, 1.0);
+	//apply foam
+	EMISSION = texture(foam, vert_coord.xz/20.0).rgb * clamp(vert_coord.y - foam_height, 0.0, 2.0);
 	
+	//transform normal to view space for lighting
 	NORMAL = (INV_CAMERA_MATRIX * vec4(NORMAL, 0.0)).xyz;
 }

@@ -1,4 +1,4 @@
-shader_type canvas_item;
+shader_type spatial;
 
 void fragment(){
 	

@@ -11,7 +11,7 @@ source_file="res://addons/water_pack/texture/noise_perlin.jpg"
 source_md5="aab55627d91535596680ecb68e4bc0f7"
 
 dest_files=[ "res://.import/noise_perlin.jpg-4811db171c41a843a72055a5d7534bbb.s3tc.stex", "res://.import/noise_perlin.jpg-4811db171c41a843a72055a5d7534bbb.etc2.stex" ]
-dest_md5="37f21a25044d748243261080233568c4"
+dest_md5="99dcdd2efbe3517621f8adaeb861c0dc"
 
 [params]
 
@@ -22,7 +22,7 @@ compress/normal_map=1
 flags/repeat=true
 flags/filter=true
 flags/mipmaps=true
-flags/anisotropic=false
+flags/anisotropic=true
 flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false

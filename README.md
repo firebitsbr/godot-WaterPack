@@ -27,7 +27,7 @@ render
 - [ ] * reflection
 - [x] ripples
 - [ ] * under water
-- [ ] * lod
+- [x] lod
 
 
 physic
@@ -44,7 +44,7 @@ demo
 - [ ] strong river
 - [x] lake
 - [ ] under/up water switch
-- [ ] wet ground
+- [x] wet ground
 - [ ] drop stone to water
 - [x] waterfall
 - [ ] stone in water
@@ -52,7 +52,7 @@ demo
 - [ ] 2d water
 - [x] 2.5d water
 - [x] lowpoly water
-- [ ] infinite ocean
+- [x] infinite ocean
 - [ ] rain and hit water/gound 
 
 

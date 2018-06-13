@@ -1,7 +1,7 @@
 tool
 extends Node
 
-const NUMBER_OF_WAVES = 10
+const NUMBER_OF_WAVES = 15
 
 const resolution = 64
 const levels = 10
@@ -11,19 +11,19 @@ const morphing_levels = 2
 var lod
 var initialized = false
 
-export(float, 0, 10000) var wavelength = 60.0 setget set_wavelength
+export(float, 0, 10000) var wavelength = 30.0 setget set_wavelength
 export(float, 0, 1) var steepness = 0.01 setget set_steepness
 export(float, 0, 10000) var amplitude = 0.25 setget set_amplitude
 export(Vector2) var wind_direction = Vector2(1, 0) setget set_wind_direction
 export(float, 0, 1) var wind_align = 0.0 setget set_wind_align
-export(float) var speed = 10.0 setget set_speed
+export(float) var speed = 6.0 setget set_speed
 
 export(bool) var noise_enabled = true setget set_noise_enabled
-export(float) var noise_amplitude = 1.27 setget set_noise_amplitude
+export(float) var noise_amplitude = 0.12 setget set_noise_amplitude
 export(float) var noise_frequency = 0.008 setget set_noise_frequency
 export(float) var noise_speed = 0.44 setget set_noise_speed
 
-export(float) var foam_height = 0.8 setget set_foam_height
+export(float, 0.0, 50.0) var foam_strength = 0.8 setget set_foam_strength
 
 export(int) var seed_value = 0 setget set_seed
 
@@ -89,9 +89,9 @@ func set_speed(value):
 	speed = value
 	set_shader_param('speed', value)
 
-func set_foam_height(value):
-	foam_height = value
-	set_shader_param('foam_height', value)
+func set_foam_strength(value):
+	foam_strength = value
+	set_shader_param('foam_strength', value)
 
 func set_noise_enabled(value):
 	noise_enabled = value

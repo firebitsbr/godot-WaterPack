@@ -6,7 +6,7 @@ doc/water4/
 .import/
 export.cfg
 export_presets.cfg
-
+*/*.blend[1-9]
 # Mono-specific ignores
 .mono/
 

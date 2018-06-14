@@ -68,6 +68,14 @@ float fresnel (vec3 v, vec3 n)
 	return ratio;
 }
 
+vec3 mix_normals(vec3 normal1, float scale1, vec3 normal2, float scale2)
+{
+	vec3 n1 = normal1 * 2.0 - 1.0;
+	vec3 n2 = normal2 * 2.0 - 1.0;
+	vec3 normal = normalize(vec3(n1.xy * scale1 + n2.xy * scale2, n1.z * n2.z));
+	return normal * 0.5 + 0.5;
+}
+
 void fragment()
 {
 	
@@ -78,16 +86,11 @@ void fragment()
     //	RIM_TINT = 0.7;
 	
     // normal wave
-	// TODO optimize to one map
     vec2 uv1 = mod(normal1_uv_scale * UV + TIME * normal1_velocity, 1);
     vec3 normal1 = texture(normal_map1, uv1).rgb;
     vec2 uv2 = mod(normal2_uv_scale * UV + TIME * normal2_velocity, 1);
     vec3 normal2 = texture(normal_map2, uv2).rgb;
-    //MIX NORMAL
-    vec3 n1 = normal1 * 2.0 - 1.0;
-    vec3 n2 = normal2 * 2.0 - 1.0;
-    vec3 normal = normalize(vec3(n1.xy * normal1_scale + n2.xy * normal2_scale, n1.z * n2.z));
-    NORMALMAP = normal * 0.5 + 0.5;
+    NORMALMAP = mix_normals(normal1, normal1_scale, normal2, normal2_scale);
 	NORMALMAP_DEPTH = 1.0;
     ALBEDO = water_color.rgb;
 	vec3 view_nrml = normalize( mix(NORMAL,TANGENT * NORMALMAP.x + BINORMAL * NORMALMAP.y + NORMAL * NORMALMAP.z,NORMALMAP_DEPTH) );

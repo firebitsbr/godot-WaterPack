@@ -192,10 +192,9 @@ render_priority = 0
 shader = ExtResource( 5 )
 shader_param/blur = 0.0
 shader_param/fade_depth = 20.0
-shader_param/distort_factor = 0.01
+shader_param/distort_factor = 0.02
 shader_param/distort_speed = 0.05
 shader_param/water_color = Color( 0.142242, 0.460938, 0.311549, 1 )
-shader_param/disort_enable = true
 shader_param/distort_texture = ExtResource( 6 )
 _sections_unfolded = [ "shader_param" ]
 
@@ -248,6 +247,8 @@ material/0 = null
 script = ExtResource( 4 )
 _sections_unfolded = [ "Geometry", "material" ]
 use_reflection = true
+velocity = null
+density = null
 
 [node name="down_water" type="MeshInstance" parent="." index="2"]
 

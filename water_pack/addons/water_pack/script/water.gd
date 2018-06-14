@@ -7,6 +7,8 @@ var reflect_viewport
 
 var plugin
 #export var hide_ViewPort = true # hide reflect and refract viewport in editor
+export(Vector2) var velocity
+export(float, 0, 10) var density 
 
 func get_layer(type, name):
 	for i in range(1, 21):

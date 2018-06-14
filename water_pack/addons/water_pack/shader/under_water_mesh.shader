@@ -7,14 +7,13 @@ uniform float distort_factor:hint_range(0,1);
 uniform float distort_speed:hint_range(0,1);
 uniform sampler2D distort_texture:hint_normal;
 uniform vec4 water_color : hint_color ;//= vec4(20, 30, 30, 230);
-uniform bool disort_enable = true;
 
 //dont put any in front of water
 //use camera to view water, and filter infront somthing , when cull plane enable
 
 void fragment(){
 	vec2 distortion = vec2(0,0);
-	if(disort_enable){
+	if(distort_factor!=0.0){
 		// distort	
 		distortion = distort_factor*texture(distort_texture,UV+TIME*distort_speed).rg;
 		ALBEDO = textureLod(SCREEN_TEXTURE, SCREEN_UV+distortion, blur).rgb;

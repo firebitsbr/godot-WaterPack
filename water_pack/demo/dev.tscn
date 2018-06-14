@@ -1,30 +1,26 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://demo/camera_control.gd" type="Script" id=1]
-[ext_resource path="res://addons/water_pack/texture/DynamicHeightmapNoise_Bump.png" type="Texture" id=2]
+[ext_resource path="res://addons/water_pack/material/ripple.material" type="Material" id=2]
 [ext_resource path="res://demo/day_env.tres" type="Environment" id=3]
-[ext_resource path="res://addons/water_pack/preset/2p5d_water.tscn" type="PackedScene" id=4]
-[ext_resource path="res://addons/water_pack/preset/little_waterfall.tscn" type="PackedScene" id=5]
-[ext_resource path="res://addons/water_pack/preset/waterfall.tscn" type="PackedScene" id=6]
-[ext_resource path="res://addons/water_pack/preset/lowpoly_water.tscn" type="PackedScene" id=7]
-[ext_resource path="res://addons/water_pack/preset/lake.tscn" type="PackedScene" id=8]
-[ext_resource path="res://addons/water_pack/shader/water.shader" type="Shader" id=9]
-[ext_resource path="res://addons/water_pack/texture/foam.png" type="Texture" id=10]
-[ext_resource path="res://addons/water_pack/texture/wave_nor2.png" type="Texture" id=11]
+[ext_resource path="res://addons/water_pack/material/dev_water.material" type="Material" id=4]
+[ext_resource path="res://addons/water_pack/script/water.gd" type="Script" id=5]
+[ext_resource path="res://addons/water_pack/water.png" type="Texture" id=6]
+[ext_resource path="res://addons/water_pack/preset/2p5d_water.tscn" type="PackedScene" id=7]
+[ext_resource path="res://addons/water_pack/preset/little_waterfall.tscn" type="PackedScene" id=8]
+[ext_resource path="res://addons/water_pack/preset/waterfall.tscn" type="PackedScene" id=9]
+[ext_resource path="res://addons/water_pack/preset/lowpoly_water.tscn" type="PackedScene" id=10]
+[ext_resource path="res://addons/water_pack/preset/lake.tscn" type="PackedScene" id=11]
 [ext_resource path="res://addons/water_pack/preset/ocean.tscn" type="PackedScene" id=12]
 [ext_resource path="res://addons/water_pack/preset/river.tscn" type="PackedScene" id=13]
 [ext_resource path="res://addons/water_pack/preset/wet_dirt.tscn" type="PackedScene" id=14]
-[ext_resource path="res://addons/water_pack/preset/rain.tscn" type="PackedScene" id=15]
-[ext_resource path="res://addons/water_pack/script/water_physic.gd" type="Script" id=16]
-[ext_resource path="res://demo/bouyancy_points.tres" type="Resource" id=17]
-[ext_resource path="res://demo/boat_bouyancy_points.tres" type="Resource" id=18]
-[ext_resource path="res://demo/boat.mesh" type="ArrayMesh" id=19]
-[ext_resource path="res://demo/texture/ocean.jpg" type="Texture" id=20]
-[ext_resource path="res://icon.png" type="Texture" id=21]
-[ext_resource path="res://addons/water_pack/preset/drop_water_simple.tscn" type="PackedScene" id=22]
-[ext_resource path="res://addons/water_pack/preset/drop_water.tscn" type="PackedScene" id=23]
-[ext_resource path="res://addons/water_pack/preset/under_water.tscn" type="PackedScene" id=24]
-[ext_resource path="res://addons/water_pack/preset/2d_water.tscn" type="PackedScene" id=25]
+[ext_resource path="res://addons/water_pack/preset/InfiniteOcean.tscn" type="PackedScene" id=15]
+[ext_resource path="res://addons/water_pack/preset/rain.tscn" type="PackedScene" id=16]
+[ext_resource path="res://addons/water_pack/shader/screen_rain_simple.shader" type="Shader" id=17]
+[ext_resource path="res://addons/water_pack/preset/2d_water.tscn" type="PackedScene" id=18]
+[ext_resource path="res://demo/cube_physic.tscn" type="PackedScene" id=19]
+[ext_resource path="res://demo/boat.tscn" type="PackedScene" id=20]
+[ext_resource path="res://demo/screenFX.tscn" type="PackedScene" id=21]
 
 [sub_resource type="PrismMesh" id=1]
 
@@ -209,139 +205,14 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Animation", "Color", "Emission Shape", "Scale" ]
 
-[sub_resource type="Shader" id=10]
+[sub_resource type="PlaneMesh" id=10]
 
-code = "shader_type spatial;
-render_mode world_vertex_coords;
-
-uniform sampler2D wet_map;
-uniform float wet_map_strength = 1.0;
-uniform float wet_map_bias = 0.0;
-uniform bool invert_wet_map = true;
-uniform vec2 wet_dirt_size = vec2(30,30);
-
-uniform sampler2D texture_normal : hint_normal;
-
-uniform vec2 translation;
-
-void vertex() {
-	UV2 = (VERTEX.xz-translation) / wet_dirt_size + 0.5;
-	UV2 = 1.0 - UV2;
-}
-
-void fragment() {
-	ALBEDO = COLOR.rgb;
-	
-	float wetness = invert_wet_map ? 1.0-texture(wet_map, UV2).r : texture(wet_map, UV2).r;
-	wetness = wet_map_strength * (wetness - wet_map_bias);
-	wetness = clamp(wetness, 0.0, 1.0);
-	ALPHA = COLOR.a * pow(wetness, 2.0);
-	
-	METALLIC = 1.0;
-	ROUGHNESS = 0.0;
-	NORMALMAP = texture(texture_normal,UV).rgb;
-	
-	ALPHA *= distance(NORMALMAP.rg, vec2(0.5)) * 2.0;
-}
-"
-
-[sub_resource type="ShaderMaterial" id=11]
-
-render_priority = 0
-shader = SubResource( 10 )
-shader_param/wet_map_strength = 1.0
-shader_param/wet_map_bias = -0.007
-shader_param/invert_wet_map = false
-shader_param/wet_dirt_size = Vector2( 30, 30 )
-shader_param/translation = Vector2( 0, 0 )
-shader_param/wet_map = ExtResource( 2 )
-_sections_unfolded = [ "shader_param" ]
-
-[sub_resource type="PlaneMesh" id=12]
-
-material = SubResource( 11 )
+material = ExtResource( 2 )
 size = Vector2( 2, 2 )
 subdivide_width = 0
 subdivide_depth = 0
 
-[sub_resource type="Shader" id=13]
-
-code = "shader_type spatial;
-render_mode blend_mix,depth_draw_always,cull_back,diffuse_burley,specular_schlick_ggx;
-uniform vec4 albedo : hint_color;
-uniform sampler2D texture_albedo : hint_albedo;
-uniform float specular;
-uniform float metallic;
-uniform float roughness : hint_range(0,1);
-uniform float point_size : hint_range(0,128);
-uniform sampler2D texture_metallic : hint_white;
-uniform vec4 metallic_texture_channel;
-uniform sampler2D texture_roughness : hint_white;
-uniform vec4 roughness_texture_channel;
-uniform sampler2D texture_refraction;
-uniform float refraction : hint_range(-16,16);
-uniform vec4 refraction_texture_channel;
-uniform sampler2D texture_normal : hint_normal;
-uniform float normal_scale : hint_range(-16,16);
-uniform vec3 uv1_scale;
-uniform vec3 uv1_offset;
-uniform vec3 uv2_scale;
-uniform vec3 uv2_offset;
-
-
-void vertex() {
-	UV=UV*uv1_scale.xy+uv1_offset.xy;
-}
-
-
-
-
-void fragment() {
-	vec2 base_uv = UV;
-	vec4 albedo_tex = texture(texture_albedo,base_uv);
-	ALBEDO = albedo.rgb * albedo_tex.rgb;
-	float metallic_tex = dot(texture(texture_metallic,base_uv),metallic_texture_channel);
-	METALLIC = metallic_tex * metallic;
-	float roughness_tex = dot(texture(texture_roughness,base_uv),roughness_texture_channel);
-	ROUGHNESS = roughness_tex * roughness;
-	SPECULAR = specular;
-	NORMALMAP = texture(texture_normal,base_uv).rgb;
-	NORMALMAP_DEPTH = normal_scale;
-	vec3 ref_normal = normalize( mix(NORMAL,TANGENT * NORMALMAP.x + BINORMAL * NORMALMAP.y + NORMAL * NORMALMAP.z,NORMALMAP_DEPTH) );
-	vec2 ref_ofs = SCREEN_UV - ref_normal.xy * dot(texture(texture_refraction,base_uv),refraction_texture_channel) * refraction;
-	float ref_amount = 1.0 - albedo.a * albedo_tex.a;
-	EMISSION += textureLod(SCREEN_TEXTURE,ref_ofs,ROUGHNESS * 8.0).rgb * ref_amount;
-	ALBEDO *= 1.0 - ref_amount;
-	ALPHA = 1.0;
-}
-"
-
-[sub_resource type="ShaderMaterial" id=14]
-
-render_priority = 0
-shader = SubResource( 13 )
-shader_param/albedo = Color( 1, 1, 1, 1 )
-shader_param/specular = 0.5
-shader_param/metallic = 0.0
-shader_param/roughness = 0.0
-shader_param/point_size = 1.0
-shader_param/metallic_texture_channel = Plane( 1, 0, 0, 0 )
-shader_param/roughness_texture_channel = Plane( 1, 0, 0, 0 )
-shader_param/refraction = 0.05
-shader_param/refraction_texture_channel = Plane( 1, 0, 0, 0 )
-shader_param/normal_scale = 1.0
-shader_param/uv1_scale = Vector3( 1, 1, 1 )
-shader_param/uv1_offset = Vector3( 0, 0, 0 )
-shader_param/uv2_scale = Vector3( 1, 1, 1 )
-shader_param/uv2_offset = Vector3( 0, 0, 0 )
-
-[sub_resource type="PlaneMesh" id=15]
-
-size = Vector2( 50, 50 )
-subdivide_width = 100
-subdivide_depth = 100
-
-[sub_resource type="GIProbeData" id=16]
+[sub_resource type="GIProbeData" id=11]
 
 bounds = AABB( -50, -2, -50, 100, 4, 100 )
 cell_size = 0.78125
@@ -355,147 +226,31 @@ propagation = 0.7
 interior = false
 compress = false
 
-[sub_resource type="ViewportTexture" id=17]
+[sub_resource type="PlaneMesh" id=12]
 
-resource_local_to_scene = true
-flags = 0
-viewport_path = NodePath("")
-
-[sub_resource type="ShaderMaterial" id=18]
-
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource( 9 )
-shader_param/TIME = null
-shader_param/water_color = Color( 0.285187, 0.695312, 0.52229, 0.751373 )
-shader_param/roughness = 0.0
-shader_param/metalness = 1.0
-shader_param/specular = 1.0
-shader_param/normal1_scale = 0.1
-shader_param/normal1_velocity = Vector2( 0.1, 0 )
-shader_param/normal1_uv_scale = Vector2( 5, 5 )
-shader_param/normal2_scale = 0.1
-shader_param/normal2_velocity = Vector2( -0.1, 0 )
-shader_param/normal2_uv_scale = Vector2( 5, 5 )
-shader_param/WITHOUT_TRANSPRANT = null
-shader_param/ALBEDO_ALPHA_TRANSPRANT = 1
-shader_param/SIMPLE_FADE_TRANSPRANT = 2
-shader_param/REFRACT_TRANSPRANT = 3
-shader_param/transprant_mode = 3
-shader_param/FAKE_REFRACT_OFFSET_DEPTH = 0
-shader_param/FAKE_REFRACT_LINE_DEPTH = 1
-shader_param/refract_method = 1
-shader_param/refraction = 0.2
-shader_param/fade_distance = 1.0
-shader_param/PLANAR_REFLECT = null
-shader_param/SKYMAP_REFLECT = 1
-shader_param/reflection_mode = 0
-shader_param/reflection = 0.2
-shader_param/eta = 0.8
-shader_param/fresnel_power = 6.0
-shader_param/foam_uv_scale = 5.0
-shader_param/foam_color = Color( 1, 1, 1, 1 )
-shader_param/foam_depth_factor = 0.0
-shader_param/foam_wave_factor = Vector2( 0.1, 1 )
-shader_param/gerstner_wave4_enable = false
-shader_param/gerstner_factor = 1.0
-shader_param/wave4_amplitude = Plane( 0.1, 0.2, 0.2, 0.1 )
-shader_param/wave4_frequency = Plane( 0.5, 0.5, 0.5, 0.5 )
-shader_param/wave4_steepness = null
-shader_param/wave4_speed = Plane( 0.2, 1, 0.5, 1 )
-shader_param/wave4_direction12 = Plane( 1, 1, 1, -1 )
-shader_param/wave4_direction34 = Plane( 1, 0, 0, 1 )
-shader_param/normal_map1 = ExtResource( 11 )
-shader_param/normal_map2 = ExtResource( 11 )
-shader_param/reflect_texture = SubResource( 17 )
-shader_param/foam_texture = ExtResource( 10 )
-_sections_unfolded = [ "shader_param" ]
-
-[sub_resource type="CubeMesh" id=19]
-
-size = Vector3( 2, 2, 2 )
+size = Vector2( 20, 20 )
 subdivide_width = 0
-subdivide_height = 0
 subdivide_depth = 0
 
-[sub_resource type="SpatialMaterial" id=20]
+[sub_resource type="ShaderMaterial" id=13]
 
-render_priority = 0
-flags_transparent = false
-flags_unshaded = false
-flags_vertex_lighting = false
-flags_no_depth_test = false
-flags_use_point_size = false
-flags_world_triplanar = false
-flags_fixed_size = false
-flags_albedo_tex_force_srgb = false
-vertex_color_use_as_albedo = false
-vertex_color_is_srgb = false
-params_diffuse_mode = 0
-params_specular_mode = 0
-params_blend_mode = 0
-params_cull_mode = 0
-params_depth_draw_mode = 0
-params_line_width = 1.0
-params_point_size = 1.0
-params_billboard_mode = 0
-params_grow = false
-params_use_alpha_scissor = false
-albedo_color = Color( 0.96875, 0.55116, 0.495728, 1 )
-metallic = 0.2
-metallic_specular = 0.3
-metallic_texture_channel = 0
-roughness = 0.8
-roughness_texture_channel = 0
-emission_enabled = false
-normal_enabled = false
-rim_enabled = false
-clearcoat_enabled = false
-anisotropy_enabled = false
-ao_enabled = false
-depth_enabled = false
-subsurf_scatter_enabled = false
-transmission_enabled = false
-refraction_enabled = false
-detail_enabled = false
-uv1_scale = Vector3( 1, 1, 1 )
-uv1_offset = Vector3( 0, 0, 0 )
-uv1_triplanar = false
-uv1_triplanar_sharpness = 1.0
-uv2_scale = Vector3( 1, 1, 1 )
-uv2_offset = Vector3( 0, 0, 0 )
-uv2_triplanar = false
-uv2_triplanar_sharpness = 1.0
-proximity_fade_enable = false
-distance_fade_enable = false
-_sections_unfolded = [ "Albedo", "Metallic", "Roughness" ]
-
-[sub_resource type="Shader" id=21]
-
-code = "shader_type canvas_item;
-
-uniform float amount : hint_range(0,5);
-
-void fragment() {
-	COLOR.rgb = textureLod(SCREEN_TEXTURE,SCREEN_UV,amount).rgb;
-}"
-<<<<<<< Updated upstream
-=======
-
-[sub_resource type="ShaderMaterial" id=22]
-
-render_priority = 0
-shader = SubResource( 21 )
-shader_param/amount = 1.0
+render_priority = -128
+shader = ExtResource( 17 )
+shader_param/rain_speed = 1.0
+shader_param/rain_zoom = 40.0
+shader_param/screen_blur = 2.5
 _sections_unfolded = [ "shader_param" ]
->>>>>>> Stashed changes
 
-[sub_resource type="ShaderMaterial" id=22]
+[sub_resource type="Gradient" id=14]
 
-render_priority = 0
-shader = SubResource( 21 )
-shader_param/amount = 1.0
-_sections_unfolded = [ "shader_param" ]
+offsets = PoolRealArray( 0, 0.994083 )
+colors = PoolColorArray( 0.0351563, 0.773865, 1, 0.469608, 0, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=15]
+
+flags = 4
+gradient = SubResource( 14 )
+width = 2048
 
 [node name="Node" type="Node" index="0"]
 
@@ -521,7 +276,7 @@ zoom_max_distance = 1000
 zoom_sensitivity = 4.0
 rotate_speed = 10.0
 nav_pan_sensitivity = 0.01
-nav_look_sensitivity = 0.005
+nav_look_sensitivity = -0.005
 nav_rotate_sensitivity = 0.005
 
 [node name="stone" type="MeshInstance" parent="." index="1"]
@@ -586,139 +341,10 @@ local_coords = true
 draw_order = 0
 process_material = SubResource( 9 )
 draw_passes = 1
-draw_pass_1 = SubResource( 12 )
-<<<<<<< Updated upstream
+draw_pass_1 = SubResource( 10 )
+_sections_unfolded = [ "Draw Passes" ]
 
-[node name="dev_water" type="MeshInstance" parent="." index="4"]
-
-visible = false
-layers = 2
-material_override = SubResource( 14 )
-cast_shadow = 1
-extra_cull_margin = 0.0
-use_in_baked_light = false
-lod_min_distance = 0.0
-lod_min_hysteresis = 0.0
-lod_max_distance = 0.0
-lod_max_hysteresis = 0.0
-mesh = SubResource( 15 )
-skeleton = NodePath("..")
-material/0 = null
-_sections_unfolded = [ "Geometry", "material" ]
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Viewport" type="Viewport" parent="dev_water" index="0"]
-
-arvr = false
-size = Vector2( 1000, 600 )
-own_world = false
-world = null
-transparent_bg = false
-msaa = 0
-hdr = true
-disable_3d = false
-usage = 2
-debug_draw = 0
-render_target_v_flip = true
-render_target_clear_mode = 0
-render_target_update_mode = 2
-audio_listener_enable_2d = false
-audio_listener_enable_3d = false
-physics_object_picking = false
-gui_disable_input = false
-gui_snap_controls_to_pixels = true
-shadow_atlas_size = 0
-shadow_atlas_quad_0 = 2
-shadow_atlas_quad_1 = 2
-shadow_atlas_quad_2 = 3
-shadow_atlas_quad_3 = 4
-_sections_unfolded = [ "Rendering" ]
-
-[node name="Camera" type="Camera" parent="dev_water/Viewport" index="0"]
-
-visible = false
-keep_aspect = 1
-cull_mask = 1048573
-environment = null
-h_offset = 0.0
-v_offset = 0.0
-doppler_tracking = 0
-projection = 0
-current = true
-fov = 40.0
-size = 1.0
-near = 0.05
-far = 100.0
-
-=======
-
-[node name="dev_water" type="MeshInstance" parent="." index="4"]
-
-visible = false
-layers = 2
-material_override = SubResource( 14 )
-cast_shadow = 1
-extra_cull_margin = 0.0
-use_in_baked_light = false
-lod_min_distance = 0.0
-lod_min_hysteresis = 0.0
-lod_max_distance = 0.0
-lod_max_hysteresis = 0.0
-mesh = SubResource( 15 )
-skeleton = NodePath("..")
-material/0 = null
-_sections_unfolded = [ "Geometry", "material" ]
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Viewport" type="Viewport" parent="dev_water" index="0"]
-
-arvr = false
-size = Vector2( 1000, 600 )
-own_world = false
-world = null
-transparent_bg = false
-msaa = 0
-hdr = true
-disable_3d = false
-usage = 2
-debug_draw = 0
-render_target_v_flip = true
-render_target_clear_mode = 0
-render_target_update_mode = 2
-audio_listener_enable_2d = false
-audio_listener_enable_3d = false
-physics_object_picking = false
-gui_disable_input = false
-gui_snap_controls_to_pixels = true
-shadow_atlas_size = 0
-shadow_atlas_quad_0 = 2
-shadow_atlas_quad_1 = 2
-shadow_atlas_quad_2 = 3
-shadow_atlas_quad_3 = 4
-_sections_unfolded = [ "Rendering" ]
-
-[node name="Camera" type="Camera" parent="dev_water/Viewport" index="0"]
-
-visible = false
-keep_aspect = 1
-cull_mask = 1048573
-environment = null
-h_offset = 0.0
-v_offset = 0.0
-doppler_tracking = 0
-projection = 0
-current = true
-fov = 40.0
-size = 1.0
-near = 0.05
-far = 100.0
-
->>>>>>> Stashed changes
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="5"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="4"]
 
 environment = ExtResource( 3 )
 _sections_unfolded = [ "environment" ]
@@ -755,15 +381,15 @@ bias = 1.0
 normal_bias = 0.1
 interior = false
 compress = false
-data = SubResource( 16 )
+data = SubResource( 11 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="sun" type="DirectionalLight" parent="WorldEnvironment" index="2"]
 
-transform = Transform( 1, 0, 0, 0, -0.707106, 0.707107, 0, -0.707107, -0.707107, -0.00150577, 1.23785, 0.000741832 )
+transform = Transform( 0.844641, 0.21324, -0.491031, -0.00414949, 0.919822, 0.392313, 0.535318, -0.329326, 0.777804, 0, 1.22745, 0 )
 layers = 1
 light_color = Color( 1, 0.990479, 0.953125, 1 )
-light_energy = 0.8
+light_energy = 1.0
 light_indirect_energy = 1.0
 light_negative = false
 light_specular = 0.5
@@ -815,36 +441,62 @@ directional_shadow_depth_range = 0
 directional_shadow_max_distance = 200.0
 _sections_unfolded = [ "Directional Shadow", "Light" ]
 
+[node name="water" type="MeshInstance" parent="." index="5"]
+
+visible = false
+layers = 1
+material_override = ExtResource( 4 )
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = SubResource( 12 )
+skeleton = NodePath("..")
+material/0 = ExtResource( 4 )
+script = ExtResource( 5 )
+_sections_unfolded = [ "material" ]
+__meta__ = {
+"_editor_icon": ExtResource( 6 )
+}
+use_reflection = true
+velocity = null
+density = null
+
 [node name="preset" type="Spatial" parent="." index="6"]
 
 _sections_unfolded = [ "Transform" ]
 
-[node name="2p5d_water" parent="preset" index="0" instance=ExtResource( 4 )]
+[node name="2p5d_water" parent="preset" index="0" instance=ExtResource( 7 )]
 
 visible = false
 
-[node name="little_waterfall" parent="preset" index="1" instance=ExtResource( 5 )]
+[node name="little_waterfall" parent="preset" index="1" instance=ExtResource( 8 )]
 
 visible = false
 
-[node name="waterfall" parent="preset" index="2" instance=ExtResource( 6 )]
+[node name="waterfall" parent="preset" index="2" instance=ExtResource( 9 )]
 
 visible = false
 
-[node name="lowpoly_water" parent="preset" index="3" instance=ExtResource( 7 )]
+[node name="lowpoly_water" parent="preset" index="3" instance=ExtResource( 10 )]
 
 visible = false
 layers = 2
 _sections_unfolded = [ "Geometry", "Transform" ]
 
-[node name="lake" parent="preset" index="4" instance=ExtResource( 8 )]
+[node name="lake" parent="preset" index="4" instance=ExtResource( 11 )]
 
-material_override = SubResource( 18 )
-use_reflection = false
+visible = false
+material_override = ExtResource( 4 )
 velocity = Vector2( 0, 0 )
 density = 1.0
 
-[node name="ocean" parent="preset" index="5" instance=ExtResource( 12 )]
+[node name="ocean" parent="preset" index="5" groups=[
+"water",
+] instance=ExtResource( 12 )]
 
 visible = false
 
@@ -858,52 +510,28 @@ visible = false
 visible = false
 layers = 2
 _sections_unfolded = [ "Geometry", "Transform" ]
+wave_strength = 0.047
+ripples = false
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-[node name="rain" parent="preset" index="8" instance=ExtResource( 15 )]
+[node name="InfiniteOcean" parent="preset" index="8" instance=ExtResource( 15 )]
 
-[node name="cube_physic" type="RigidBody" parent="." index="7"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.01772, 0 )
 visible = false
-input_ray_pickable = true
-input_capture_on_drag = false
-collision_layer = 1
-collision_mask = 1
-mode = 0
-mass = 1.0
-friction = 1.0
-bounce = 0.0
-gravity_scale = 1.0
-custom_integrator = false
-continuous_cd = false
-contacts_reported = 0
-contact_monitor = false
-sleeping = false
-can_sleep = true
-axis_lock_linear_x = false
-axis_lock_linear_y = false
-axis_lock_linear_z = false
-axis_lock_angular_x = false
-axis_lock_angular_y = false
-axis_lock_angular_z = false
-linear_velocity = Vector3( 0, 0, 0 )
-linear_damp = 0.9
-angular_velocity = Vector3( 0, 0, 0 )
-angular_damp = 0.9
-script = ExtResource( 16 )
-_sections_unfolded = [ "Angular", "Axis Lock", "Collision", "Linear", "Transform", "Visibility" ]
-water = NodePath("../preset/lake")
-buoyancy_points = ExtResource( 17 )
+wavelength = 30.0
+steepness = 0.19
+amplitude = 0.24
+speed = 6.0
+noise_amplitude = 0.228
+foam_strength = 4.41
 
-[node name="boat" type="MeshInstance" parent="cube_physic" index="0"]
+[node name="rain2" parent="." index="7" instance=ExtResource( 16 )]
 
+visible = false
+
+[node name="rain" type="ImmediateGeometry" parent="." index="8"]
+
+visible = false
 layers = 1
-material_override = null
+material_override = SubResource( 13 )
 cast_shadow = 1
 extra_cull_margin = 0.0
 use_in_baked_light = false
@@ -911,128 +539,22 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 19 )
-skeleton = NodePath("..")
-material/0 = null
-_sections_unfolded = [ "Geometry", "Transform", "material" ]
+_sections_unfolded = [ "Geometry" ]
 
-[node name="boat" type="RigidBody" parent="." index="8"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
-input_ray_pickable = true
-input_capture_on_drag = false
-collision_layer = 1
-collision_mask = 1
-mode = 0
-mass = 1.0
-friction = 1.0
-bounce = 0.0
-gravity_scale = 1.0
-custom_integrator = false
-continuous_cd = false
-contacts_reported = 0
-contact_monitor = false
-sleeping = false
-can_sleep = true
-axis_lock_linear_x = false
-axis_lock_linear_y = false
-axis_lock_linear_z = false
-axis_lock_angular_x = false
-axis_lock_angular_y = false
-axis_lock_angular_z = false
-linear_velocity = Vector3( 0, -1, 0 )
-linear_damp = 0.9
-angular_velocity = Vector3( 0, 0, 0 )
-angular_damp = 0.9
-script = ExtResource( 16 )
-_sections_unfolded = [ "Angular", "Axis Lock", "Collision", "Linear", "Transform", "Visibility" ]
-water = NodePath("../preset/lake")
-buoyancy_points = ExtResource( 18 )
-
-[node name="boat" type="MeshInstance" parent="boat" index="0"]
-
-layers = 1
-material_override = null
-cast_shadow = 1
-extra_cull_margin = 0.0
-use_in_baked_light = true
-lod_min_distance = 0.0
-lod_min_hysteresis = 0.0
-lod_max_distance = 0.0
-lod_max_hysteresis = 0.0
-mesh = ExtResource( 19 )
-skeleton = NodePath("..")
-material/0 = SubResource( 20 )
-_sections_unfolded = [ "Geometry", "Transform", "material" ]
-
-[node name="screenFX" type="Control" parent="." index="9"]
-
-editor/display_folded = true
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-_sections_unfolded = [ "Anchor", "Grow Direction", "Margin" ]
-
-[node name="preview" type="TextureRect" parent="screenFX" index="0"]
+[node name="2d_water" parent="." index="9" instance=ExtResource( 18 )]
 
 visible = false
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-texture = ExtResource( 20 )
-expand = true
-stretch_mode = 0
-_sections_unfolded = [ "Anchor", "Margin" ]
+water_color = SubResource( 15 )
+water_depth = 300
 
-[node name="blur" type="TextureRect" parent="screenFX" index="1"]
+[node name="cube_physic" parent="." index="10" instance=ExtResource( 19 )]
 
-visible = false
-material = SubResource( 22 )
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-texture = ExtResource( 21 )
-expand = true
-stretch_mode = 0
-_sections_unfolded = [ "Material" ]
+[node name="boat" parent="." index="11" instance=ExtResource( 20 )]
 
-[node name="drop_water_simple" parent="screenFX" index="2" instance=ExtResource( 22 )]
+transform = Transform( 0.885797, -0.464074, 0, 0.433806, 0.828024, 0.35523, -0.164853, -0.314662, 0.934779, 0, 2.78699, 0 )
 
-[node name="drop_water" parent="screenFX" index="3" instance=ExtResource( 23 )]
+[node name="screenFX" parent="." index="12" instance=ExtResource( 21 )]
 
 visible = false
 
-[node name="under_water" parent="screenFX" index="4" instance=ExtResource( 24 )]
-
-[node name="Node2D" type="Node2D" parent="." index="10"]
-
-[node name="Sprite" type="Sprite" parent="Node2D" index="0"]
-
-position = Vector2( 338.783, 304.154 )
-texture = ExtResource( 21 )
-
-[node name="2d_water" parent="Node2D" index="1" instance=ExtResource( 25 )]
-
->>>>>>> Stashed changes
 

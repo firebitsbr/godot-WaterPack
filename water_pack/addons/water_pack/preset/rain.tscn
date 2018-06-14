@@ -2,7 +2,7 @@
 
 [ext_resource path="res://addons/water_pack/texture/rain.png" type="Texture" id=1]
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=1]
 
 render_priority = 0
 flags_transparent = true
@@ -55,7 +55,7 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo", "Flags", "Parameters" ]
 
-[sub_resource type="ParticlesMaterial" id=5]
+[sub_resource type="ParticlesMaterial" id=2]
 
 render_priority = 0
 trail_divisor = 1
@@ -106,7 +106,7 @@ _sections_unfolded = [ "Transform" ]
 [node name="rain" type="Particles" parent="." index="0"]
 
 layers = 1
-material_override = SubResource( 4 )
+material_override = SubResource( 1 )
 cast_shadow = 0
 extra_cull_margin = 0.0
 use_in_baked_light = false
@@ -115,7 +115,7 @@ lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
 emitting = true
-amount = 2000
+amount = 10000
 lifetime = 10.0
 one_shot = false
 preprocess = 0.0
@@ -127,7 +127,7 @@ fract_delta = true
 visibility_aabb = AABB( -4, -4, -4, 8, 8, 8 )
 local_coords = true
 draw_order = 0
-process_material = SubResource( 5 )
+process_material = SubResource( 2 )
 draw_passes = 1
 draw_pass_1 = SubResource( 3 )
 _sections_unfolded = [ "Draw Passes", "Drawing", "Geometry", "LOD", "Process Material", "Time", "Transform" ]

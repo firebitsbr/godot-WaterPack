@@ -6,7 +6,7 @@
 [resource]
 
 script = ExtResource( 2 )
-_sections_unfolded = [ "bouyancy points", "bouyancy points/0", "bouyancy points/1", "bouyancy points/10", "bouyancy points/11", "bouyancy points/12", "bouyancy points/13", "bouyancy points/14", "bouyancy points/15", "bouyancy points/16", "bouyancy points/17", "bouyancy points/2", "bouyancy points/3", "bouyancy points/4", "bouyancy points/5", "bouyancy points/6", "bouyancy points/7", "bouyancy points/8" ]
+_sections_unfolded = [ "bouyancy points", "bouyancy points/0", "bouyancy points/1", "bouyancy points/10", "bouyancy points/11", "bouyancy points/12", "bouyancy points/13", "bouyancy points/14", "bouyancy points/15", "bouyancy points/16", "bouyancy points/17", "bouyancy points/2", "bouyancy points/3", "bouyancy points/4", "bouyancy points/5", "bouyancy points/6", "bouyancy points/7", "bouyancy points/8", "bouyancy points/9" ]
 __meta__ = {
 "_editor_icon": ExtResource( 1 )
 }
@@ -27,16 +27,16 @@ data = [ {
 "vector": Vector3( 0, 4, 0 )
 }, {
 "pos": Vector3( -1.7, -0.2, 0.3 ),
-"vector": Vector3( 0, 0, 0 )
+"vector": Vector3( 1, 0, 0 )
 }, {
 "pos": Vector3( -1.7, -0.2, -0.3 ),
-"vector": Vector3( 0, 0, 0 )
+"vector": Vector3( 1, 0, 0 )
 }, {
 "pos": Vector3( -1.7, 0.2, -0.3 ),
-"vector": Vector3( 0, 0, 0 )
+"vector": Vector3( 1, 0, 0 )
 }, {
 "pos": Vector3( -1.7, 0.2, 0.3 ),
-"vector": Vector3( 0, 0, 0 )
+"vector": Vector3( 1, 0, 0 )
 }, {
 "pos": Vector3( 0.9, 0.2, 0.6 ),
 "vector": Vector3( 0, 1, -1 )
@@ -77,13 +77,13 @@ data = [ {
 "bouyancy points/4/position" = Vector3( -1, -0.3, -0.3 )
 "bouyancy points/4/vector3" = Vector3( 0, 4, 0 )
 "bouyancy points/5/position" = Vector3( -1.7, -0.2, 0.3 )
-"bouyancy points/5/vector3" = Vector3( 0, 0, 0 )
+"bouyancy points/5/vector3" = Vector3( 1, 0, 0 )
 "bouyancy points/6/position" = Vector3( -1.7, -0.2, -0.3 )
-"bouyancy points/6/vector3" = Vector3( 0, 0, 0 )
+"bouyancy points/6/vector3" = Vector3( 1, 0, 0 )
 "bouyancy points/7/position" = Vector3( -1.7, 0.2, -0.3 )
-"bouyancy points/7/vector3" = Vector3( 0, 0, 0 )
+"bouyancy points/7/vector3" = Vector3( 1, 0, 0 )
 "bouyancy points/8/position" = Vector3( -1.7, 0.2, 0.3 )
-"bouyancy points/8/vector3" = Vector3( 0, 0, 0 )
+"bouyancy points/8/vector3" = Vector3( 1, 0, 0 )
 "bouyancy points/9/position" = Vector3( 0.9, 0.2, 0.6 )
 "bouyancy points/9/vector3" = Vector3( 0, 1, -1 )
 "bouyancy points/10/position" = Vector3( 0.9, 0.2, -0.6 )

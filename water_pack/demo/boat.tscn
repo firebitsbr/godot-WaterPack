@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://addons/water_pack/script/water_physic.gd" type="Script" id=1]
 [ext_resource path="res://demo/boat_bouyancy_points.tres" type="Resource" id=2]
@@ -56,6 +56,11 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo", "Metallic", "Roughness" ]
 
+[sub_resource type="CapsuleShape" id=2]
+
+radius = 0.685275
+height = 3.29114
+
 [node name="boat" type="RigidBody"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
@@ -104,5 +109,12 @@ mesh = ExtResource( 3 )
 skeleton = NodePath("..")
 material/0 = SubResource( 1 )
 _sections_unfolded = [ "Geometry", "Transform", "material" ]
+
+[node name="CollisionShape" type="CollisionShape" parent="." index="1"]
+
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 0.200181, 0, 0 )
+shape = SubResource( 2 )
+disabled = false
+_sections_unfolded = [ "Transform" ]
 
 

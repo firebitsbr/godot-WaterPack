@@ -503,7 +503,6 @@ visible = false
 [node name="river" parent="preset" index="6" instance=ExtResource( 13 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0286508, 0 )
-visible = false
 
 [node name="wet_dirt" parent="preset" index="7" instance=ExtResource( 14 )]
 
@@ -549,9 +548,11 @@ water_depth = 300
 
 [node name="cube_physic" parent="." index="10" instance=ExtResource( 19 )]
 
+transform = Transform( 0.999422, 0.033986, 0, -0.033986, 0.999422, 0, 0, 0, 1, 0, 4.01772, 0 )
+
 [node name="boat" parent="." index="11" instance=ExtResource( 20 )]
 
-transform = Transform( 0.885797, -0.464074, 0, 0.433806, 0.828024, 0.35523, -0.164853, -0.314662, 0.934779, 0, 2.78699, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.78699, 0 )
 
 [node name="screenFX" parent="." index="12" instance=ExtResource( 21 )]
 

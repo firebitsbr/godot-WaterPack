@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://demo/camera_control.gd" type="Script" id=1]
 [ext_resource path="res://addons/water_pack/material/ripple.material" type="Material" id=2]
@@ -15,8 +15,11 @@
 [ext_resource path="res://addons/water_pack/preset/river.tscn" type="PackedScene" id=13]
 [ext_resource path="res://addons/water_pack/preset/wet_dirt.tscn" type="PackedScene" id=14]
 [ext_resource path="res://addons/water_pack/preset/InfiniteOcean.tscn" type="PackedScene" id=15]
+[ext_resource path="res://addons/water_pack/shader/screen_rain_simple.shader" type="Shader" id=16]
+[ext_resource path="res://addons/water_pack/script/rain.gd" type="Script" id=17]
+[ext_resource path="res://addons/water_pack/preset/2d_water.tscn" type="PackedScene" id=18]
 
-[sub_resource type="PrismMesh" id=16]
+[sub_resource type="PrismMesh" id=1]
 
 left_to_right = 1.0
 size = Vector3( 3, 3, 2 )
@@ -24,7 +27,7 @@ subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
 
-[sub_resource type="SpatialMaterial" id=17]
+[sub_resource type="SpatialMaterial" id=2]
 
 render_priority = 0
 flags_transparent = false
@@ -76,7 +79,7 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo", "Metallic", "Proximity Fade", "Refraction", "Roughness" ]
 
-[sub_resource type="PrismMesh" id=18]
+[sub_resource type="PrismMesh" id=3]
 
 left_to_right = 0.5
 size = Vector3( 2, 2, 2 )
@@ -84,7 +87,7 @@ subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
 
-[sub_resource type="SpatialMaterial" id=19]
+[sub_resource type="SpatialMaterial" id=4]
 
 render_priority = 0
 flags_transparent = false
@@ -136,31 +139,31 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo", "Metallic", "Roughness" ]
 
-[sub_resource type="Gradient" id=20]
+[sub_resource type="Gradient" id=5]
 
 offsets = PoolRealArray( 0, 0.0177515, 0.538462, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0.946746, 1, 1, 1, 0.91823, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=21]
+[sub_resource type="GradientTexture" id=6]
 
 flags = 4
-gradient = SubResource( 20 )
+gradient = SubResource( 5 )
 width = 2048
 
-[sub_resource type="Curve" id=22]
+[sub_resource type="Curve" id=7]
 
 min_value = 0.0
 max_value = 1.0
 bake_resolution = 100
 _data = [ Vector2( 0, 0 ), 0.0, 1.0, 0, 1, Vector2( 1, 1 ), 1.0, 0.0, 1, 0 ]
 
-[sub_resource type="CurveTexture" id=23]
+[sub_resource type="CurveTexture" id=8]
 
 flags = 4
 width = 2048
-curve = SubResource( 22 )
+curve = SubResource( 7 )
 
-[sub_resource type="ParticlesMaterial" id=24]
+[sub_resource type="ParticlesMaterial" id=9]
 
 render_priority = 0
 trail_divisor = 1
@@ -188,8 +191,8 @@ angle = 0.0
 angle_random = 0.0
 scale = 0.4
 scale_random = 0.0
-scale_curve = SubResource( 23 )
-color_ramp = SubResource( 21 )
+scale_curve = SubResource( 8 )
+color_ramp = SubResource( 6 )
 hue_variation = 0.0
 hue_variation_random = 0.0
 anim_speed = 1.0
@@ -199,14 +202,14 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Animation", "Color", "Emission Shape", "Scale" ]
 
-[sub_resource type="PlaneMesh" id=25]
+[sub_resource type="PlaneMesh" id=10]
 
 material = ExtResource( 2 )
 size = Vector2( 2, 2 )
 subdivide_width = 0
 subdivide_depth = 0
 
-[sub_resource type="GIProbeData" id=26]
+[sub_resource type="GIProbeData" id=11]
 
 bounds = AABB( -50, -2, -50, 100, 4, 100 )
 cell_size = 0.78125
@@ -220,11 +223,31 @@ propagation = 0.7
 interior = false
 compress = false
 
-[sub_resource type="PlaneMesh" id=15]
+[sub_resource type="PlaneMesh" id=12]
 
 size = Vector2( 20, 20 )
 subdivide_width = 0
 subdivide_depth = 0
+
+[sub_resource type="ShaderMaterial" id=13]
+
+render_priority = -128
+shader = ExtResource( 16 )
+shader_param/rain_speed = 1.0
+shader_param/rain_zoom = 40.0
+shader_param/screen_blur = 2.5
+_sections_unfolded = [ "shader_param" ]
+
+[sub_resource type="Gradient" id=14]
+
+offsets = PoolRealArray( 0, 0.994083 )
+colors = PoolColorArray( 0.0351563, 0.773865, 1, 0.469608, 0, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=15]
+
+flags = 4
+gradient = SubResource( 14 )
+width = 2048
 
 [node name="Node" type="Node" index="0"]
 
@@ -265,9 +288,9 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 16 )
+mesh = SubResource( 1 )
 skeleton = NodePath("..")
-material/0 = SubResource( 17 )
+material/0 = SubResource( 2 )
 _sections_unfolded = [ "Geometry", "Transform", "material" ]
 
 [node name="stone2" type="MeshInstance" parent="." index="2"]
@@ -282,9 +305,9 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 18 )
+mesh = SubResource( 3 )
 skeleton = NodePath("..")
-material/0 = SubResource( 19 )
+material/0 = SubResource( 4 )
 _sections_unfolded = [ "Geometry", "material" ]
 
 [node name="Particles" type="Particles" parent="." index="3"]
@@ -313,14 +336,13 @@ fract_delta = true
 visibility_aabb = AABB( -15, -0.1, -15, 30, 0.1, 30 )
 local_coords = true
 draw_order = 0
-process_material = SubResource( 24 )
+process_material = SubResource( 9 )
 draw_passes = 1
-draw_pass_1 = SubResource( 25 )
+draw_pass_1 = SubResource( 10 )
 _sections_unfolded = [ "Draw Passes" ]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="4"]
 
-editor/display_folded = true
 environment = ExtResource( 3 )
 _sections_unfolded = [ "environment" ]
 
@@ -356,7 +378,7 @@ bias = 1.0
 normal_bias = 0.1
 interior = false
 compress = false
-data = SubResource( 26 )
+data = SubResource( 11 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="sun" type="DirectionalLight" parent="WorldEnvironment" index="2"]
@@ -418,6 +440,7 @@ _sections_unfolded = [ "Directional Shadow", "Light" ]
 
 [node name="water" type="MeshInstance" parent="." index="5"]
 
+visible = false
 layers = 1
 material_override = ExtResource( 4 )
 cast_shadow = 1
@@ -427,7 +450,7 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 15 )
+mesh = SubResource( 12 )
 skeleton = NodePath("..")
 material/0 = ExtResource( 4 )
 script = ExtResource( 5 )
@@ -475,7 +498,6 @@ visible = false
 
 [node name="wet_dirt" parent="preset" index="7" instance=ExtResource( 14 )]
 
-visible = false
 layers = 2
 _sections_unfolded = [ "Geometry", "Transform" ]
 wave_strength = 0.047
@@ -490,5 +512,25 @@ amplitude = 0.24
 speed = 6.0
 noise_amplitude = 0.228
 foam_strength = 4.41
+
+[node name="rain" type="ImmediateGeometry" parent="." index="7"]
+
+visible = false
+layers = 1
+material_override = SubResource( 13 )
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+script = ExtResource( 17 )
+_sections_unfolded = [ "Geometry" ]
+
+[node name="2d_water" parent="." index="8" instance=ExtResource( 18 )]
+
+water_color = SubResource( 15 )
+water_depth = 300
 
 

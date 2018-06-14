@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://demo/camera_control.gd" type="Script" id=1]
 [ext_resource path="res://addons/water_pack/texture/ripple_nor.png" type="Texture" id=2]
@@ -16,13 +16,15 @@
 [ext_resource path="res://addons/water_pack/preset/river.tscn" type="PackedScene" id=14]
 [ext_resource path="res://addons/water_pack/preset/wet_dirt.tscn" type="PackedScene" id=15]
 [ext_resource path="res://addons/water_pack/preset/rain.tscn" type="PackedScene" id=16]
-[ext_resource path="res://demo/texture/ocean.jpg" type="Texture" id=17]
-[ext_resource path="res://icon.png" type="Texture" id=18]
-[ext_resource path="res://addons/water_pack/preset/drop_water_simple.tscn" type="PackedScene" id=19]
-[ext_resource path="res://addons/water_pack/preset/drop_water.tscn" type="PackedScene" id=20]
-[ext_resource path="res://addons/water_pack/preset/under_water.tscn" type="PackedScene" id=21]
-[ext_resource path="res://addons/water_pack/script/plane_buoyancy.gd" type="Script" id=22]
-[ext_resource path="res://addons/water_pack/script/buoyancy_point.gd" type="Script" id=23]
+[ext_resource path="res://addons/water_pack/script/water_physic.gd" type="Script" id=17]
+[ext_resource path="res://demo/bouyancy_points.tres" type="Resource" id=18]
+[ext_resource path="res://demo/boat_bouyancy_points.tres" type="Resource" id=19]
+[ext_resource path="res://demo/boat.mesh" type="ArrayMesh" id=20]
+[ext_resource path="res://demo/texture/ocean.jpg" type="Texture" id=21]
+[ext_resource path="res://icon.png" type="Texture" id=22]
+[ext_resource path="res://addons/water_pack/preset/drop_water_simple.tscn" type="PackedScene" id=23]
+[ext_resource path="res://addons/water_pack/preset/drop_water.tscn" type="PackedScene" id=24]
+[ext_resource path="res://addons/water_pack/preset/under_water.tscn" type="PackedScene" id=25]
 
 [sub_resource type="PrismMesh" id=1]
 
@@ -410,7 +412,66 @@ shader_param/reflect_texture = SubResource( 17 )
 shader_param/foam_texture = ExtResource( 11 )
 _sections_unfolded = [ "shader_param" ]
 
-[sub_resource type="Shader" id=19]
+[sub_resource type="CubeMesh" id=19]
+
+size = Vector3( 2, 2, 2 )
+subdivide_width = 0
+subdivide_height = 0
+subdivide_depth = 0
+
+[sub_resource type="SpatialMaterial" id=20]
+
+render_priority = 0
+flags_transparent = false
+flags_unshaded = false
+flags_vertex_lighting = false
+flags_no_depth_test = false
+flags_use_point_size = false
+flags_world_triplanar = false
+flags_fixed_size = false
+flags_albedo_tex_force_srgb = false
+vertex_color_use_as_albedo = false
+vertex_color_is_srgb = false
+params_diffuse_mode = 0
+params_specular_mode = 0
+params_blend_mode = 0
+params_cull_mode = 0
+params_depth_draw_mode = 0
+params_line_width = 1.0
+params_point_size = 1.0
+params_billboard_mode = 0
+params_grow = false
+params_use_alpha_scissor = false
+albedo_color = Color( 0.96875, 0.55116, 0.495728, 1 )
+metallic = 0.2
+metallic_specular = 0.3
+metallic_texture_channel = 0
+roughness = 0.8
+roughness_texture_channel = 0
+emission_enabled = false
+normal_enabled = false
+rim_enabled = false
+clearcoat_enabled = false
+anisotropy_enabled = false
+ao_enabled = false
+depth_enabled = false
+subsurf_scatter_enabled = false
+transmission_enabled = false
+refraction_enabled = false
+detail_enabled = false
+uv1_scale = Vector3( 1, 1, 1 )
+uv1_offset = Vector3( 0, 0, 0 )
+uv1_triplanar = false
+uv1_triplanar_sharpness = 1.0
+uv2_scale = Vector3( 1, 1, 1 )
+uv2_offset = Vector3( 0, 0, 0 )
+uv2_triplanar = false
+uv2_triplanar_sharpness = 1.0
+proximity_fade_enable = false
+distance_fade_enable = false
+_sections_unfolded = [ "Albedo", "Metallic", "Roughness" ]
+
+[sub_resource type="Shader" id=21]
 
 code = "shader_type canvas_item;
 
@@ -420,26 +481,20 @@ void fragment() {
 	COLOR.rgb = textureLod(SCREEN_TEXTURE,SCREEN_UV,amount).rgb;
 }"
 
-[sub_resource type="ShaderMaterial" id=20]
+[sub_resource type="ShaderMaterial" id=22]
 
 render_priority = 0
-shader = SubResource( 19 )
+shader = SubResource( 21 )
 shader_param/amount = 1.0
 _sections_unfolded = [ "shader_param" ]
 
-[sub_resource type="PrismMesh" id=21]
-
-left_to_right = 0.5
-size = Vector3( 2, 2, 2 )
-subdivide_width = 0
-subdivide_height = 0
-subdivide_depth = 0
-
 [node name="Node" type="Node" index="0"]
+
+_sections_unfolded = [ "Pause", "bouyancy points", "bouyancy_points", "bouyancy_points/0", "bouyancy_points/1", "bouyancy_points/a", "test" ]
 
 [node name="Camera" type="Camera" parent="." index="0"]
 
-transform = Transform( 0.887614, 0.254256, -0.384051, 0, 0.833826, 0.552024, 0.460588, -0.489985, 0.740116, -5.08775, 5.66805, 7.375 )
+transform = Transform( 0.985996, -0.0751922, 0.148855, 0, 0.892585, 0.450877, -0.166768, -0.444563, 0.880085, 3.80044, 11.5114, 22.4696 )
 keep_aspect = 1
 cull_mask = 1048575
 environment = null
@@ -465,6 +520,7 @@ nav_rotate_sensitivity = 0.005
 [node name="stone" type="MeshInstance" parent="." index="1"]
 
 transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, -0.355135, -0.355211, -1.37341 )
+visible = false
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -482,6 +538,7 @@ _sections_unfolded = [ "Geometry", "Transform", "material" ]
 [node name="stone2" type="MeshInstance" parent="." index="2"]
 
 transform = Transform( 1, 0, 0, 0, 0.999392, -0.034862, 0, 0.034862, 0.999392, -3.00983, -0.368011, -0.818546 )
+visible = false
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -528,7 +585,6 @@ draw_pass_1 = SubResource( 12 )
 
 [node name="dev_water" type="MeshInstance" parent="." index="4"]
 
-editor/display_folded = true
 visible = false
 layers = 2
 material_override = SubResource( 14 )
@@ -576,6 +632,7 @@ _sections_unfolded = [ "Rendering" ]
 
 [node name="Camera" type="Camera" parent="dev_water/Viewport" index="0"]
 
+visible = false
 keep_aspect = 1
 cull_mask = 1048573
 environment = null
@@ -584,14 +641,13 @@ v_offset = 0.0
 doppler_tracking = 0
 projection = 0
 current = true
-fov = 70.0
+fov = 40.0
 size = 1.0
 near = 0.05
 far = 100.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="5"]
 
-editor/display_folded = true
 environment = ExtResource( 4 )
 _sections_unfolded = [ "environment" ]
 
@@ -632,7 +688,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="sun" type="DirectionalLight" parent="WorldEnvironment" index="2"]
 
-transform = Transform( 1, 0, 0, 0, -0.707106, 0.707107, 0, -0.707107, -0.707107, 0, 1.22745, 0 )
+transform = Transform( 1, 0, 0, 0, -0.707106, 0.707107, 0, -0.707107, -0.707107, -0.00150577, 1.23785, 0.000741832 )
 layers = 1
 light_color = Color( 1, 0.990479, 0.953125, 1 )
 light_energy = 1.0
@@ -733,68 +789,10 @@ _sections_unfolded = [ "Geometry", "Transform" ]
 
 [node name="rain" parent="preset" index="8" instance=ExtResource( 16 )]
 
-[node name="screenFX" type="Control" parent="preset" index="9"]
+[node name="cube_physic" type="RigidBody" parent="." index="7"]
 
-editor/display_folded = true
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-_sections_unfolded = [ "Anchor", "Grow Direction", "Margin" ]
-
-[node name="preview" type="TextureRect" parent="preset/screenFX" index="0"]
-
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.01772, 0 )
 visible = false
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-texture = ExtResource( 17 )
-expand = true
-stretch_mode = 0
-_sections_unfolded = [ "Anchor", "Margin" ]
-
-[node name="blur" type="TextureRect" parent="preset/screenFX" index="1"]
-
-visible = false
-material = SubResource( 20 )
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-texture = ExtResource( 18 )
-expand = true
-stretch_mode = 0
-_sections_unfolded = [ "Material" ]
-
-[node name="drop_water_simple" parent="preset/screenFX" index="2" instance=ExtResource( 19 )]
-
-[node name="drop_water" parent="preset/screenFX" index="3" instance=ExtResource( 20 )]
-
-visible = false
-
-[node name="under_water" parent="preset/screenFX" index="4" instance=ExtResource( 21 )]
-
-[node name="boat" type="RigidBody" parent="." index="7"]
-
 input_ray_pickable = true
 input_capture_on_drag = false
 collision_layer = 1
@@ -817,66 +815,16 @@ axis_lock_angular_x = false
 axis_lock_angular_y = false
 axis_lock_angular_z = false
 linear_velocity = Vector3( 0, 0, 0 )
-linear_damp = -1.0
+linear_damp = 0.9
 angular_velocity = Vector3( 0, 0, 0 )
-angular_damp = -1.0
-script = ExtResource( 22 )
-_sections_unfolded = [ "Angular", "Axis Lock", "Collision", "Linear", "Visibility" ]
-water = null
-buoyancy_points = null
+angular_damp = 0.9
+script = ExtResource( 17 )
+_sections_unfolded = [ "Angular", "Axis Lock", "Collision", "Linear", "Transform", "Visibility" ]
+water = NodePath("../preset/lake")
+buoyancy_points = ExtResource( 18 )
 
-[node name="buoyancy_point" type="Spatial" parent="boat" index="0"]
+[node name="boat" type="MeshInstance" parent="cube_physic" index="0"]
 
-transform = Transform( -0.234915, 0.972016, 0, -0.972016, -0.234915, 0, 0, 0, 1, -0.596778, 5.06507, 0.807047 )
-script = ExtResource( 23 )
-force = 1.0
-
-[node name="buoyancy_point2" type="Spatial" parent="boat" index="1"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.06507, 1.07477 )
-script = ExtResource( 23 )
-force = 1.0
-
-[node name="buoyancy_point3" type="Spatial" parent="boat" index="2"]
-
-transform = Transform( 1, 0, 0, 0, 0.85668, 0.515849, 0, -0.515849, 0.85668, 0, 5.06507, 1.07477 )
-script = ExtResource( 23 )
-_sections_unfolded = [ "Transform", "Visibility" ]
-force = 1.0
-
-[node name="buoyancy_point4" type="Spatial" parent="boat" index="3"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.06507, 1.07477 )
-script = ExtResource( 23 )
-force = 1.0
-
-[node name="buoyancy_point5" type="Spatial" parent="boat" index="4"]
-
-transform = Transform( 1, 0, 0, 0, 0.600373, 0.79972, 0, -0.79972, 0.600373, 0, 5.06507, 1.07477 )
-script = ExtResource( 23 )
-force = 1.0
-
-[node name="buoyancy_point6" type="Spatial" parent="boat" index="5"]
-
-transform = Transform( 1, 0, 0, 0, 0.572043, 0.820223, 0, -0.820223, 0.572043, 0, 5.06507, 1.07477 )
-script = ExtResource( 23 )
-force = 1.0
-
-[node name="buoyancy_point7" type="Spatial" parent="boat" index="6"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.06507, 1.07477 )
-script = ExtResource( 23 )
-force = 1.0
-
-[node name="buoyancy_point8" type="Spatial" parent="boat" index="7"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.06507, 1.07477 )
-script = ExtResource( 23 )
-force = 1.0
-
-[node name="boat" type="MeshInstance" parent="boat" index="8"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.76124, 0 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -886,8 +834,118 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 21 )
+mesh = SubResource( 19 )
 skeleton = NodePath("..")
 material/0 = null
+_sections_unfolded = [ "Geometry", "Transform", "material" ]
+
+[node name="boat" type="RigidBody" parent="." index="8"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+mode = 0
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = false
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+axis_lock_linear_x = false
+axis_lock_linear_y = false
+axis_lock_linear_z = false
+axis_lock_angular_x = false
+axis_lock_angular_y = false
+axis_lock_angular_z = false
+linear_velocity = Vector3( 0, -1, 0 )
+linear_damp = 0.9
+angular_velocity = Vector3( 0, 0, 0 )
+angular_damp = 0.9
+script = ExtResource( 17 )
+_sections_unfolded = [ "Angular", "Axis Lock", "Collision", "Linear", "Transform", "Visibility" ]
+water = NodePath("../preset/lake")
+buoyancy_points = ExtResource( 19 )
+
+[node name="boat" type="MeshInstance" parent="boat" index="0"]
+
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = true
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = ExtResource( 20 )
+skeleton = NodePath("..")
+material/0 = SubResource( 20 )
+_sections_unfolded = [ "Geometry", "Transform", "material" ]
+
+[node name="screenFX" type="Control" parent="." index="9"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Anchor", "Grow Direction", "Margin" ]
+
+[node name="preview" type="TextureRect" parent="screenFX" index="0"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 21 )
+expand = true
+stretch_mode = 0
+_sections_unfolded = [ "Anchor", "Margin" ]
+
+[node name="blur" type="TextureRect" parent="screenFX" index="1"]
+
+visible = false
+material = SubResource( 22 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 22 )
+expand = true
+stretch_mode = 0
+_sections_unfolded = [ "Material" ]
+
+[node name="drop_water_simple" parent="screenFX" index="2" instance=ExtResource( 23 )]
+
+[node name="drop_water" parent="screenFX" index="3" instance=ExtResource( 24 )]
+
+visible = false
+
+[node name="under_water" parent="screenFX" index="4" instance=ExtResource( 25 )]
 
 

@@ -2,10 +2,9 @@ tool
 extends MeshInstance
 export var use_reflection = false # use viewport camera reflection
 var reflect_camera
-#export var hide_ViewPort = true # hide reflect and refract viewport in editor
-export(Vector2) var velocity;
-export(float, 0, 10) var density ;
-	
+export(Vector2) var velocity
+export(float, 0, 10) var density 
+
 func get_layer(type, name):
 	for i in range(1, 21):
 		var layer_name = ProjectSettings.get_setting(str("layer_names/"+type+"/layer_", i))

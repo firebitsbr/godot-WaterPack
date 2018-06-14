@@ -12,18 +12,4 @@ uniform bool disort_enable = true;
 //use camera to view water, and filter infront somthing , when cull plane enable
 
 void fragment(){
-	vec2 distortion = vec2(0,0);
-	if(disort_enable){
-		// distort	
-		distortion = distort_factor*texture(distort_texture,UV+TIME*distort_speed).rg;
-		COLOR = textureLod(SCREEN_TEXTURE, SCREEN_UV+distortion, blur);
-	}
-	else {
-		COLOR = textureLod(SCREEN_TEXTURE, SCREEN_UV, blur);
-	}
-	//fade
-	float depth_tex = texture(DEPTH_TEXTURE, SCREEN_UV+distortion).r;
-    vec4 world_pos = INV_PROJECTION_MATRIX * vec4((SCREEN_UV+distortion) * 2.0 - 1.0, depth_tex * 2.0 - 1.0, 1.0);
-    world_pos.xyz /= world_pos.w;
-	COLOR = mix(COLOR, water_color.rgb,smoothstep(-VERTEX.z, -world_pos.z -fade_depth, -world_pos.z));
 }

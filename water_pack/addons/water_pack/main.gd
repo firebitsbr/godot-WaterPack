@@ -1,6 +1,8 @@
 tool
 extends EditorPlugin
-var editor_cam_backup_transform;
+var editor_cam_backup_transform
+var water_physic = preload("./script/water_physic.gd")
+var buoyancy_gizmo = preload("./script/buoyancy_gizmo.gd")
 
 func forward_spatial_gui_input(p_camera, p_event):
 	if p_camera.transform != editor_cam_backup_transform:
@@ -23,8 +25,16 @@ func _enter_tree():
 	add_custom_type("Water", "MeshInstance", preload("./script/water.gd"), preload("water.png"))
 	add_custom_type("BuoyancyPoints", "Resource", preload("./script/buoyancy_points.gd"), preload("water.png"))
 	for node in get_tree().get_nodes_in_group("water"):
-		var reflect_viewport = node.get_node("./reflect_vp")
-		reflect_viewport.size = get_viewport().size
+		node._ready()
+
+func create_spatial_gizmo(for_spatial):
+	if for_spatial is water_physic:
+		var buoyancy_points = buoyancy_gizmo.new(for_spatial)
+		return buoyancy_points
+#	else:
+#		var default_gizmo = EditorSpatialGizmo.new()
+#		default_gizmo.set_spatial_node(for_spatial)
+#		return default_gizmo
 
 func _exit_tree():
 	remove_custom_type("Water")

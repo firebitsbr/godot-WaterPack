@@ -2,31 +2,32 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/water.png-63240be63d228cba84cfea277912ef36.stex"
+path.s3tc="res://.import/water.png-63240be63d228cba84cfea277912ef36.s3tc.stex"
+path.etc2="res://.import/water.png-63240be63d228cba84cfea277912ef36.etc2.stex"
 
 [deps]
 
 source_file="res://addons/water_pack/water.png"
 source_md5="9d5ed375c140aec84edae51975d17754"
 
-dest_files=[ "res://.import/water.png-63240be63d228cba84cfea277912ef36.stex" ]
-dest_md5="929f089ea8ef723425fe874c8b221b18"
+dest_files=[ "res://.import/water.png-63240be63d228cba84cfea277912ef36.s3tc.stex", "res://.import/water.png-63240be63d228cba84cfea277912ef36.etc2.stex" ]
+dest_md5="b9b4aceb455fcbba75c4faf1b04bd47a"
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/normal_map=0
-flags/repeat=0
+flags/repeat=true
 flags/filter=true
-flags/mipmaps=false
+flags/mipmaps=true
 flags/anisotropic=false
-flags/srgb=2
+flags/srgb=1
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0

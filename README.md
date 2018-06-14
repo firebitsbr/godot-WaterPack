@@ -31,7 +31,7 @@ render
 
 
 physic
-- [ ] Buoyancy 
+- [ ] * Buoyancy 
 - [ ] water flow
 - [ ] object move with water
 - [ ] wind area effect
@@ -49,7 +49,7 @@ demo
 - [x] waterfall
 - [ ] stone in water
 - [ ] boat on water
-- [ ] 2d water
+- [x] 2d water
 - [x] 2.5d water
 - [x] lowpoly water
 - [x] infinite ocean

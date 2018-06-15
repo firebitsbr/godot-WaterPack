@@ -1,6 +1,7 @@
 doc/design.md
 doc/todo.md
 doc/water4/
+doc/reference/
 .vscode/
 # Godot-specific ignores
 .import/

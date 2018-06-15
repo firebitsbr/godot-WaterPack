@@ -29,12 +29,16 @@ func _ready():
 	if(use_reflection):
 		# add viewport
 		reflect_viewport = Viewport.new()
-		reflect_viewport.size = get_viewport().size
+		if Engine.is_editor_hint():
+			plugin = get_node('/root/EditorNode/WaterPackPlugin')
+			reflect_viewport.size = plugin.get_viewport().size
+		else:
+			reflect_viewport.size = get_viewport().size
+		print(reflect_viewport.size)
 		reflect_viewport.render_target_v_flip = true
 		reflect_viewport.transparent_bg = true
 		#reflect_viewport.keep_3d_linear=true //3.1
 		reflect_viewport.name = "reflect_vp"
-		
 		# add camera
 		reflect_camera = Camera.new()
 		if water_layer == null:

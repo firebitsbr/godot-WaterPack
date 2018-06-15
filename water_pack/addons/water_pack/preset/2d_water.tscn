@@ -3,15 +3,15 @@
 [ext_resource path="res://addons/water_pack/script/2d_water.gd" type="Script" id=1]
 [ext_resource path="res://addons/water_pack/texture/noise_perlin.jpg" type="Texture" id=2]
 
-[sub_resource type="Gradient" id=5]
+[sub_resource type="Gradient" id=1]
 
 offsets = PoolRealArray( 0, 1 )
 colors = PoolColorArray( 0, 0.742188, 1, 0.55251, 0, 0, 0, 1 )
 
-[sub_resource type="GradientTexture" id=6]
+[sub_resource type="GradientTexture" id=2]
 
 flags = 4
-gradient = SubResource( 5 )
+gradient = SubResource( 1 )
 width = 2048
 
 [sub_resource type="Shader" id=3]
@@ -32,16 +32,18 @@ void vertex() {
 	}
 	UV2.x = (VERTEX.y - water_height) / water_depth;
 }
-uniform sampler2D displacement_map: hint_white;
+
+uniform sampler2D noise_texture: hint_white;
 uniform float distort_factor = .05;
 uniform float distort_speed = .1;
+
 void fragment() {
 	vec4 col = COLOR;
 	COLOR = texture(TEXTURE, UV2);
 	COLOR = mix(COLOR, col, clamp(UV.y*30.0 - 29.0, 0.0, 1.0));
     
     if(distort_factor!=0.0){
-    	vec2 distortion = distort_factor*texture(displacement_map,UV+TIME*distort_speed).rg;
+    	vec2 distortion = distort_factor*texture(noise_texture,UV+TIME*distort_speed).rg;
         if(COLOR.a!=0.0){
         	vec3 col2 = textureLod(SCREEN_TEXTURE, SCREEN_UV+distortion, 1.0).rgb;
             COLOR.rgb = mix(col2.rgb,COLOR.rgb,COLOR.a);
@@ -60,14 +62,14 @@ shader_param/water_height = null
 shader_param/water_depth = 300
 shader_param/distort_factor = 0.02
 shader_param/distort_speed = 0.1
-shader_param/displacement_map = ExtResource( 2 )
+shader_param/noise_texture = ExtResource( 2 )
 _sections_unfolded = [ "shader_param" ]
 
 [node name="2d_water" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Material" ]
-water_color = SubResource( 6 )
+water_color = SubResource( 2 )
 surface_color = Color( 1, 1, 1, 1 )
 water_height = 300
 water_depth = 393
@@ -84,7 +86,7 @@ color = Color( 1, 1, 1, 1 )
 vertex_colors = PoolColorArray(  )
 offset = Vector2( 0, 0 )
 antialiased = false
-texture = SubResource( 6 )
+texture = SubResource( 2 )
 texture_offset = Vector2( 0, 0 )
 texture_scale = Vector2( 1, 1 )
 texture_rotation_degrees = 0.0

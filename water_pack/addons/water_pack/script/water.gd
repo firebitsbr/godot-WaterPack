@@ -46,7 +46,7 @@ func _ready():
 		add_child(reflect_viewport)
 		reflect_viewport.add_child(reflect_camera)
 		
-		material_override = preload('../material/dev_water.material')
+#		material_override = preload('../material/dev_water.material')
 		material_override.resource_local_to_scene = true;
 		
 		yield(get_tree(), 'idle_frame')

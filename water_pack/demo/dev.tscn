@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://demo/camera_control.gd" type="Script" id=1]
 [ext_resource path="res://addons/water_pack/material/ripple.material" type="Material" id=2]
@@ -11,18 +11,20 @@
 [ext_resource path="res://addons/water_pack/preset/waterfall.tscn" type="PackedScene" id=9]
 [ext_resource path="res://addons/water_pack/preset/lowpoly_water.tscn" type="PackedScene" id=10]
 [ext_resource path="res://addons/water_pack/preset/lake.tscn" type="PackedScene" id=11]
-[ext_resource path="res://addons/water_pack/preset/ocean.tscn" type="PackedScene" id=12]
-[ext_resource path="res://addons/water_pack/preset/river.tscn" type="PackedScene" id=13]
-[ext_resource path="res://addons/water_pack/preset/wet_dirt.tscn" type="PackedScene" id=14]
-[ext_resource path="res://addons/water_pack/preset/InfiniteOcean.tscn" type="PackedScene" id=15]
-[ext_resource path="res://addons/water_pack/preset/rain.tscn" type="PackedScene" id=16]
-[ext_resource path="res://addons/water_pack/shader/screen_rain_simple.shader" type="Shader" id=17]
-[ext_resource path="res://icon.png" type="Texture" id=18]
-[ext_resource path="res://addons/water_pack/preset/2d_water.tscn" type="PackedScene" id=19]
-[ext_resource path="res://addons/water_pack/preset/2d_water_with_sprite.tscn" type="PackedScene" id=20]
-[ext_resource path="res://demo/cube_physic.tscn" type="PackedScene" id=21]
-[ext_resource path="res://demo/boat.tscn" type="PackedScene" id=22]
-[ext_resource path="res://demo/screenFX.tscn" type="PackedScene" id=23]
+[ext_resource path="res://addons/water_pack/shader/water.shader" type="Shader" id=12]
+[ext_resource path="res://addons/water_pack/texture/wave_nor2.png" type="Texture" id=13]
+[ext_resource path="res://addons/water_pack/preset/ocean.tscn" type="PackedScene" id=14]
+[ext_resource path="res://addons/water_pack/preset/river.tscn" type="PackedScene" id=15]
+[ext_resource path="res://addons/water_pack/preset/wet_dirt.tscn" type="PackedScene" id=16]
+[ext_resource path="res://addons/water_pack/preset/InfiniteOcean.tscn" type="PackedScene" id=17]
+[ext_resource path="res://addons/water_pack/preset/rain.tscn" type="PackedScene" id=18]
+[ext_resource path="res://addons/water_pack/shader/screen_rain_simple.shader" type="Shader" id=19]
+[ext_resource path="res://icon.png" type="Texture" id=20]
+[ext_resource path="res://addons/water_pack/preset/2d_water.tscn" type="PackedScene" id=21]
+[ext_resource path="res://addons/water_pack/preset/2d_water_with_sprite.tscn" type="PackedScene" id=22]
+[ext_resource path="res://demo/cube_physic.tscn" type="PackedScene" id=23]
+[ext_resource path="res://demo/boat.tscn" type="PackedScene" id=24]
+[ext_resource path="res://demo/screenFX.tscn" type="PackedScene" id=25]
 
 [sub_resource type="PrismMesh" id=1]
 
@@ -238,10 +240,65 @@ size = Vector2( 20, 20 )
 subdivide_width = 0
 subdivide_depth = 0
 
+[sub_resource type="ViewportTexture" id=16]
+
+resource_local_to_scene = true
+flags = 0
+viewport_path = NodePath("")
+
+[sub_resource type="ShaderMaterial" id=17]
+
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource( 12 )
+shader_param/TIME = null
+shader_param/water_color = Color( 0.309631, 0.695312, 0.5778, 0.447529 )
+shader_param/roughness = 0.0
+shader_param/metalness = 0.8
+shader_param/specular = 1.0
+shader_param/normal1_scale = 0.2
+shader_param/normal1_velocity = Vector2( 0.1, 0 )
+shader_param/normal1_uv_scale = Vector2( 5, 5 )
+shader_param/normal2_scale = 0.2
+shader_param/normal2_velocity = Vector2( -0.1, 0 )
+shader_param/normal2_uv_scale = Vector2( 5, 5 )
+shader_param/WITHOUT_TRANSPRANT = null
+shader_param/ALBEDO_ALPHA_TRANSPRANT = 1
+shader_param/SIMPLE_FADE_TRANSPRANT = 2
+shader_param/REFRACT_TRANSPRANT = 3
+shader_param/transprant_mode = 3
+shader_param/FAKE_REFRACT_OFFSET_DEPTH = null
+shader_param/FAKE_REFRACT_LINE_DEPTH = 1
+shader_param/refract_method = 1
+shader_param/refraction = 0.2
+shader_param/fade_distance = 1.0
+shader_param/PLANAR_REFLECT = 0
+shader_param/SKYMAP_REFLECT = 1
+shader_param/reflection_mode = 1
+shader_param/reflection = 0.2
+shader_param/eta = 0.6
+shader_param/fresnel_power = 8.0
+shader_param/foam_uv_scale = 10.0
+shader_param/foam_color = Color( 1, 1, 1, 1 )
+shader_param/foam_depth_factor = 0.0
+shader_param/foam_wave_factor = Vector2( 0, 1 )
+shader_param/gerstner_wave4_enable = null
+shader_param/gerstner_factor = null
+shader_param/wave4_amplitude = null
+shader_param/wave4_frequency = null
+shader_param/wave4_steepness = null
+shader_param/wave4_speed = null
+shader_param/wave4_direction12 = null
+shader_param/wave4_direction34 = null
+shader_param/normal_map1 = ExtResource( 13 )
+shader_param/normal_map2 = ExtResource( 13 )
+shader_param/reflect_texture = SubResource( 16 )
+_sections_unfolded = [ "Resource", "shader_param" ]
+
 [sub_resource type="ShaderMaterial" id=13]
 
 render_priority = -128
-shader = ExtResource( 17 )
+shader = ExtResource( 19 )
 shader_param/rain_speed = 1.0
 shader_param/rain_zoom = 40.0
 shader_param/screen_blur = 2.5
@@ -258,7 +315,7 @@ flags = 4
 gradient = SubResource( 14 )
 width = 2048
 
-[node name="Node" type="Node"]
+[node name="Node" type="Node" index="0"]
 
 [node name="Camera" type="Camera" parent="." index="0"]
 
@@ -496,21 +553,21 @@ _sections_unfolded = [ "Geometry", "Transform" ]
 [node name="lake" parent="preset" index="4" instance=ExtResource( 11 )]
 
 visible = false
-material_override = ExtResource( 4 )
+material_override = SubResource( 17 )
 velocity = Vector2( 0, 0 )
 density = 1.0
 
 [node name="ocean" parent="preset" index="5" groups=[
 "water",
-] instance=ExtResource( 12 )]
+] instance=ExtResource( 14 )]
 
 visible = false
 
-[node name="river" parent="preset" index="6" instance=ExtResource( 13 )]
+[node name="river" parent="preset" index="6" instance=ExtResource( 15 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0286508, 0 )
 
-[node name="wet_dirt" parent="preset" index="7" instance=ExtResource( 14 )]
+[node name="wet_dirt" parent="preset" index="7" instance=ExtResource( 16 )]
 
 visible = false
 layers = 2
@@ -518,7 +575,7 @@ _sections_unfolded = [ "Geometry", "Transform" ]
 wave_strength = 0.047
 ripples = false
 
-[node name="InfiniteOcean" parent="preset" index="8" instance=ExtResource( 15 )]
+[node name="InfiniteOcean" parent="preset" index="8" instance=ExtResource( 17 )]
 
 visible = false
 wavelength = 30.0
@@ -528,7 +585,7 @@ speed = 6.0
 noise_amplitude = 0.228
 foam_strength = 4.41
 
-[node name="rain2" parent="." index="7" instance=ExtResource( 16 )]
+[node name="rain2" parent="." index="7" instance=ExtResource( 18 )]
 
 visible = false
 
@@ -551,29 +608,29 @@ _sections_unfolded = [ "Geometry" ]
 [node name="Sprite" type="Sprite" parent="Node2D" index="0"]
 
 position = Vector2( 312.227, 234.538 )
-texture = ExtResource( 18 )
+texture = ExtResource( 20 )
 _sections_unfolded = [ "Z Index" ]
 
-[node name="2d_water" parent="Node2D" index="1" instance=ExtResource( 19 )]
+[node name="2d_water" parent="Node2D" index="1" instance=ExtResource( 21 )]
 
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Material", "Transform" ]
 water_color = SubResource( 15 )
 water_depth = 300
 
-[node name="water" parent="Node2D" index="2" instance=ExtResource( 20 )]
+[node name="water" parent="Node2D" index="2" instance=ExtResource( 22 )]
 
 visible = false
 centered = true
 
-[node name="cube_physic" parent="." index="10" instance=ExtResource( 21 )]
+[node name="cube_physic" parent="." index="10" instance=ExtResource( 23 )]
 
 transform = Transform( 0.999422, 0.033986, 0, -0.033986, 0.999422, 0, 0, 0, 1, 0, 4.01772, 0 )
 
-[node name="boat" parent="." index="11" instance=ExtResource( 22 )]
+[node name="boat" parent="." index="11" instance=ExtResource( 24 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.78699, 0 )
 
-[node name="screenFX" parent="." index="12" instance=ExtResource( 23 )]
+[node name="screenFX" parent="." index="12" instance=ExtResource( 25 )]
 
 visible = false
 

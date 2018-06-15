@@ -258,7 +258,7 @@ flags = 4
 gradient = SubResource( 14 )
 width = 2048
 
-[node name="Node" type="Node" index="0"]
+[node name="Node" type="Node"]
 
 [node name="Camera" type="Camera" parent="." index="0"]
 
@@ -556,13 +556,13 @@ _sections_unfolded = [ "Z Index" ]
 
 [node name="2d_water" parent="Node2D" index="1" instance=ExtResource( 19 )]
 
-visible = false
 _sections_unfolded = [ "Transform" ]
 water_color = SubResource( 15 )
 water_depth = 300
 
 [node name="water" parent="Node2D" index="2" instance=ExtResource( 20 )]
 
+visible = false
 centered = true
 
 [node name="cube_physic" parent="." index="10" instance=ExtResource( 21 )]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://demo/camera_control.gd" type="Script" id=1]
 [ext_resource path="res://addons/water_pack/material/ripple.material" type="Material" id=2]
@@ -17,13 +17,16 @@
 [ext_resource path="res://addons/water_pack/preset/InfiniteOcean.tscn" type="PackedScene" id=15]
 [ext_resource path="res://addons/water_pack/preset/rain.tscn" type="PackedScene" id=16]
 [ext_resource path="res://addons/water_pack/shader/screen_rain_simple.shader" type="Shader" id=17]
-[ext_resource path="res://addons/water_pack/preset/2d_water.tscn" type="PackedScene" id=18]
-[ext_resource path="res://demo/cube_physic.tscn" type="PackedScene" id=19]
-[ext_resource path="res://demo/boat.tscn" type="PackedScene" id=20]
-[ext_resource path="res://demo/screenFX.tscn" type="PackedScene" id=21]
+[ext_resource path="res://icon.png" type="Texture" id=18]
+[ext_resource path="res://addons/water_pack/preset/2d_water.tscn" type="PackedScene" id=19]
+[ext_resource path="res://addons/water_pack/preset/2d_water_with_sprite.tscn" type="PackedScene" id=20]
+[ext_resource path="res://demo/cube_physic.tscn" type="PackedScene" id=21]
+[ext_resource path="res://demo/boat.tscn" type="PackedScene" id=22]
+[ext_resource path="res://demo/screenFX.tscn" type="PackedScene" id=23]
 
 [sub_resource type="PrismMesh" id=1]
 
+custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
 left_to_right = 1.0
 size = Vector3( 3, 3, 2 )
 subdivide_width = 0
@@ -84,6 +87,7 @@ _sections_unfolded = [ "Albedo", "Metallic", "Proximity Fade", "Refraction", "Ro
 
 [sub_resource type="PrismMesh" id=3]
 
+custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
 left_to_right = 0.5
 size = Vector3( 2, 2, 2 )
 subdivide_width = 0
@@ -208,6 +212,7 @@ _sections_unfolded = [ "Animation", "Color", "Emission Shape", "Scale" ]
 [sub_resource type="PlaneMesh" id=10]
 
 material = ExtResource( 2 )
+custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
 size = Vector2( 2, 2 )
 subdivide_width = 0
 subdivide_depth = 0
@@ -228,6 +233,7 @@ compress = false
 
 [sub_resource type="PlaneMesh" id=12]
 
+custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
 size = Vector2( 20, 20 )
 subdivide_width = 0
 subdivide_depth = 0
@@ -540,21 +546,34 @@ lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
 _sections_unfolded = [ "Geometry" ]
 
-[node name="2d_water" parent="." index="9" instance=ExtResource( 18 )]
+[node name="Node2D" type="Node2D" parent="." index="9"]
+
+[node name="Sprite" type="Sprite" parent="Node2D" index="0"]
+
+position = Vector2( 312.227, 234.538 )
+texture = ExtResource( 18 )
+_sections_unfolded = [ "Z Index" ]
+
+[node name="2d_water" parent="Node2D" index="1" instance=ExtResource( 19 )]
 
 visible = false
+_sections_unfolded = [ "Transform" ]
 water_color = SubResource( 15 )
 water_depth = 300
 
-[node name="cube_physic" parent="." index="10" instance=ExtResource( 19 )]
+[node name="water" parent="Node2D" index="2" instance=ExtResource( 20 )]
+
+centered = true
+
+[node name="cube_physic" parent="." index="10" instance=ExtResource( 21 )]
 
 transform = Transform( 0.999422, 0.033986, 0, -0.033986, 0.999422, 0, 0, 0, 1, 0, 4.01772, 0 )
 
-[node name="boat" parent="." index="11" instance=ExtResource( 20 )]
+[node name="boat" parent="." index="11" instance=ExtResource( 22 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.78699, 0 )
 
-[node name="screenFX" parent="." index="12" instance=ExtResource( 21 )]
+[node name="screenFX" parent="." index="12" instance=ExtResource( 23 )]
 
 visible = false
 

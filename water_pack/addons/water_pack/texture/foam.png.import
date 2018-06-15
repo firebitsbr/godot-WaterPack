@@ -8,10 +8,7 @@ path.etc2="res://.import/foam.png-03ffdd8762a8327582a214a802f1b799.etc2.stex"
 [deps]
 
 source_file="res://addons/water_pack/texture/foam.png"
-source_md5="2c2dec4b17bdbde8534cb37f8f5a0d2f"
-
 dest_files=[ "res://.import/foam.png-03ffdd8762a8327582a214a802f1b799.s3tc.stex", "res://.import/foam.png-03ffdd8762a8327582a214a802f1b799.etc2.stex" ]
-dest_md5="1121774eaa2d429f64f8f2d64748621f"
 
 [params]
 

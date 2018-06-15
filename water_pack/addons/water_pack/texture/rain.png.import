@@ -8,10 +8,7 @@ path.etc2="res://.import/rain.png-ced104d062e6e341954c16180d16442a.etc2.stex"
 [deps]
 
 source_file="res://addons/water_pack/texture/rain.png"
-source_md5="9e28219c7ca984604107fc76ad7c1617"
-
 dest_files=[ "res://.import/rain.png-ced104d062e6e341954c16180d16442a.s3tc.stex", "res://.import/rain.png-ced104d062e6e341954c16180d16442a.etc2.stex" ]
-dest_md5="df6b7adaa3187afbcbf3947f8f9905fe"
 
 [params]
 

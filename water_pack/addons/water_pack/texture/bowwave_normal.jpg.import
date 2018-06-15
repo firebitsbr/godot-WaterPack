@@ -8,10 +8,7 @@ path.etc2="res://.import/bowwave_normal.jpg-930d10275b93991618e830a26b57c0d6.etc
 [deps]
 
 source_file="res://addons/water_pack/texture/bowwave_normal.jpg"
-source_md5="044d5443bf59d76a03aaa755de809005"
-
 dest_files=[ "res://.import/bowwave_normal.jpg-930d10275b93991618e830a26b57c0d6.s3tc.stex", "res://.import/bowwave_normal.jpg-930d10275b93991618e830a26b57c0d6.etc2.stex" ]
-dest_md5="7987b599f14bd75e6dcbfc73632cb1b8"
 
 [params]
 

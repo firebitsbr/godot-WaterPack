@@ -8,10 +8,7 @@ path.etc2="res://.import/wave_nor1.png-589da5f7d1677fe38c460995db21d0ac.etc2.ste
 [deps]
 
 source_file="res://addons/water_pack/texture/wave_nor1.png"
-source_md5="5c9632a9129391455cd7239bb3b300c0"
-
 dest_files=[ "res://.import/wave_nor1.png-589da5f7d1677fe38c460995db21d0ac.s3tc.stex", "res://.import/wave_nor1.png-589da5f7d1677fe38c460995db21d0ac.etc2.stex" ]
-dest_md5="c4b62347f079e2cff4692af78a2a873f"
 
 [params]
 

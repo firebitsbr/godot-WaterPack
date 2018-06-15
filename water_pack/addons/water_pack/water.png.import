@@ -8,10 +8,7 @@ path.etc2="res://.import/water.png-63240be63d228cba84cfea277912ef36.etc2.stex"
 [deps]
 
 source_file="res://addons/water_pack/water.png"
-source_md5="9d5ed375c140aec84edae51975d17754"
-
 dest_files=[ "res://.import/water.png-63240be63d228cba84cfea277912ef36.s3tc.stex", "res://.import/water.png-63240be63d228cba84cfea277912ef36.etc2.stex" ]
-dest_md5="b9b4aceb455fcbba75c4faf1b04bd47a"
 
 [params]
 

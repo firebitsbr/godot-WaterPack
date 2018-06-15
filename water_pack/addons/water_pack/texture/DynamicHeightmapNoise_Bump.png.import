@@ -8,10 +8,7 @@ path.etc2="res://.import/DynamicHeightmapNoise_Bump.png-e0b129a8deea4039329b8d79
 [deps]
 
 source_file="res://addons/water_pack/texture/DynamicHeightmapNoise_Bump.png"
-source_md5="cc5c9ea97ad5d1e1372f9096974be24c"
-
 dest_files=[ "res://.import/DynamicHeightmapNoise_Bump.png-e0b129a8deea4039329b8d794e7379bf.s3tc.stex", "res://.import/DynamicHeightmapNoise_Bump.png-e0b129a8deea4039329b8d794e7379bf.etc2.stex" ]
-dest_md5="4ca54eb70898e3818ce2628b17da03bb"
 
 [params]
 

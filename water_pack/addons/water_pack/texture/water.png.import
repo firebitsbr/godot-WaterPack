@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/2p5d_water_point_texture.png-8ac2b95fc73b309989d502fc3a850f84.stex"
+path="res://.import/water.png-6d81ce7df05a210cc0a32514fcce4e83.stex"
 
 [deps]
 
-source_file="res://addons/water_pack/texture/2p5d_water_point_texture.png"
-dest_files=[ "res://.import/2p5d_water_point_texture.png-8ac2b95fc73b309989d502fc3a850f84.stex" ]
+source_file="res://addons/water_pack/texture/water.png"
+dest_files=[ "res://.import/water.png-6d81ce7df05a210cc0a32514fcce4e83.stex" ]
 
 [params]
 

@@ -7,10 +7,7 @@ path="res://.import/boat.gltf-489b5ad7dacb940e69abf24e0581f4d5.scn"
 [deps]
 
 source_file="res://demo/boat.gltf"
-source_md5="6bed8fac6fa7b37b865ef0af47bd2930"
-
 dest_files=[ "res://.import/boat.gltf-489b5ad7dacb940e69abf24e0581f4d5.scn" ]
-dest_md5="8c9f81a4f31341b0771a44a8c091a4cc"
 
 [params]
 

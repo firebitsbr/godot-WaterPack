@@ -8,10 +8,7 @@ path.etc2="res://.import/noise.png-0d427db4381b72c4e6ae063c9748f61d.etc2.stex"
 [deps]
 
 source_file="res://addons/water_pack/texture/noise.png"
-source_md5="b87a6ef754b6e8257d5203225d2e9f76"
-
 dest_files=[ "res://.import/noise.png-0d427db4381b72c4e6ae063c9748f61d.s3tc.stex", "res://.import/noise.png-0d427db4381b72c4e6ae063c9748f61d.etc2.stex" ]
-dest_md5="3592d43fab7e46543cfd4cefa0e0258a"
 
 [params]
 

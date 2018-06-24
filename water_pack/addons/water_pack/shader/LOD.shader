@@ -12,7 +12,7 @@ Y- The frequency of the noise.
 Z- The propagation speed of the noise.
 W- Whether to use noise. Values greater than 0 means yes.
 */
-uniform float foam_height;
+uniform float foam_strength;
 uniform float time_offset;
 
 //uniforms for lod management
@@ -146,6 +146,17 @@ vec3 wave_normal(vec2 pos, float time, float res) {
 	return normalize(new_norm).xzy;
 }
 
+//FRESNEL FUNCTION
+float fresnel(float n1, float n2, float cos_theta) {
+	float R0 = pow((n1 - n2) / (n1+n2), 2);
+	float fres = R0 + (1.0 - R0)*pow(1.0 - abs(cos_theta), 5);
+	
+	float critical_angle = asin(n1 / n2);
+	if(acos(abs(cos_theta)) > critical_angle && sign(cos_theta) == -1.0) return 1.0;
+	
+	return fres;
+}
+
 varying vec3 vert_coord;
 varying float vert_dist;
 
@@ -163,17 +174,6 @@ void vertex() {
 	VERTEX = (INV_CAMERA_MATRIX * vec4(VERTEX, 1.0)).xyz;
 	eyeVector = (CAMERA_MATRIX * vec4(normalize(VERTEX), 0.0)).xyz;
 	vert_dist = length(VERTEX);
-}
-
-//FRESNEL FUNCTION
-float fresnel(float n1, float n2, float cos_theta) {
-	float R0 = pow((n1 - n2) / (n1+n2), 2);
-	float fres = R0 + (1.0 - R0)*pow(1.0 - abs(cos_theta), 5);
-	
-	float critical_angle = asin(n1 / n2);
-	if(acos(abs(cos_theta)) > critical_angle && sign(cos_theta) == -1.0) return 1.0;
-	
-	return fres;
 }
 
 void fragment() {
@@ -195,13 +195,15 @@ void fragment() {
 	world_pos.xyz /= world_pos.w;
 	water_colour = mix(fog_colour, water_colour, clamp(smoothstep(world_pos.z+1.0/density, world_pos.z, VERTEX.z), 0.0, 1.0));
 	
-	ALBEDO = mix(vec3(1), water_colour, 1.0-reflectiveness);
-	METALLIC = reflectiveness;
+	
 	ROUGHNESS = 0.0;
-	ALPHA = 1.0;
+	METALLIC = reflectiveness;
+	ALBEDO = vec3(reflectiveness);
+	
+	EMISSION = water_colour * (1.0 - reflectiveness);
 	
 	//apply foam
-	EMISSION = texture(foam, vert_coord.xz/20.0).rgb * clamp(vert_coord.y - foam_height, 0.0, 2.0);
+	EMISSION += texture(foam, vert_coord.xz/20.0).rgb * (1.0 - NORMAL.y)*foam_strength;
 	
 	//transform normal to view space for lighting
 	NORMAL = (INV_CAMERA_MATRIX * vec4(NORMAL, 0.0)).xyz;

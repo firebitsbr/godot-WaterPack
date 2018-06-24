@@ -1,32 +1,19 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://addons/water_pack/shader/lowpoly_water.shader" type="Shader" id=1]
-[ext_resource path="res://addons/water_pack/texture/small_wave.png" type="Texture" id=2]
-
-[sub_resource type="ShaderMaterial" id=1]
-
-render_priority = 0
-shader = ExtResource( 1 )
-shader_param/speed = 0.26
-shader_param/amplitude = 0.6
-shader_param/height = -0.5
-shader_param/fog_density = 0.2
-shader_param/fog_colour = Color( 0.217361, 0.722656, 0.580542, 1 )
-shader_param/roughness = 0.0
-shader_param/metallic = 0.6
-shader_param/wave_bump = ExtResource( 2 )
-_sections_unfolded = [ "shader_param" ]
+[ext_resource path="res://addons/water_pack/material/dev_water.material" type="Material" id=1]
+[ext_resource path="res://addons/water_pack/script/lowpoly_water.gd" type="Script" id=2]
 
 [sub_resource type="PlaneMesh" id=2]
 
-size = Vector2( 20, 20 )
-subdivide_width = 20
-subdivide_depth = 20
+custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
+size = Vector2( 100, 100 )
+subdivide_width = 60
+subdivide_depth = 60
 
 [node name="lowPolyWater" type="MeshInstance" index="0"]
 
 layers = 1
-material_override = SubResource( 1 )
+material_override = ExtResource( 1 )
 cast_shadow = 1
 extra_cull_margin = 0.0
 use_in_baked_light = false
@@ -37,6 +24,13 @@ lod_max_hysteresis = 0.0
 mesh = SubResource( 2 )
 skeleton = NodePath("..")
 material/0 = null
+script = ExtResource( 2 )
 _sections_unfolded = [ "Geometry" ]
+use_reflection = true
+velocity = null
+density = 0.0
+speed = 0.087
+frequency = 0.01
+amplitude = 0.237
 
 

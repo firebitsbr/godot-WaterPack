@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://addons/water_pack/texture/rain.png" type="Texture" id=1]
+[ext_resource path="res://addons/water_pack/script/rain.gd" type="Script" id=1]
+[ext_resource path="res://addons/water_pack/texture/rain.png" type="Texture" id=2]
 
 [sub_resource type="SpatialMaterial" id=1]
 
@@ -13,7 +14,7 @@ flags_use_point_size = false
 flags_world_triplanar = false
 flags_fixed_size = false
 flags_albedo_tex_force_srgb = false
-vertex_color_use_as_albedo = false
+vertex_color_use_as_albedo = true
 vertex_color_is_srgb = false
 params_diffuse_mode = 0
 params_specular_mode = 0
@@ -25,8 +26,8 @@ params_point_size = 1.0
 params_billboard_mode = 2
 params_grow = false
 params_use_alpha_scissor = false
-albedo_color = Color( 0.525314, 0.777344, 0.765529, 0.198902 )
-albedo_texture = ExtResource( 1 )
+albedo_color = Color( 1, 1, 1, 0.442 )
+albedo_texture = ExtResource( 2 )
 metallic = 0.0
 metallic_specular = 0.5
 metallic_texture_channel = 0
@@ -40,7 +41,8 @@ anisotropy_enabled = false
 ao_enabled = false
 depth_enabled = false
 subsurf_scatter_enabled = false
-transmission_enabled = false
+transmission_enabled = true
+transmission = Color( 1, 1, 1, 1 )
 refraction_enabled = false
 detail_enabled = false
 uv1_scale = Vector3( 1, 1, 1 )
@@ -53,7 +55,7 @@ uv2_triplanar = false
 uv2_triplanar_sharpness = 1.0
 proximity_fade_enable = false
 distance_fade_enable = false
-_sections_unfolded = [ "Albedo", "Flags", "Parameters" ]
+_sections_unfolded = [ "Albedo", "Flags", "Parameters", "Transmission" ]
 
 [sub_resource type="ParticlesMaterial" id=2]
 
@@ -95,12 +97,14 @@ _sections_unfolded = [ "Emission Shape", "Flags", "Gravity", "Initial Velocity",
 
 [sub_resource type="QuadMesh" id=3]
 
+custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
 size = Vector2( 0.1, 0.4 )
 _sections_unfolded = [ "Resource" ]
 
 [node name="rain" type="Spatial" index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 74.2453, 0 )
+script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="rain" type="Particles" parent="." index="0"]
@@ -115,7 +119,7 @@ lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
 emitting = true
-amount = 10000
+amount = 100000
 lifetime = 10.0
 one_shot = false
 preprocess = 0.0
@@ -124,8 +128,8 @@ explosiveness = 0.0
 randomness = 0.0
 fixed_fps = 0
 fract_delta = true
-visibility_aabb = AABB( -4, -4, -4, 8, 8, 8 )
-local_coords = true
+visibility_aabb = AABB( -13.619, -500, -13.1615, 27.238, 500, 26.323 )
+local_coords = false
 draw_order = 0
 process_material = SubResource( 2 )
 draw_passes = 1

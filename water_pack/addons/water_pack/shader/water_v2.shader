@@ -2,35 +2,49 @@ shader_type spatial;
 render_mode skip_vertex_transform;
 
 uniform sampler2D reflect_texture;
-uniform bool use_planar_reflect;
 
-uniform sampler2D wave_bump: hint_black;
+uniform sampler2D waves;
+uniform float amplitude;
+uniform float frequency;
+uniform float speed;
 
-uniform float time; //using a custom time uniform to sync shader with script
-
-uniform highp float speed = 0.1;
-uniform float frequency = 0.1;
-uniform float amplitude = 0.3;
-
-uniform float density = 1.0;
 uniform vec4 colour: hint_color;
+uniform float density;
 
-varying vec3 vert_coord;
-varying float vert_dist;
-varying vec3 eye_vector;
+uniform bool use_planar_reflect;
+//NOISE FUNCTION WITH RESPECTIVE HELPERS
+float cubic(float c0, float p0, float p1, float c1, float t) {
+	float t2 = t*t;
+	float t3 = t2*t;
+	return (t3-t2-t+1.0)*p0 + (t3-2.0*t2+t)*c0 + (t3-t2)*c1 + (-3.0*t3+4.0*t2)*p1;
+}
+float noise3D(vec3 p) {
+	float iz = floor(p.z);
+	float fz = fract(p.z);
+	
+	vec2 offset = vec2(0.356, 0.879) * 0.64338;
+	
+	float a = texture(waves, p.xy + offset * iz).r;
+	float b = texture(waves, p.xy + offset * (iz+1.0)).r;
+	float ca = texture(waves, p.xy + offset * (iz-1.0)).r;
+	float cb = texture(waves, p.xy + offset * (iz+2.0)).r;
+	
+	return cubic(ca, a, b, cb, fz);
+}
+float perlin(vec2 pos, float time) {
+	float p_noise = 2.0 * noise3D(vec3(pos.xy*frequency, time*speed))*amplitude - 1.0;
+	return p_noise + 2.0 * noise3D(vec3(pos.xy*frequency*2.0, time*speed+4.3))*amplitude/2.0 - 1.0;
+}
 
-void vertex() {
-	VERTEX = (WORLD_MATRIX * vec4(VERTEX, 1.0)).xyz;
+vec3 wave_normal(vec2 pos, float time, float res) {
+	vec2 _res = vec2(res,0);
 	
-	VERTEX.y += texture(wave_bump, VERTEX.xz*frequency + vec2(time, 0.0)*speed).r;
-	VERTEX.y += texture(wave_bump, VERTEX.xz*frequency - vec2(0.0, time)*speed - 0.5).g;
-	VERTEX.y *= amplitude;
+	vec3 right = vec3(pos.xy + _res.xy, perlin(pos + _res.xy, time)).xzy;
+	vec3 left = vec3(pos.xy - _res.xy, perlin(pos - _res.xy, time)).xzy;
+	vec3 down = vec3(pos.xy + _res.yx, perlin(pos + _res.yx, time)).xzy;
+	vec3 up = vec3(pos.xy - _res.yx, perlin(pos - _res.yx, time)).xzy;
 	
-	//pass varyings and transform vertex in view space
-	vert_coord = VERTEX;
-	VERTEX = (INV_CAMERA_MATRIX * vec4(VERTEX, 1.0)).xyz;
-	eye_vector = (CAMERA_MATRIX * vec4(normalize(VERTEX), 0.0)).xyz;
-	vert_dist = length(VERTEX);
+	return -normalize(cross(right-left, down-up));
 }
 
 //FRESNEL FUNCTION
@@ -43,6 +57,7 @@ float fresnel(float n1, float n2, float cos_theta) {
 	
 	return fres;
 }
+
 //function from https://gamedev.stackexchange.com/questions/92015/optimized-linear-to-srgb-glsl
 vec4 to_linear(vec4 sRGB) {
 	bvec4 cutoff = lessThan(sRGB, vec4(0.04045));
@@ -52,11 +67,23 @@ vec4 to_linear(vec4 sRGB) {
 	return mix(higher, lower, cutoff);
 }
 
+varying vec3 vert_coord;
+varying float vert_dist;
+varying vec3 eye_vector;
+
+void vertex() {
+	VERTEX = (WORLD_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	
+	//pass varyings and transform vertex in view space
+	vert_coord = VERTEX;
+	VERTEX = (INV_CAMERA_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	eye_vector = (CAMERA_MATRIX * vec4(normalize(VERTEX), 0.0)).xyz;
+	vert_dist = length(VERTEX);
+}
+
 void fragment() {
-	//The following two lines of code makes the water look low-poly and flat-shaded.
-	NORMAL = cross(dFdx(VERTEX), dFdy(VERTEX));
-	NORMAL = normalize(NORMAL);
-	NORMAL = (inverse(INV_CAMERA_MATRIX) * vec4(NORMAL, 0.0)).xyz;
+	//calculate normals based on wave
+	NORMAL = wave_normal(vert_coord.xz, TIME, vert_dist/30.0);
 	
 	//calculate reflectiveness based on fresnel and camera angle
 	float eye_dot_norm = dot(eye_vector, NORMAL);
@@ -88,5 +115,5 @@ void fragment() {
 }
 
 void light() {
-	DIFFUSE_LIGHT = vec3(0);
+	DIFFUSE_LIGHT = vec3(0.0);
 }

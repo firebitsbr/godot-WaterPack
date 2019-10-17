@@ -4,20 +4,17 @@
 [ext_resource path="res://addons/water_pack/script/buoyancy_points.gd" type="Script" id=2]
 
 [resource]
-
 script = ExtResource( 2 )
-_sections_unfolded = [ "bouyancy points", "buoyancy points" ]
 __meta__ = {
 "_editor_icon": ExtResource( 1 )
 }
 point_mode = 2
 "bouyancy points size" = 8
-"buoyancy points/position-0" = Vector3( -1, -1, -1 )
-"buoyancy points/position-1" = Vector3( 1, -1, -1 )
-"buoyancy points/position-2" = Vector3( -1, 1, -1 )
-"buoyancy points/position-3" = Vector3( 1, 1, -1 )
-"buoyancy points/position-4" = Vector3( -1, -1, 1 )
-"buoyancy points/position-5" = Vector3( 1, -1, 1 )
-"buoyancy points/position-6" = Vector3( -1, 1, 1 )
-"buoyancy points/position-7" = Vector3( 1, 1, 1 )
-
+"buoyancy points/position-0" = Vector3( -0.5, -0.5, -0.5 )
+"buoyancy points/position-1" = Vector3( 0.5, -0.5, -0.5 )
+"buoyancy points/position-2" = Vector3( -0.5, 0.5, -0.5 )
+"buoyancy points/position-3" = Vector3( 0.5, 0.5, -0.5 )
+"buoyancy points/position-4" = Vector3( -0.5, -0.5, 0.5 )
+"buoyancy points/position-5" = Vector3( 0.5, -0.5, 0.5 )
+"buoyancy points/position-6" = Vector3( -0.5, 0.5, 0.5 )
+"buoyancy points/position-7" = Vector3( 0.5, 0.5, 0.5 )

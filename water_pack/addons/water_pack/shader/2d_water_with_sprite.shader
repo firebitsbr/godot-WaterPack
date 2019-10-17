@@ -16,7 +16,7 @@ void fragment()
     COLOR = COLOR* water_color;
     //distort
     if(distort_factor!=0.0){
-    	vec2 distortion = distort_factor*texture(noise_texture,UV+TIME*distort_speed).rg;
+    	vec2 distortion = distort_factor*(texture(noise_texture,UV+TIME*distort_speed).rg * 2.0 - 1.0);
         if(COLOR.a!=0.0){
         	vec3 col = textureLod(SCREEN_TEXTURE, SCREEN_UV+distortion, 1.0).rgb;
             COLOR.rgb = mix(col.rgb,COLOR.rgb,COLOR.a);

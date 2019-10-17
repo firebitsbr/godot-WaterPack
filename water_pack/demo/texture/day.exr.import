@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/day.exr-a5fedb23c1faa6f7f15dfb4c16178928.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://demo/texture/day.exr"
-source_md5="8a66bda03a39e8875eafb26526cda087"
-
 dest_files=[ "res://.import/day.exr-a5fedb23c1faa6f7f15dfb4c16178928.stex" ]
-dest_md5="a996e3688b1625cacbeed3187be2ef0c"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

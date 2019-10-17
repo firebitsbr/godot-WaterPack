@@ -34,7 +34,7 @@ func generate(material):
 
 func generate_levels():
 	for i in get_children():
-		remove(i)
+		remove_child(i)
 	
 	var current_scale = lod_scale
 	for i in range(lod_levels):
@@ -43,10 +43,9 @@ func generate_levels():
 		current_scale *= 2
 
 func generate_lod_mesh(geom, mat, scale, level):
-	var lod_mat = mat.duplicate(false)
-	if lod_mat is ShaderMaterial:
-		lod_mat.set_shader_param('lod_scale', scale)
-		lod_mat.set_shader_param('level', level)
+	var lod_mat = mat.duplicate()
+	lod_mat.set_shader_param('lod_scale', scale)
+	lod_mat.set_shader_param('level', level)
 	var mesh_inst = MeshInstance.new()
 	mesh_inst.mesh = geom
 	mesh_inst.material_override = lod_mat

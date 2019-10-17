@@ -19,6 +19,7 @@ export(float) var wave_size2 setget set_size2
 export(float) var wave_strength setget set_wave_strength
 
 export(bool) var ripples setget set_ripples
+export(float) var ripple_density = 1.0 setget set_ripple_density
 
 onready var initialized = true
 
@@ -31,6 +32,7 @@ func set_size(vec2):
 	
 	if not initialized: return
 	
+	$Particles.amount = ripple_density * size.x * size.y
 	$Particles.visibility_aabb = AABB(Vector3(-vec2.x, -0.2, -vec2.y)/2.0, \
 		Vector3(vec2.x, 0.1, vec2.y))
 	$Particles.process_material.emission_box_extents = Vector3(vec2.x, 0.0, vec2.y)/2.0 \
@@ -98,3 +100,8 @@ func set_ripples(bol):
 	
 	if not initialized: return
 	$Particles.emitting = bol
+
+func set_ripple_density(value):
+	ripple_density = value
+	if not initialized: return
+	$Particles.amount = ripple_density * size.x * size.y

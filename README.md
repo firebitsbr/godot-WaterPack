@@ -1,6 +1,6 @@
-WORK IN PROCESS
+WORK IN PROGESS
 
-godot water package for godot 3.0 ,under MIT LICENESE.
+Godot water package for godot 3.1, under MIT LICENESE.
 
 <!-- ![web demo]() -->
 ![screenshot](./doc/screen_shot/ocean.jpg)
@@ -8,32 +8,39 @@ godot water package for godot 3.0 ,under MIT LICENESE.
 ![screenshot](./doc/screen_shot/lake.jpg)
 ![screenshot](./doc/screen_shot/2-5d_water.jpg)
 
-## usage
-use preset in “./addons/water_pack/preset/”
+## Installation
 
-## TODO
+Simply put the `water_pack` folder(the one inside the addons folder) into your project's `addons` folder. Simple as that!
+
+## Usage
+
+All 3D Water bodies are accessible under `Spatial`, while `Water2D` is under `Node2D`.
+
+Other effects such as waterfall and rain are currently incomplete presets. They'll be completed eventually.
+
+## Todo
 - [ ] work not started
 - [ ] * work in process
 - [x] achieve
 
 render
 - [x] wave
-- [x] transprant 
-    - [x] reflaction
+- [x] transparant 
+    - [x] reflection
     - [x] fade
 - [x] screen rain
-- [x] Foam
+- [x] foam
 - [x] fresnel
-- [ ] * reflection
+- [x] reflection
 - [x] ripples
-- [ ] * under water
+- [x] under water
 - [x] lod
 
 
 physic
-- [ ] * Buoyancy 
+- [x] buoyancy 
 - [ ] water flow
-- [ ] object move with water
+- [x] object move with water
 - [ ] wind area effect
 - [ ] sound
 - [ ] NavMesh
@@ -43,21 +50,21 @@ demo
 - [x] river
 - [ ] strong river
 - [x] lake
-- [ ] under/up water switch
+- [x] under/up water switch
 - [x] wet ground
 - [ ] drop stone to water
 - [x] waterfall
 - [ ] stone in water
-- [ ] boat on water
+- [x] boat on water
 - [x] 2d water
 - [x] 2.5d water
 - [x] lowpoly water
 - [x] infinite ocean
-- [ ] rain and hit water/gound 
+- [ ] * rain and hit water/gound 
 
 
 other
-- [ ] release to godot asset library
+- [ ] * release to the Godot asset library
 - [ ] doc
     - image/video 
     - web demo

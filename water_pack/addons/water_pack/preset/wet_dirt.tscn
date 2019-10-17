@@ -6,56 +6,21 @@
 [ext_resource path="res://addons/water_pack/texture/DynamicHeightmapNoise_Bump.png" type="Texture" id=4]
 [ext_resource path="res://addons/water_pack/texture/wave_nor1.png" type="Texture" id=5]
 
-
-
 [sub_resource type="PlaneMesh" id=1]
-
 size = Vector2( 30, 30 )
-subdivide_width = 0
-subdivide_depth = 0
 
-[sub_resource type="ParticlesMaterial" id=6]
-
-render_priority = 0
-trail_divisor = 1
+[sub_resource type="ParticlesMaterial" id=2]
 emission_shape = 2
 emission_box_extents = Vector3( 14.8, 0, 14.8 )
-flag_align_y = false
-flag_rotate_y = false
-flag_disable_z = false
 spread = 0.0
-flatness = 0.0
 gravity = Vector3( 0, 0, 0 )
-initial_velocity = 0.0
-initial_velocity_random = 0.0
 angular_velocity = 0.0
-angular_velocity_random = 0.0
-linear_accel = 0.0
-linear_accel_random = 0.0
-radial_accel = 0.0
-radial_accel_random = 0.0
-tangential_accel = 0.0
-tangential_accel_random = 0.0
-damping = 0.0
-damping_random = 0.0
-angle = 0.0
-angle_random = 0.0
-scale = 0.44
-scale_random = 0.0
-color = Color( 1, 1, 1, 1 )
-hue_variation = 0.0
-hue_variation_random = 0.0
+scale = 0.1
 anim_speed = 1.0
-anim_speed_random = 0.0
-anim_offset = 0.0
-anim_offset_random = 0.0
-anim_loop = false
-_sections_unfolded = [ "Emission Shape", "Scale" ]
 
-[sub_resource type="Shader" id=7]
-
+[sub_resource type="Shader" id=3]
 code = "shader_type spatial;
-render_mode skip_vertex_transform;
+render_mode skip_vertex_transform, depth_draw_never, depth_test_disable, cull_front;
 //render_mode unshaded;
 
 uniform sampler2D wet_map;
@@ -83,11 +48,14 @@ vec3 wave_normal(vec2 wave_o, vec2 samp, float time, float res) {
 
 varying float part_time;
 
+varying flat mat4 inv_model_view_matrix;
+
 void vertex() {
 	VERTEX = (WORLD_MATRIX * vec4(VERTEX, 1.0)).xyz;
 	
 	//COLOR *= 1.0 - INSTANCE_CUSTOM.y;
 	part_time = INSTANCE_CUSTOM.y;
+	inv_model_view_matrix = inverse(MODELVIEW_MATRIX);
 	
 	UV2 = (VERTEX.xz-translation) / wet_dirt_size + 0.5;
 	UV2 = 1.0 - UV2;
@@ -98,7 +66,14 @@ void vertex() {
 void fragment() {
 	ALBEDO = COLOR.rgb;
 	
+	vec4 pos = inv_model_view_matrix * INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0, textureLod(DEPTH_TEXTURE, SCREEN_UV, 0.0).r * 2.0 - 1.0, 1.0);
+	pos.xyz /= pos.w;
+	
+	bool inside = all(greaterThanEqual(pos.xyz, vec3(-1))) && all(lessThanEqual(pos.xyz, vec3(1)));
+	if(!inside) discard;
 	if(UV2 != clamp(UV2, vec2(0), vec2(1))) discard;
+	
+	vec2 uv = pos.xz * 0.5 + 0.5;
 	
 	float wetness = invert_wet_map ? 1.0-texture(wet_map, UV2).r : texture(wet_map, UV2).r;
 	wetness = wet_map_strength * (wetness - wet_map_bias);
@@ -108,93 +83,53 @@ void fragment() {
 	METALLIC = 1.0;
 	ROUGHNESS = 0.0;
 	//NORMALMAP = texture(texture_normal,UV).rgb;
-	NORMAL = wave_normal(vec2(0.5), UV, part_time/3.14159, 0.0001).xyz;
-	NORMAL = mix(NORMAL, vec3(0,1,0), float(distance(UV, vec2(0.5)) > part_time/3.14159*2.0));
+	NORMAL = wave_normal(vec2(0.5), uv, part_time/3.14159, 0.0001).xyz;
+	NORMAL = mix(NORMAL, vec3(0,1,0), min(distance(uv, vec2(0.5)) * 2.0, 1.0));
 	NORMAL = mix(NORMAL, vec3(0,1,0), part_time);
-	//ALBEDO = NORMAL;
-	ALPHA *= clamp(length(NORMAL.xz) * 1.0, 0.0, 1.0);
+	normalize(NORMAL);
+	
+	ALPHA *= clamp(length(NORMAL.xz), 0.0, 1.0);
+	ALPHA *= clamp((0.25 - abs(pos.y)) / 0.25, 0.0, 1.0);
 	
 	NORMAL = (INV_CAMERA_MATRIX * WORLD_MATRIX * vec4(NORMAL, 0.0)).xyz;
 }
 "
 
-[sub_resource type="ShaderMaterial" id=8]
-
-render_priority = 0
-shader = SubResource( 7 )
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
 shader_param/wet_map_strength = 1.171
-shader_param/wet_map_bias = -0.074
+shader_param/wet_map_bias = -1.447
 shader_param/invert_wet_map = false
 shader_param/wet_dirt_size = Vector2( 30, 30 )
 shader_param/translation = Vector2( 0, 0 )
 shader_param/wet_map = ExtResource( 4 )
-_sections_unfolded = [ "shader_param" ]
 
-[sub_resource type="PlaneMesh" id=9]
+[sub_resource type="CubeMesh" id=5]
+material = SubResource( 4 )
+size = Vector3( 2, 0.5, 2 )
 
-material = SubResource( 8 )
-size = Vector2( 2, 2 )
-subdivide_width = 0
-subdivide_depth = 0
-
-[node name="wet_dirt" type="MeshInstance" index="0"]
-
-layers = 1
+[node name="wet_dirt" type="MeshInstance"]
 material_override = ExtResource( 1 )
-cast_shadow = 1
-extra_cull_margin = 0.0
-use_in_baked_light = false
-lod_min_distance = 0.0
-lod_min_hysteresis = 0.0
-lod_max_distance = 0.0
-lod_max_hysteresis = 0.0
 mesh = SubResource( 1 )
-skeleton = NodePath("..")
 material/0 = null
 script = ExtResource( 2 )
-_sections_unfolded = [ "Geometry" ]
 size = Vector2( 30, 30 )
 dirt = ExtResource( 3 )
 wet_map = ExtResource( 4 )
 wave_norm = ExtResource( 5 )
-invert_wet_map = false
 wet_map_strength = 1.0
 wet_map_bias = 0.007
 wind_dir1 = Vector2( 0.1, 0 )
 wave_size1 = 6.221
 wind_dir2 = Vector2( -0.05, 0.1 )
 wave_size2 = 4.863
-wave_strength = 0.0
 ripples = true
 
-[node name="Particles" type="Particles" parent="." index="0"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0015503, 0 )
-layers = 1
-material_override = null
+[node name="Particles" type="Particles" parent="."]
 cast_shadow = 0
-extra_cull_margin = 0.0
-use_in_baked_light = false
-lod_min_distance = 0.0
-lod_min_hysteresis = 0.0
-lod_max_distance = 0.0
-lod_max_hysteresis = 0.0
-emitting = true
-amount = 2500
+amount = 6000
 lifetime = 0.25
-one_shot = false
-preprocess = 0.0
 speed_scale = 1.4
-explosiveness = 0.0
-randomness = 0.0
-fixed_fps = 0
-fract_delta = true
-visibility_aabb = AABB( -15, -0.1, -15, 30, 0.1, 30 )
-local_coords = true
-draw_order = 0
-process_material = SubResource( 6 )
-draw_passes = 1
-draw_pass_1 = SubResource( 9 )
-_sections_unfolded = [ "Draw Passes", "Drawing", "Geometry", "Process Material", "Time", "Transform" ]
-
-
+visibility_aabb = AABB( -15, -1, -15, 30, 2, 30 )
+process_material = SubResource( 2 )
+draw_pass_1 = SubResource( 5 )

@@ -7,6 +7,7 @@ enum {X, Y, Z}
 const LINE_SIZE = 10000
 
 var red; var green; var blue
+var handle_mat
 var node
 
 var PointModes = preload('buoyancy_points.gd').PointModes
@@ -25,6 +26,12 @@ func _init(plugin, node):
 	node.buoyancy_points.connect("changed", self, "redraw")
 	plugin.connect("input", self, "_input")
 	
+	handle_mat = SpatialMaterial.new()
+	handle_mat.albedo_color = Color(1, 0.6, 0.3)
+	handle_mat.flags_unshaded = true
+	handle_mat.flags_use_point_size = true
+	handle_mat.params_point_size = 10
+	
 	red = mat_solid_color(1.0, 0.0, 0.0)
 	green = mat_solid_color(0.0, 1.0, 0.0)
 	blue = mat_solid_color(0.0, 0.0, 1.0)
@@ -32,7 +39,7 @@ func _init(plugin, node):
 func get_handle_value(index):
 	return node.buoyancy_points.data[index]
 
-func commit_handle(index, restore, cancel):
+func commit_handle(index, restore, cancel=false):
 	if not cancel:
 		var new_data = node.buoyancy_points.data[index]
 		
@@ -104,7 +111,7 @@ func redraw():
 	if buoyancy_points.size() > 0:
 		for point in buoyancy_points:
 			handles.append(point)
-		add_handles(handles)
+		add_handles(handles, handle_mat)
 		
 		if p_index >= 0:
 			var point = old_data

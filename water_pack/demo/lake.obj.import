@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/lake.obj-a02dc9ea6f4c80bf9190bd5e1193637b.mesh"
+
+[deps]
+
+files=[ "res://.import/lake.obj-a02dc9ea6f4c80bf9190bd5e1193637b.mesh" ]
+
+source_file="res://demo/lake.obj"
+dest_files=[ "res://.import/lake.obj-a02dc9ea6f4c80bf9190bd5e1193637b.mesh", "res://.import/lake.obj-a02dc9ea6f4c80bf9190bd5e1193637b.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+optimize_mesh=true

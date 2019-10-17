@@ -4,7 +4,7 @@ extends Resource
 enum PointModes{SINGLE_POINT, AUTO_POINTS, MANUAL_POINTS}
 enum AutoShapes{ELLIPSE, RECTANGLE}
 
-export(PointModes) var point_mode = MANUAL_POINTS setget set_point_mode
+export(PointModes) var point_mode = PointModes.MANUAL_POINTS setget set_point_mode
 
 var data = PoolVector3Array()  # [position = Vector3()]
 

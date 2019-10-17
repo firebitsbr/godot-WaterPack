@@ -2,21 +2,22 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/6090-bump.jpg-5360a2a73dd62092b38d02f373490e3a.stex"
+path="res://.import/buoyant_body.svg-c7aedca06cd73cd6bf8807bbf772e424.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://addons/water_pack/texture/6090-bump.jpg"
-source_md5="b136a801bd5207c6a3f1daf98ed2be97"
-
-dest_files=[ "res://.import/6090-bump.jpg-5360a2a73dd62092b38d02f373490e3a.stex" ]
-dest_md5="c895f53a61450137a8cd77a89eeb9c3d"
+source_file="res://addons/water_pack/buoyant_body.svg"
+dest_files=[ "res://.import/buoyant_body.svg-c7aedca06cd73cd6bf8807bbf772e424.stex" ]
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

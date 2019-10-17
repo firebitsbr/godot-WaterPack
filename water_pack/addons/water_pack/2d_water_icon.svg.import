@@ -2,27 +2,32 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/buoyant_body.png-bc7d6575f8b41b10197d7d5631154d09.stex"
+path="res://.import/2d_water_icon.svg-6efea5992f755902acf9762985d71982.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://addons/water_pack/buoyant_body.png"
-dest_files=[ "res://.import/buoyant_body.png-bc7d6575f8b41b10197d7d5631154d09.stex" ]
+source_file="res://addons/water_pack/2d_water_icon.svg"
+dest_files=[ "res://.import/2d_water_icon.svg-6efea5992f755902acf9762985d71982.stex" ]
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
-flags/srgb=0
+flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

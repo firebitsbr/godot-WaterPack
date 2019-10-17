@@ -4,24 +4,18 @@
 [ext_resource path="res://addons/water_pack/script/buoyancy_points.gd" type="Script" id=2]
 
 [resource]
-
 script = ExtResource( 2 )
-_sections_unfolded = [ "bouyancy points", "bouyancy points/0", "bouyancy points/1", "bouyancy points/10", "bouyancy points/11", "bouyancy points/12", "bouyancy points/13", "bouyancy points/14", "bouyancy points/15", "bouyancy points/16", "bouyancy points/17", "bouyancy points/2", "bouyancy points/3", "bouyancy points/4", "bouyancy points/5", "bouyancy points/6", "bouyancy points/7", "bouyancy points/8", "bouyancy points/9", "buoyancy points" ]
 __meta__ = {
 "_editor_icon": ExtResource( 1 )
 }
 point_mode = 2
-"bouyancy points size" = 12
-"buoyancy points/position-0" = Vector3( -1.80005, -0.200195, -0.351532 )
-"buoyancy points/position-1" = Vector3( -0.533333, -0.3, -0.5 )
-"buoyancy points/position-2" = Vector3( 0.733398, -0.218642, -0.5 )
-"buoyancy points/position-3" = Vector3( 1.41968, -0.0776672, -0.291416 )
-"buoyancy points/position-4" = Vector3( -1.80005, -0.245605, 0 )
-"buoyancy points/position-5" = Vector3( -0.533333, -0.3, 0 )
-"buoyancy points/position-6" = Vector3( 0.733398, -0.219955, 0 )
-"buoyancy points/position-7" = Vector3( 1.43921, -0.0722656, 0 )
-"buoyancy points/position-8" = Vector3( -1.80005, -0.207886, 0.327698 )
-"buoyancy points/position-9" = Vector3( -0.533333, -0.3, 0.5 )
-"buoyancy points/position-10" = Vector3( 0.733398, -0.237366, 0.5 )
-"buoyancy points/position-11" = Vector3( 1.43848, -0.0721741, 0.283234 )
-
+"bouyancy points size" = 9
+"buoyancy points/position-0" = Vector3( -1.74, 0, -0.376899 )
+"buoyancy points/position-1" = Vector3( 0, 0, -0.61 )
+"buoyancy points/position-2" = Vector3( 1.74, 0.0818052, -0.208992 )
+"buoyancy points/position-3" = Vector3( -1.74, 0, 0 )
+"buoyancy points/position-4" = Vector3( -0.0276862, 0.00783917, -0.0258527 )
+"buoyancy points/position-5" = Vector3( 1.74, 0, 0 )
+"buoyancy points/position-6" = Vector3( -1.74, 0, 0.392788 )
+"buoyancy points/position-7" = Vector3( 0, 0, 0.61 )
+"buoyancy points/position-8" = Vector3( 1.74, 0.0868027, 0.226975 )

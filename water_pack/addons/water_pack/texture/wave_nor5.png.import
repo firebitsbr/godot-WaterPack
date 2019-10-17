@@ -4,20 +4,22 @@ importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/wave_nor5.png-1344e63012d69a1457208d0620a0df54.s3tc.stex"
 path.etc2="res://.import/wave_nor5.png-1344e63012d69a1457208d0620a0df54.etc2.stex"
+metadata={
+"imported_formats": [ "s3tc", "etc2" ],
+"vram_texture": true
+}
 
 [deps]
 
 source_file="res://addons/water_pack/texture/wave_nor5.png"
-source_md5="2020233700a7f8a6f7fcebd62ac140fe"
-
 dest_files=[ "res://.import/wave_nor5.png-1344e63012d69a1457208d0620a0df54.s3tc.stex", "res://.import/wave_nor5.png-1344e63012d69a1457208d0620a0df54.etc2.stex" ]
-dest_md5="729b2ac763d2cdabad1dced7d19893eb"
 
 [params]
 
 compress/mode=2
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=1
 flags/repeat=true
 flags/filter=true
@@ -27,6 +29,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=false
